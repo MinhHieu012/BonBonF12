@@ -1,4 +1,6 @@
+import authReducer from "./auth-reducer"
+
 const combineReducers = {
-    test: "test-value"
+    auth: authReducer
 }
 export default combineReducers;

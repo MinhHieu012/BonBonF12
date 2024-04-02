@@ -1,9 +1,8 @@
 const moneyFormat = new Intl.NumberFormat("vi-VN", {});
 
 export const formatMoney = (value, returnValue) => {
-    console.log("hihi")
     const result = moneyFormat.format(value).replaceAll(".", ",");
-    if (!returnValue && result == "0") {
+    if (returnValue === "" && result === "0") {
         return returnValue
     } else {
         return result
