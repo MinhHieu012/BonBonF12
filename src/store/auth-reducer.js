@@ -8,11 +8,13 @@ const INITIAL_STATE = {
 };
 const authTypes = {...actionTypes.authType}
 export default authReducer = (state = INITIAL_STATE, action) => {
+  console.log(action,"log state in file store authentication");
   switch (action.type) {
     case authTypes.LOGIN_SUCCESS:
       return {
         ...state,
-        token: action.payload,
+        // token: action.payload,
+        token:state.role,
         isFetching: false,
         isError: false,
         message: "",
@@ -29,3 +31,4 @@ export default authReducer = (state = INITIAL_STATE, action) => {
       return state;
   }
 };
+

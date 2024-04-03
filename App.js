@@ -7,7 +7,8 @@ import store from './configStore';
 import { useLocalStorage } from './src/hook';
 import { adminCartData, listCustomerData, listImageProductData, listOrderData, listProductData, saleCartData } from './src/mockup';
 import Navigation from './src/navigation';
-import LoginScreen from './src/login-view';
+
+
 
 
 SplashScreen.preventAutoHideAsync();
@@ -46,10 +47,8 @@ const App = () => {
     <>
       <Provider store={store}>
         <GluestackUIProvider config={config}>
-        <View onLayout={onLayoutRootView}>
-          {/* <Navigation /> */}
-          <LoginScreen/>
-        </View>
+          <View onLayout={onLayoutRootView}></View>
+          <Navigation/>
         </GluestackUIProvider>
       </Provider>
     </>

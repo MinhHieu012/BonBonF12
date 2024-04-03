@@ -44,9 +44,7 @@ export default function LoginScreen() {
       }
     }
   };
-  console.log("check")
   return (
-    <>
     <SafeAreaView style={{ flex: 1 }}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ScrollView contentInsetAdjustmentBehavior="automatic" keyboardShouldPersistTaps="handled">
@@ -89,7 +87,7 @@ export default function LoginScreen() {
                     />
                   </InputSlot>
                 </Input>
-                {error.length && <Text color={color.plumRed}>{error}</Text>}
+                {error && <Text color={color.plumRed}>{error}</Text>}
                 <Button
                   borderRadius={100}
                   title="Đăng nhập"
@@ -116,6 +114,5 @@ export default function LoginScreen() {
         </ScrollView>
       </TouchableWithoutFeedback>
     </SafeAreaView>
-    </>
   );
 }

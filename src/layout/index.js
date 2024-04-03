@@ -21,7 +21,10 @@ const config = {
   config: { duration: 200, easing: Easing.linear },
 };
 const handleTakeToken = () => {
-  const useToken = useSelector((state) => state.auth).token;
+  const useToken = useSelector((state) => {
+    console.log(state,"state in check token");
+  });
+  console.log("token: " + useToken);
   return useToken;
 };
 const ProductNavigation = () => {
