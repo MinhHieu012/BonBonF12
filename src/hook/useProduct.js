@@ -1,33 +1,37 @@
-import {useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { listProductAction, cartAction } from '../actions'
-export const useProduct=()=>{
+export const useProduct = () => {
     const dispatch = useDispatch();
+    
     const listProductData = useSelector((state) => state.listProduct.listProductData);
 
-    const notificationData = useSelector((state)=> state.isNotification);
+    const listSearchProductData = useSelector((state) => state.listProduct.listSearchProductData);
+    
+    const notificationData = useSelector((state) => state.listProduct.isNotification);
 
-    const isFetching = useSelector((state) => state.isFetching );
+    const isFetching = useSelector((state) => state.listProduct.isFetching);
 
-    const dispatchGetListProduct =(payload) =>{
-        dispatch(listProductRequest(payload))
+    const dispatchGetListProduct = (payload) => {
+        dispatch(listProductAction.listProductRequest(payload))
     }
-    const dispatchClearNotification = (payload)=>{
-        dispatch(ClearNotificationListProduct(payload))
+    const dispatchClearNotification = () => {
+        dispatch(listProductAction.ClearNotificationListProduct())
     }
-    const dispatchCreateItemProduct = (payload)=>{
+    const dispatchCreateItemProduct = (payload) => {
         dispatch(cartAction.createItemProductRequest(payload))
     }
-    function dispatchSearchListProduct(payload ){
-        dispatch(searchListProductRequest(payload));
+    function dispatchSearchListProduct(payload) {
+        dispatch(listProductAction.searchListProductRequest(payload));
     }
+
     return {
         notificationData,
         listProductData,
-        listProductSearchData,
         isFetching,
+        listSearchProductData,
         dispatchClearNotification,
         dispatchGetListProduct,
         dispatchCreateItemProduct,
-        dispatchSearchListProduct
+        dispatchSearchListProduct,
     }
 }

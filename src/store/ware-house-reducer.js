@@ -12,6 +12,7 @@ const INITIAL_STATE = {
 const wareHouseTypes = {...actionTypes.wareHouseTypes}
 const listProductTypes = {...actionTypes.listProductTypes}
 export default listProductReducer = (state = INITIAL_STATE, action) => {
+
   switch (action.type) {
     case wareHouseTypes.GET_WARE_HOUSE_REQUEST:
     case wareHouseTypes.SEARCH_WARE_HOUSE_REQUEST:

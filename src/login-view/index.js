@@ -16,7 +16,7 @@ export default function LoginScreen() {
   const [isLoading, setLoading] = useState(false);
 
   const { handleLogin } = useAuth();
-  const { setItemData } = useLocalStorage();
+  const { setItemData ,getItemData} = useLocalStorage();
 
   const handleChangeLogin = () => {
     if (!username) {
@@ -31,17 +31,21 @@ export default function LoginScreen() {
           return element;
         }
       });
+   
+
       if (items.length !== 0) {
         setLoading(true);
-        setTimeout(() => {
+        setTimeout(async() => {
           handleLogin(items[0]);
-          setItemData("role", items[0].role);
+          await setItemData("role", items[0].role);
+          
           setError("");
           setLoading(false);
         }, 2000);
       } else {
         setError("Tài khoản và mật khẩu không tồn tại!!!");
       }
+
     }
   };
   return (
@@ -97,7 +101,7 @@ export default function LoginScreen() {
                     handleChangeLogin({
                       username: username,
                       password: password,
-                      role: password,
+          
                     })
                   }
                 >

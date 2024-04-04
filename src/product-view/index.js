@@ -13,7 +13,7 @@ import { timeoutGet } from "../utils";
 import { flatMap, constant } from "lodash";
 import HeaderSearchCommon from "../component/header-search-common"
 
-export default function ProductScreen(props) {
+const ProductScreen = (props) => {
     const [isNotification, setIsNotification] = useState(false);
     const [isOpenModal, setIsOpenModal] = useState(false);
     const [product, setProduct] = useState({
@@ -46,7 +46,7 @@ export default function ProductScreen(props) {
     }
     const { dispatchGetListCart, listCartData } = useCart();
     const totalItemCart = useMemo(() => {
-        return listCartData.listProduct.length;
+        listCartData?.listProduct?.length;
     }, [listCartData.listProduct])
     const isFocused = useIsFocused();
     useEffect(() => {
@@ -62,7 +62,7 @@ export default function ProductScreen(props) {
                 setLoading(false)
             }, timeoutGet)
         }
-    }
+    }, []
     )
     useMemo(() => {
         if (notificationData == true) {
@@ -84,7 +84,7 @@ export default function ProductScreen(props) {
     function onGetTextSearch(data) {
         setLoading(true);
         setTimeout(() => {
-            dispatchSearchListProduct(data),
+            dispatchSearchListProduct(data)
                 setLoading(false)
         }, constant.timeout)
     }
@@ -113,3 +113,5 @@ export default function ProductScreen(props) {
         </>
     )
 }
+
+export default ProductScreen

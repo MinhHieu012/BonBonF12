@@ -12,13 +12,13 @@ const useWareHouse = () => {
   const textSearch = useSelector(state=>state.wareHouse.textSearch);
   
   const dispatchGetListWareHouse = () => {
-    dispatch(wareHouseAction.listProductRequest);
+    dispatch(wareHouseAction.listWareHouseRequest());
   };
   const dispatchUpdateProductPrice = (payload) => {
-    dispatch(wareHouseAction.updateListImportWareHouseRequest(payload));
+    dispatch(wareHouseAction.updateProductPriceRequest(payload));
   };
   const dispatchClearNotificationWareHouse = () => {
-    dispatch(wareHouseAction.ClearNotificationListProduct);
+    dispatch(wareHouseAction.ClearNotificationListProduct());
   };
   const dispatchSearchListWareHouse= (payload)=>{
     dispatch(wareHouseAction.searchListWareHouseRequest(payload));

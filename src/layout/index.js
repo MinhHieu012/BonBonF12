@@ -14,6 +14,7 @@ import ListOrderScreen from "../list-order-view";
 import DetailOrderScreen from "../detail-orders-view";
 import CustomeDrawer from "./side-bar-component";
 import WarehouseScreen from "../warehouse-view"
+import Test from "../test";
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 const config = {
@@ -21,114 +22,85 @@ const config = {
   config: { duration: 200, easing: Easing.linear },
 };
 const handleTakeToken = () => {
-  const useToken = useSelector((state) => {
-    console.log(state,"state in check token");
-  });
-  console.log("token: " + useToken);
-  return useToken;
+  const useToken = useSelector((state) => state.auth.token);
+  return {
+    useToken,
+  };
 };
+
 const ProductNavigation = () => {
   return (
     <Stack.Navigator
       screenOptions={{
         gestureEnabled: true,
+        transitionSpec: {
+          open: config,
+          close: config,
+        },
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         headerMode: "none",
-        open: { config },
       }}
-      cardStyleInterpolator={CardStyleInterpolators.forHorizontalIOS}
     >
-      <Stack.Screen
-        name="ProductScreen"
-        options={{ headerShown: false, unmountOnBlur: true }}
-      />
-      <Stack.Screen
-        name="CartScreen"
-        options={{ headerShown: false, unmountOnBlur: true }}
-      />
+      <Stack.Screen name="ProductScreen" component={ProductScreen} options={{ headerShown: false, unmountOnBlur: true }} />
+      <Stack.Screen name="Cart" component={CartScreen} options={{ headerShown: false, unmountOnBlur: true }} />
     </Stack.Navigator>
-  );
-};
+  )
+}
 
 const WareHouseNavigation = () => {
   return (
     <Stack.Navigator
       screenOptions={{
         gestureEnabled: true,
+        transitionSpec: {
+          open: config,
+          close: config,
+        },
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         headerMode: "none",
-        open: { config },
       }}
-      cardStyleInterpolator={CardStyleInterpolators.forHorizontalIOS}
     >
-      <Stack.Screen
-        name="ImportWareHouseScreen"
-        options={{ headerShown: false, unmountOnBlur: true }}
-      />
-      <Stack.Screen
-        name="CreateProduct"
-        options={{ headerShown: false, unmountOnBlur: true }}
-      />
+      <Stack.Screen name="ImportWareHouseScreen" component={ImportWareHouseScreen} options={{ headerShown: false, unmountOnBlur: true }} />
+      <Stack.Screen name="CreateProduct" component={CreateProductScreen} options={{ headerShown: false, unmountOnBlur: true }} />
     </Stack.Navigator>
-  );
-};
+  )
+}
+
 const ListOrderNavigation = () => {
   return (
     <Stack.Navigator
       screenOptions={{
         gestureEnabled: true,
+        transitionSpec: {
+          open: config,
+          close: config,
+        },
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         headerMode: "none",
-        open: { config },
       }}
-      cardStyleInterpolator={CardStyleInterpolators.forHorizontalIOS}
     >
-      <Stack.Screen
-        name="ListOrderScreen"
-        options={{ headerShown: false, unmountOnBlur: true }}
-      />
-      <Stack.Screen
-        name="DetailOrder"
-        options={{ headerShown: false, unmountOnBlur: true }}
-      />
+      <Stack.Screen name="ListOrderScreen" component={ListOrderScreen} options={{ headerShown: false, unmountOnBlur: true }} />
+      <Stack.Screen name="DetailOrder" component={DetailOrderScreen} options={{ headerShown: false, unmountOnBlur: true }} />
     </Stack.Navigator>
-  );
-};
-const Layout = () => {
+  )
+}
+
+export default function Layout() {
   const role = handleTakeToken();
   return (
     <Drawer.Navigator
-      screenOptions={{ drawerType: "front" }}
       initialRouteName={
-        role === "admin" || role === "sale" ? "Product" : "Warehouse"
+        role.useToken === "admin" || role.useToken === "sale"
+          ? "Product"
+          : "Warehouse"
       }
-      drawerContent={(props) => {
-        return <CustomeDrawer {...props} />;
-      }}
+      screenOptions={{ drawerType: "front"}}
+      drawerContent={(props) => <CustomeDrawer {...props} />}
     >
-      <Drawer.Screen
-        name="Product"
-        options={{ headerShown: false, unmountOnBlur: true }}
-        ProductNavigation={ProductNavigation}
-        component={ProductScreen}
-      />
-      <Drawer.Screen
-        name="ImportWareHouse"
-        options={{ headerShown: false, unmountOnBlur: true }}
-        WareHouseNavigation={WareHouseNavigation}
-        component={ImportWareHouseScreen}
-      />
-      <Drawer.Screen
-        name="ListOrder"
-        options={{ headerShown: false, unmountOnBlur: true }}
-        ListOrderNavigation={ListOrderNavigation}
-        component={ListOrderScreen}
-      />
-      <Drawer.Screen
-        name="Warehouse"
-        options={{ headerShown: false, unmountOnBlur: true }}
-        WarehouseScreen={WarehouseScreen}
-        component={WarehouseScreen}
-      />
+      <Drawer.Screen name="Product" component={ProductNavigation} options={{ headerShown: false, unmountOnBlur: true }} />
+      <Drawer.Screen name="ImportWareHouse" component={WareHouseNavigation} options={{ headerShown: false, unmountOnBlur: true }} />
+      <Drawer.Screen name="ListOrder" component={ListOrderNavigation} options={{ headerShown: false, unmountOnBlur: true }} />
+      <Drawer.Screen name="Warehouse" component={WarehouseScreen} options={{ headerShown: false, unmountOnBlur: true }} />
     </Drawer.Navigator>
   );
-};
-
-export default Layout
+    }

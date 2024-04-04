@@ -1,25 +1,25 @@
-import * as actionTypes from "../constants";
-
+import { authType } from "../constants";
+import { useLocalStorage } from "../hook";
 const INITIAL_STATE = {
   token: null,
   isFetching: false,
   isError: false,
   message: "",
 };
-const authTypes = {...actionTypes.authType}
-export default authReducer = (state = INITIAL_STATE, action) => {
-  console.log(action,"log state in file store authentication");
-  switch (action.type) {
-    case authTypes.LOGIN_SUCCESS:
+const { getData } = useLocalStorage();
+
+export default authReducer = (state = INITIAL_STATE, { type, payload }) => {
+  console.log(type, payload, "log state in file store authentication");
+  switch (type) {
+    case authType.LOGIN_SUCCESS:
       return {
         ...state,
-        // token: action.payload,
-        token:state.role,
+        token: payload.role,
         isFetching: false,
         isError: false,
         message: "",
       };
-    case authTypes.LOGOUT_SUCCESS:
+    case authType.LOGOUT_SUCCESS:
       return {
         ...state,
         token: null,

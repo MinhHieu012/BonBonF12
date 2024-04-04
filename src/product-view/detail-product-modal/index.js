@@ -14,23 +14,28 @@ import {
     ModalContent,
     Text,
     VStack,
-    View,
+    View
 } from "@gluestack-ui/themed";
+import { useEffect, useState } from "react";
 import {
     Dimensions,
     Keyboard,
     LayoutAnimation,
     TouchableWithoutFeedback,
 } from "react-native";
-import styles from "./style";
+
+import { useProduct } from "../../hook/index";
+import { numbericRegex } from "../../utils";
 import { color } from "../../utils";
-import { textConst, numbericRegex } from "../../utils/constants";
+import { textConst } from "../../utils/constants";
 import { formatMoney } from "../../utils/format";
-import useProduct from "../../hook/useProduct";
-import { useState, useEffect } from "react";
+import styles from "./style";
+
 const DetailProductModal = (props) => {
     const { isOpen, closeModal, product } = props;
-    const dispatchCreateItemProduct = useProduct();
+
+    const { dispatchCreateItemProduct } = useProduct();
+
     const productEditInitial = {
         floorPrice: "",
         quantity: "1",
@@ -41,67 +46,100 @@ const DetailProductModal = (props) => {
         hasError: false,
         floorPrice: false,
         quantity: false,
-        salePrice: fasle,
+        salePrice: false,
     };
+
     const [isDisableButtonSalePrice, setDisableButtonSalePrice] = useState(true);
-    const [productEdit, setProductEdit] = useState(productEditInitial);
-    const [validate, setValidate] = useState(initialValidate);
+    const [productEdit, setProductEdit] = useState({ ...productEditInitial });
+    const [validate, setValidate] = useState({ ...initialValidate });
     const [isOpenCollapse, setIsOpenCollapse] = useState(false);
-    useEffect(() => { }, [isOpen]);
+
+    useEffect(() => {
+        if (isOpen) {
+            setProductEdit({
+                ...productEdit,
+                floorPrice: `${product.floorPrice}`,
+            });
+        }
+    }, [isOpen]);
+
     const onCheckDisable = (value) => {
         setProductEdit({
             ...productEdit,
-            salePrice: value.replace(numbericRegex, ""),
+            salePrice: `${value.replace(numbericRegex, "")}`,
         });
-        if (!value || parseInt(newSalePrice) === 0) {
+        if (!value || Number(value) === 0) {
             setDisableButtonSalePrice(true);
         } else {
             setDisableButtonSalePrice(false);
         }
     };
+
     const resetData = () => {
         setDisableButtonSalePrice(true);
         setValidate({ ...initialValidate });
         setProductEdit({ ...productEditInitial });
         setIsOpenCollapse(false);
     };
+
     const onCloseModal = () => {
         resetData();
         closeModal();
     };
-    const checkValidOfInput = (number, type) => {
-        const numberValue = parseInt(number);
+
+    const checkValidOfInput = (numbers, type) => {
         switch (type) {
             case "floorPrice":
-                if (
-                    !numberValue ||
-                    numberValue < 0.9 * product.floorPrice ||
-                    numberValue > 1.1 * product.floorPrice
-                )
-                    setValidate((prevValidate) => ({
-                        ...prevValidate,
-                        floorPrice: true,
-                    }));
-                else
-                    setValidate((prevValidate) => ({
-                        ...prevValidate,
-                        floorPrice: false,
-                    }));
+                {
+                    const isInputPriceMoreFloorPrice = parseInt(numbers.replace(numbericRegex, "")) > product.floorPrice * 1.1;
+                    const isInputPriceLowerFloorPrice = parseInt(numbers.replace(numbericRegex, "")) < product.floorPrice * 0.9;
+                    const isClearInputPrice = numbers == "";
+                    if (isInputPriceMoreFloorPrice || isInputPriceLowerFloorPrice || isClearInputPrice) {
+                        setValidate({
+                            ...validate,
+                            floorPrice: true,
+                        });
+                    } else {
+                        setValidate({
+                            ...validate,
+                            floorPrice: false,
+                        });
+                    }
+                }
                 break;
             case "salePrice":
-                if (number > 0.1 * productEdit.floorPrice)
-                    setValidate((prevValidate) => ({ ...prevValidate, salePrice: true }));
-                else
-                    setValidate((prevValidate) => ({
-                        ...prevValidate,
-                        salePrice: false,
-                    }));
+                {
+                    const isOverSalePrice = parseInt(numbers.replace(numbericRegex, "")) > parseInt(productEdit.floorPrice) * 0.1;
+                    if (isOverSalePrice) {
+                        setValidate({
+                            ...validate,
+                            salePrice: true,
+                        });
+                    } else {
+                        setValidate({
+                            ...validate,
+                            salePrice: false,
+                        });
+                    }
+                }
                 break;
             case "quantity":
-                if (number > product.quantity || number === 0 || !number)
-                    setValidate((prevValidate) => ({ ...prevValidate, quantity: true }));
-                else
-                    setValidate((prevValidate) => ({ ...prevValidate, quantity: false }));
+                {
+                    const isQuantityMoreOverWareHouse = parseInt(numbers.replace(numbericRegex, "")) > product.quantity;
+                    const isQuantityEqualZero = parseInt(numbers.replace(numbericRegex, "")) == 0;
+                    const isRemoveAllInputValue = numbers == "";
+                    if (isQuantityMoreOverWareHouse || isQuantityEqualZero || isRemoveAllInputValue) {
+                        setValidate({
+                            ...validate,
+                            quantity: true,
+                        });
+                    } else {
+                        setValidate({
+                            ...validate,
+                            quantity: false,
+                        });
+                    }
+                }
                 break;
             default:
                 break;
@@ -111,22 +149,28 @@ const DetailProductModal = (props) => {
     const formatNumber = (value, type) => {
         switch (type) {
             case "floorPrice":
-                setProductEdit((prevState) => ({
-                    ...prevState,
-                    floorPrice: `${value.replace(numbericRegex, "")}`,
-                }));
-                checkValidOfInput(value, type);
+                {
+                    setProductEdit({
+                        ...productEdit,
+                        floorPrice: `${value.replace(numbericRegex, "")}`,
+                    });
+                    checkValidOfInput(value, type);
+                }
                 break;
             case "quantity":
-                setProductEdit((prevState) => ({
-                    ...prevState,
-                    quantity: `${value.replace(numbericRegex, "")}`,
-                }));
-                checkValidOfInput(value, type);
+                {
+                    setProductEdit({
+                        ...productEdit,
+                        quantity: `${value.replace(numbericRegex, "")}`,
+                    });
+                    checkValidOfInput(value, type);
+                }
                 break;
             case "salePrice":
-                checkValidOfInput(value, type);
-                onCheckDisable(value);
+                {
+                    checkValidOfInput(value, type);
+                    onCheckDisable(value);
+                }
                 break;
             default:
                 break;
@@ -134,41 +178,47 @@ const DetailProductModal = (props) => {
     };
 
     const onChangeIsSale = () => {
-        setProductEdit((prevState) => ({
-            ...prevState,
-            isSalePrice: !prevState.isSalePrice,
-        }));
+        setProductEdit({
+            ...productEdit,
+            isSalePrice: !productEdit.isSalePrice,
+        });
     };
 
     const checkValidate = () => {
-        const validationArray = [
+        const arrValidationStatus = [
             validate.floorPrice,
             validate.quantity,
             validate.salePrice,
         ];
-        const hasError = validationArray.some((value) => value === false);
-        setValidate({ ...validate, hasError: hasError });
-        return hasError;
+        const isAllInValid = arrValidationStatus.some((status) => status);
+        if (isAllInValid) {
+            setValidate({
+                ...validate,
+                hasError: true,
+            });
+        }
+        return isAllInValid;
     };
 
-    const onAddCart = () => {
-        if (productEdit.quantity > product.quantity) {
-            setValidate((prevState) => ({
-                ...prevState,
+    const onAddToCart = () => {
+        if (productEdit.quantity.replace(numbericRegex, "") > product.quantity) {
+            setValidate({
+                ...validate,
                 quantity: true,
                 hasError: true,
-            }));
-        } else {
+            });
+        }
+        else {
             if (!checkValidate()) {
-                const itemProduct = {
+                let itemProduct = {
                     name: product.name,
-                    quantity: productEdit.quantity,
-                    floorPrice: productEdit.floorPrice,
+                    quantity: parseInt(productEdit.quantity),
+                    floorPrice: parseInt(productEdit.floorPrice),
                     unit: product.unit,
                     avatar: product.avatar,
                     codeProduct: product.codeProduct,
                     isChange: false,
-                    salePrice: productEdit.salePrice,
+                    salePrice: parseInt(productEdit.salePrice),
                     isSalePrice: productEdit.isSalePrice,
                 };
                 dispatchCreateItemProduct(itemProduct);
@@ -183,25 +233,25 @@ const DetailProductModal = (props) => {
     };
 
     const DetailCollapse = (product) => {
-        <View
-            style={[
-                styles.list,
-                isOpenCollapse === false ? styles.hidden : undefined,
-            ]}
-        >
-            <VStack>
-                <Text marginBottom={10} bold>
-                    Mô tả ngắn:
-                </Text>
-                <Text marginBottom={20}>{product.description}</Text>
-            </VStack>
-        </View>;
+        return (
+            <View style={[styles.list, !isOpenCollapse ? styles.hidden : undefined]}>
+                <VStack>
+                    <Text marginBottom={10} bold>Mô tả ngắn:</Text>
+                    <Text marginBottom={20}>{product.product.description}</Text>
+                </VStack>
+            </View>
+        );
     };
+
     return (
-        <>
-            <TouchableWithoutFeedback>
+        <KeyboardAvoidingView>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <Modal isOpen={isOpen}>
-                    <ModalBackdrop onPress={() => onCloseModal()} />
+                    <ModalBackdrop
+                        onPress={() => {
+                            onCloseModal();
+                        }}
+                    />
                     <ModalContent
                         bgColor="white"
                         width={Dimensions.get("window").width * 0.94}
@@ -210,19 +260,13 @@ const DetailProductModal = (props) => {
                             <HStack style={styles.content}>
                                 <Box width={"52%"} height={"90%"}>
                                     <Image
-                                        source={{ uri: product.avatar }}
                                         style={styles.image}
                                         alt="anh"
+                                        source={{ uri: product.avatar }}
                                     />
                                 </Box>
                                 <VStack style={styles.infor}>
-                                    <Text
-                                        height={18}
-                                        lineHeight={20}
-                                        fontSize={18}
-                                        bold
-                                        numberOfLines={1}
-                                    >
+                                    <Text height={18} lineHeight={20} fontSize={18} bold numberOfLines={1}>
                                         {product.name}
                                     </Text>
                                     <Text
@@ -236,7 +280,7 @@ const DetailProductModal = (props) => {
                                     </Text>
                                     <Text
                                         height={11}
-                                        lineHeight={1}
+                                        lineHeight={11}
                                         fontSize={10}
                                         color={color.gray}
                                     >
@@ -246,98 +290,120 @@ const DetailProductModal = (props) => {
                                         justifyContent="center"
                                         alignItems="center"
                                         style={styles.input}
+                                        isInvalid={
+                                            validate.hasError && validate.floorPrice ? true : false
+                                        }
                                     >
-                                        <Text style={styles.textInput}>Sửa giá: </Text>
+                                        <Text style={styles.textInput}> Sửa giá:</Text>
                                         <InputField
+                                            placeholder={formatMoney(product.floorPrice)}
+                                            onChangeText={(value) => {
+                                                formatNumber(value, "floorPrice");
+                                            }}
                                             height={30}
                                             keyboardType="numeric"
                                             size="30"
-                                            onChangeText={(value) =>
-                                                formatNumber(value, "floorPrice")
-                                            }
-                                            value={formatMoney(product.floorPrice)}
-                                        >
-                                            {formatMoney(product.floorPrice)}
-                                        </InputField>
+                                            value={formatMoney(productEdit.floorPrice)}
+                                        ></InputField>
                                     </Input>
-                                    {validate.hasError && validate.floorPrice && (
-                                        <FormControlErrorText fontSize={10}>
-                                            {productEdit.floorPrice < 0.9 * product.floorPrice
-                                                ? textConst.VALIDATE_LOWER_SALE_PRICE
-                                                : textConst.VALIDATE_EDIT_PRICE}
-                                        </FormControlErrorText>
-                                    )}
+                                    <FormControlErrorText
+                                        fontSize={10}
+                                        display={
+                                            validate.hasError && validate.floorPrice ? "flex" : "none"
+                                        }
+                                    >
+                                        {
+                                            (parseInt(productEdit.floorPrice) <
+                                                product.floorPrice * 0.9) ? textConst.VALIDATE_LOWER_SALE_PRICE : textConst.VALIDATE_EDIT_PRICE
+                                        }
+                                    </FormControlErrorText>
                                     <Input
-                                        isInvalid={validate.hasError && validate.salePrice}
                                         value={2000}
                                         justifyContent="space-between"
                                         style={styles.input}
+                                        isInvalid={
+                                            validate.hasError && validate.salePrice ? true : false
+                                        }
                                     >
                                         <Button
                                             isDisabled={isDisableButtonSalePrice}
+                                            onPress={() => {
+                                                onChangeIsSale();
+                                            }}
                                             bgColor={
                                                 productEdit.isSalePrice
                                                     ? color.darkGreen
                                                     : color.plumRed
                                             }
-                                            onPress={() => onChangeIsSale()}
                                         >
                                             <AntDesign
+                                                bold
                                                 name={productEdit.isSalePrice ? "plus" : "minus"}
-                                                boldsize={12}
+                                                size={12}
                                                 color="white"
                                             />
                                         </Button>
                                         <InputField
-                                            value={formatMoney(productEdit.salePrice)}
-                                            onChangeText={(value) => formatNumber(value, "salePrice")}
                                             height={30}
                                             size="30"
                                             placeholder="0"
                                             bold
                                             keyboardType="numeric"
+                                            onChangeText={(value) => formatNumber(value, "salePrice")}
+                                            value={formatMoney(productEdit.salePrice)}
                                         ></InputField>
                                     </Input>
-                                    {validate.hasError && validate.salePrice && (
-                                        <FormControlErrorText fontSize={10}>
-                                            {textConst.VALIDATE_SALE_PRICE_MODAL}
-                                        </FormControlErrorText>
-                                    )}
+                                    <FormControlErrorText
+                                        fontSize={10}
+                                        display={
+                                            validate.hasError && validate.salePrice ? "flex" : "none"
+                                        }
+                                    >
+                                        {textConst.VALIDATE_SALE_PRICE_MODAL}
+                                    </FormControlErrorText>
                                     <Input
-                                        isInvalid={validate.hasError && validate.quantity}
                                         justifyContent="center"
                                         style={styles.input}
+                                        isInvalid={
+                                            validate.hasError && validate.quantity ? true : false
+                                        }
                                     >
-                                        <Text style={styles.textInput}>Số lượng:</Text>
+                                        <Text style={styles.textInput}> Số lượng: </Text>
                                         <InputField
-                                            value={formatMoney(productEdit.quantity)}
-                                            onChangeText={(value) => formatNumber(value, "quantity")}
                                             placeholder="1"
+                                            onChangeText={(value) => formatNumber(value, "quantity")}
+                                            value={formatMoney(productEdit.quantity)}
                                             keyboardType="numeric"
                                             height={30}
                                             size="30"
                                         ></InputField>
                                     </Input>
-                                    {validate.hasError && validate.quantity && (
-                                        <FormControlErrorText fontSize={10}>
-                                            {productEdit.quantity === "" ||
-                                                productEdit.quantity === "00"
-                                                ? textConst.VALIDATE_ZERO_QUANTITY
-                                                : textConst.VALIDATE_QUANTITY_MODAL}
-                                        </FormControlErrorText>
-                                    )}
+                                    <FormControlErrorText
+                                        fontSize={10}
+                                        display={
+                                            validate.hasError && validate.quantity ? "flex" : "none"
+                                        }
+                                    >
+                                        {productEdit.quantity == "" || productEdit.quantity == "00"
+                                            ? textConst.VALIDATE_ZERO_QUANTITY
+                                            : textConst.VALIDATE_QUANTITY_MODAL}
+                                    </FormControlErrorText>
                                 </VStack>
                             </HStack>
                             <DetailCollapse product={product} />
                             <ButtonGroup style={styles.groupButton}>
                                 <Button
-                                    onPress={onViewDetail}
                                     borderRadius={20}
                                     alignItems="center"
                                     width={"35%"}
                                     bgColor={color.blueSky}
+                                    onPress={onViewDetail}
                                 >
-                                    {!isOpenCollapse ? "Xem chi tiết" : "Thu gọn"}
+                                    {!isOpenCollapse ? <Text style={styles.text}>
+                                        Xem chi tiết<Text> </Text>
+                                    </Text> : <Text style={styles.text}>
+                                        Thu gọn<Text> </Text>
+                                    </Text>}
                                     <Ionicons
                                         name={
                                             isOpenCollapse
@@ -349,7 +415,9 @@ const DetailProductModal = (props) => {
                                     />
                                 </Button>
                                 <Button
-                                    onPress={onCloseModal}
+                                    onPress={() => {
+                                        onCloseModal();
+                                    }}
                                     borderRadius={20}
                                     width={"28%"}
                                     bgColor={color.plumRed}
@@ -359,10 +427,12 @@ const DetailProductModal = (props) => {
                                     </Text>
                                 </Button>
                                 <Button
-                                    onPress={onAddCart}
                                     borderRadius={20}
                                     width={"32%"}
                                     bgColor={color.darkGreen}
+                                    onPress={() => {
+                                        onAddToCart();
+                                    }}
                                 >
                                     <Text style={styles.text} color={"white"}>
                                         Thêm
@@ -373,7 +443,7 @@ const DetailProductModal = (props) => {
                     </ModalContent>
                 </Modal>
             </TouchableWithoutFeedback>
-        </>
+        </KeyboardAvoidingView>
     );
 };
 export default DetailProductModal;

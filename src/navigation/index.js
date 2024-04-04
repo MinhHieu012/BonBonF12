@@ -8,7 +8,7 @@ import AppNavigator from "./app-navigation";
 const Stack = createNativeStackNavigator();
 export default function Navigation() {
   const {token} = useAuth()
-  // console.log(token,"use token in file navigation");
+
   return (
     <NavigationContainer>
       <Stack.Navigator>

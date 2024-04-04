@@ -7,8 +7,11 @@ import { isEmpty } from "lodash";
 
 function* handleGetListWareHouse() {
   const { getData } = useLocalStorage();
+
   try {
+
     const listProductDataLocal = yield getData(listProductData.key);
+
     yield put(
       wareHouseAction.listWareHouseSuccess({ data: listProductDataLocal })
     );

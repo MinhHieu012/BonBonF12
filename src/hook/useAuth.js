@@ -6,8 +6,8 @@ export const useAuth = () => {
     const token = useSelector(state => state.auth.token)
 
     function handleLogin(element) {
-        console.log(element,"handlelogin in file useAuthen");
         dispatch(authAction.loginSuccess(element))
+ 
     }
 
     function handleLogOut() {

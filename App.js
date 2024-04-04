@@ -14,7 +14,7 @@ import Navigation from './src/navigation';
 SplashScreen.preventAutoHideAsync();
 const App = () => {
   const [appIsReady, setAppIsReady] = useState(false);
-  const { setData } = useLocalStorage();
+  const { setData,getItemData } = useLocalStorage();
   useEffect(() => {
     const prepare = async () => {
       try {
@@ -25,7 +25,6 @@ const App = () => {
         await setData(saleCartData.key, saleCartData.saleCart);
         await setData(listImageProductData.key, listImageProductData.listImageProduct);
         await new Promise((resolve) => setTimeout(resolve, 2000));
-        console.log("Đã update dữ liệu lên local");
       } catch (error) {
         console.log(error);
       } finally {
