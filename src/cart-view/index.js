@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo } from 'react'
 import { SafeAreaView } from 'react-native'
+import { useNavigation } from "@react-navigation/native";
 import { AntDesign, FontAwesome, Ionicons } from '@expo/vector-icons'
 import { Box, Text, VStack } from '@gluestack-ui/themed'
 import { color, formatMoney, textConst } from '../utils'
@@ -46,7 +47,7 @@ const CartScreen = () => {
           }
     };
     const onOpenDeleteProductModal  = ({data,rowMap})=>{
-        setProductDelete(data.index, data.item.name);
+        setProductDelete({ index: data.index, name: data.item.name});
         setIsDeleteModal(true);
         setIsDeleteAll(false);
         closeRow(rowMap,data.item.key);
@@ -88,6 +89,7 @@ const CartScreen = () => {
 
     const matchTotalPrice = () => {
         if (listCartProduct.length > 0) {
+            //"1"
             const totalPrice = calculateTotalPrice(listCartProduct) + shipPrice;
             setCartTotalPrice(totalPrice);
         } else {

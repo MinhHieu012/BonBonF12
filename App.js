@@ -8,9 +8,6 @@ import { useLocalStorage } from './src/hook';
 import { adminCartData, listCustomerData, listImageProductData, listOrderData, listProductData, saleCartData } from './src/mockup';
 import Navigation from './src/navigation';
 
-
-
-
 SplashScreen.preventAutoHideAsync();
 const App = () => {
   const [appIsReady, setAppIsReady] = useState(false);

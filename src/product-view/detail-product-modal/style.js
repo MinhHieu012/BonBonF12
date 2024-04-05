@@ -1,29 +1,53 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 
-const styles = StyleSheet.create({
+import { color } from "../../utils";
+
+export const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: "#fff",
-        paddingVertical: 12,
-        paddingBottom: 12,
-        paddingLeft: 12,
-        paddingEnd: 12,
-        borderColor: "#ccc",
-        borderBottomWidth: 1,
-        borderStyle: "solid",
+        bgColor: "white",
+        width: "100%",
+        paddingHorizontal: Dimensions.get("window").width * 0.02,
+        alignItems: "center",
+    },
+    content: {
+        justifyContent: "space-between",
+        alignItems: "center",
+        width: "100%",
+        height: Dimensions.get("window").width * 0.56,
     },
     image: {
-        width: "100%",
         height: "100%",
+        width: "100%",
+        objectFit: "contain",
     },
-    boxImg: {
-        width: 100,
-        height: 100,
+    infor: {
+        width: "45%",
+        height: "90%",
+        justifyContent: "space-between",
+        paddingVertical: "5.5%",
     },
-    contentCard: {
-        flex: 1,
-        paddingLeft: 10,
-    }
+    groupButton: {
+        justifyContent: "space-between",
+        color: "white",
+        width: "100%",
+        marginBottom: 15
+    },
+    input: {
+        alignItems: "center",
+        height: "15%",
+    },
+    text: {
+        fontSize: 12,
+        color: "white",
+    },
+    textInput: {
+        fontSize: 12,
+        color: color.gray,
+    },
+    hidden: {
+        height: 0,
+    },
+    list: {
+        overflow: "hidden",
+    },
 });
-
-export default styles;

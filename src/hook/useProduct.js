@@ -11,8 +11,8 @@ export const useProduct = () => {
 
     const isFetching = useSelector((state) => state.listProduct.isFetching);
 
-    const dispatchGetListProduct = (payload) => {
-        dispatch(listProductAction.listProductRequest(payload))
+    const dispatchGetListProduct = () => {
+        dispatch(listProductAction.listProductRequest())
     }
     const dispatchClearNotification = () => {
         dispatch(listProductAction.ClearNotificationListProduct())

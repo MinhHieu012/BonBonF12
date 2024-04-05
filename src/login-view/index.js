@@ -16,29 +16,31 @@ export default function LoginScreen() {
   const [isLoading, setLoading] = useState(false);
 
   const { handleLogin } = useAuth();
-  const { setItemData ,getItemData} = useLocalStorage();
+  const { setItemData, getItemData } = useLocalStorage();
 
   const handleChangeLogin = () => {
-    if (!username) {
-      setError("Vui lòng nhập tài khoản để đăng nhập!!!");
+    if (!username && !password) {
+      setError("Vui lòng nhập tài khoản và mật khẩu để đăng nhập!!!");
+
     } else if (!password) {
       setError("Vui lòng nhập mật khẩu!!!");
-    } else if (!username && !password) {
-      setError("Vui lòng nhập tài khoản và mật khẩu để đăng nhập!!!");
+    } else if (!username) {
+      setError("Vui lòng nhập tài khoản để đăng nhập!!!");
+
     } else {
       const items = dataLogin.filter((element) => {
         if (element.phoneNumber === username && element.password === password) {
           return element;
         }
       });
-   
+
 
       if (items.length !== 0) {
         setLoading(true);
-        setTimeout(async() => {
+        setTimeout(async () => {
           handleLogin(items[0]);
           await setItemData("role", items[0].role);
-          
+
           setError("");
           setLoading(false);
         }, 2000);
@@ -101,7 +103,7 @@ export default function LoginScreen() {
                     handleChangeLogin({
                       username: username,
                       password: password,
-          
+
                     })
                   }
                 >

@@ -22,6 +22,7 @@ const HeaderSearchCommon = (props) => {
     const [textSearch, setTextSearch] = useState("");
     const refInput = useRef("");
     const { navigation, onGetTextSearch } = props;
+
     const onOpenDrawer = () => {
         navigation.openDrawer();
     };
@@ -52,7 +53,8 @@ const HeaderSearchCommon = (props) => {
                                 name="menu"
                                 size={35}
                                 color="white"
-                                onPress={onOpenDrawer}
+                                onPress={()=>onOpenDrawer()}
+                                
                             />
                             <Input
                                 style={styles.input}

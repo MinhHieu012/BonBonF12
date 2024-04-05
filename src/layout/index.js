@@ -42,7 +42,7 @@ const ProductNavigation = () => {
       }}
     >
       <Stack.Screen name="ProductScreen" component={ProductScreen} options={{ headerShown: false, unmountOnBlur: true }} />
-      <Stack.Screen name="Cart" component={CartScreen} options={{ headerShown: false, unmountOnBlur: true }} />
+      <Stack.Screen name="CartScreen" component={CartScreen} options={{ headerShown: false, unmountOnBlur: true }} />
     </Stack.Navigator>
   )
 }
@@ -90,11 +90,11 @@ export default function Layout() {
   return (
     <Drawer.Navigator
       initialRouteName={
-        role.useToken === "admin" || role.useToken === "sale"
+        (role.useToken === "admin" || role.useToken === "sale")
           ? "Product"
           : "Warehouse"
       }
-      screenOptions={{ drawerType: "front"}}
+      screenOptions={{ drawerType: "front" }}
       drawerContent={(props) => <CustomeDrawer {...props} />}
     >
       <Drawer.Screen name="Product" component={ProductNavigation} options={{ headerShown: false, unmountOnBlur: true }} />
@@ -103,4 +103,4 @@ export default function Layout() {
       <Drawer.Screen name="Warehouse" component={WarehouseScreen} options={{ headerShown: false, unmountOnBlur: true }} />
     </Drawer.Navigator>
   );
-    }
+}

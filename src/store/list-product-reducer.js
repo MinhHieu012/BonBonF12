@@ -7,9 +7,8 @@ const INITIAL_STATE = {
     errorMess: "",
     listProductData: [],
     listProductSearchData: [],
-    
-
 }
+
 const listProductTypes = {...actionTypes.listProductTypes}
 
 export default listProductReducer = (state = INITIAL_STATE, { type, payload }) => {
@@ -18,7 +17,7 @@ export default listProductReducer = (state = INITIAL_STATE, { type, payload }) =
             return {
                 ...state,
                 isFetching: true,
-                textSearch: payload
+                // textSearch: payload
             }
 
         case listProductTypes.GET_LIST_PRODUCT_SUCCESS:

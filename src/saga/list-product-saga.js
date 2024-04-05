@@ -12,7 +12,6 @@ function* handleGetListProduct() {
         const listProductDataLocal = yield getData(listProductData.key)
         // yield put({ type: 'listProductSuccess', data: listProductDataLocal });
         yield put(listProductAction.listProductSuccess({data:listProductDataLocal}))
-
     } catch (error) {
         // yield put({ type: 'listProductFailure', errorMess: error.message });
         yield put(listProductAction.listProductFailure({errorMess: error.message}))

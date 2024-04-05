@@ -24,18 +24,16 @@ import {
     TouchableWithoutFeedback,
 } from "react-native";
 
-import { useProduct } from "../../hook/index";
+import { useProduct } from "../../hook";
 import { numbericRegex } from "../../utils";
 import { color } from "../../utils";
 import { textConst } from "../../utils/constants";
 import { formatMoney } from "../../utils/format";
-import styles from "./style";
+import {styles} from "./style";
 
 const DetailProductModal = (props) => {
     const { isOpen, closeModal, product } = props;
-
     const { dispatchCreateItemProduct } = useProduct();
-
     const productEditInitial = {
         floorPrice: "",
         quantity: "1",
@@ -246,7 +244,9 @@ const DetailProductModal = (props) => {
     return (
         <KeyboardAvoidingView>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <Modal isOpen={isOpen}>
+                <Modal 
+                isOpen={isOpen}
+                >
                     <ModalBackdrop
                         onPress={() => {
                             onCloseModal();

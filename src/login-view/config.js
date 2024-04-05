@@ -1,10 +1,11 @@
-import * as ta from "../mockup/";
 export const dataLogin = [
   {
     id: 1,
-    phoneNumber: "admin",
-    password: "123",
+    phoneNumber: "1",
+    password: "1",
     role: "admin",
+    userName:"Doremon",
+    avatar:"../../assets/doremon.jpg",
   },
   {
     id: 2,
