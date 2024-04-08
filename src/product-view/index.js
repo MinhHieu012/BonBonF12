@@ -84,7 +84,9 @@ export default function ProductScreen(props) {
 
 
  useEffect(() => {
-   if (notification == false || notificationData == false) {
+//notification không có trong code design
+  // Đổi điều kiện thành true
+   if (isNotification == true || notificationData == true) {
      dispatchGetListProduct();
      dispatchGetListCart();
    } else {
@@ -124,7 +126,6 @@ export default function ProductScreen(props) {
      setListData(listProductData);
    }
  }, [textSearch, listProductSearchData, listProductData, notificationData, notification]);
-
 
  return (
    <>

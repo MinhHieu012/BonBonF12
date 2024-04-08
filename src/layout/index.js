@@ -23,9 +23,7 @@ const config = {
 };
 const handleTakeToken = () => {
   const useToken = useSelector((state) => state.auth.token);
-  return {
-    useToken,
-  };
+  return useToken
 };
 
 const ProductNavigation = () => {
@@ -90,7 +88,7 @@ export default function Layout() {
   return (
     <Drawer.Navigator
       initialRouteName={
-        (role.useToken === "admin" || role.useToken === "sale")
+        (role.role === "admin" || role.role === "sale")
           ? "Product"
           : "Warehouse"
       }
