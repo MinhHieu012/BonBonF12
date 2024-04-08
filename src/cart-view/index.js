@@ -112,7 +112,6 @@ const CartScreen = () => {
             }
         });
         getListCodeProductCart()
-        setListCartProduct(updatedListCartProduct);
         matchTotalPrice();
     };
 
@@ -158,8 +157,7 @@ const CartScreen = () => {
         listCartProduct[data.index].isSalePrice = data.isSalePrice;
         listCartProduct[data.index].salePrice = data.salePrice;
         listCartProduct[data.index].currentQuantity = data.quantity;
-        // updateDataValidate(data);
-        // setListCartProduct([...listCartProduct]);
+        updateDataValidate(data);
         matchTotalPrice();
     }
 
@@ -234,14 +232,14 @@ const CartScreen = () => {
             {/* XGH-HTML_CV-4 */}
             {isNotification&&<ToastNotificationCommon Description={isDeleteAll?"Đã xóa tất cả sản phẩm":`Đã xóa sản phẩm ` + productDelete.productName}/>}
             {/* XGH-HTML_CV-5 */}
-            <SwipeList
+            {/* <SwipeList
                 listProductSwipe={listProductSwipe}
                 updateCartCurrentData={updateCartCurrentData}
                 onOpenDeleteProductModal={onOpenDeleteProductModal}
                 listCartProduct={listCartProduct}
                 isValidateDataCart={isValidateDataCart}
-            />
-            <SearchCustomerModal />
+            /> */}
+            {/* <SearchCustomerModal /> */}
             {/* XGH-HTML_CV-7 */}
             <DeleteProductModal 
                 isOpen={isDeleteModal}

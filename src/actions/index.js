@@ -24,6 +24,7 @@ export const listProductAction = {
     searchListProductFailure: createAction(
         listProductTypes.SEARCH_LIST_PRODUCT_FAILURE
     ),
+    ClearNotificationListProduct:createAction(listProductTypes.NOTIFICATION_CLEAR)
 };
 
 export const listOrderAction = {

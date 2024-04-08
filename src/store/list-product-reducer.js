@@ -47,6 +47,7 @@ export default listProductReducer = (state = INITIAL_STATE, { type, payload }) =
                 isFetching: true
             }
         case listProductTypes.GET_LIST_PRODUCT_SUCCESS:
+        case listProductTypes.ADD_ITEM_PRODUCT_SUCCESS:   
             return {
                 ...state,
                 isFetching: false,
