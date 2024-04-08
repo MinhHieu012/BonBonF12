@@ -4,6 +4,7 @@ import { AntDesign, FontAwesome, Ionicons } from '@expo/vector-icons'
 import { Box, Button, ButtonIcon, HStack, Image, Input, InputField, Text, VStack, FormControlErrorText } from '@gluestack-ui/themed'
 import { color, formatMoney, textConst, formatMoneyStringToNumber } from '../../utils'
 import styles from '../product-card/style'
+import { useIsFocused } from "@react-navigation/native";
 
 export default function ProductCard({ data, index, onUpdateCart, validateData, isValidateDataCart }) {
     const [productUpdate, setProductUpdate] = useState({

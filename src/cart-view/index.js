@@ -12,10 +12,10 @@ import shipPrice from '../utils'
 import ConfirmOderCreationModal from "./confirm-order-creation-modal";
 import DeleteProductModal from './delete-product-modal'
 import { useNavigation } from "@react-navigation/native";
-import { SearchCustomerModal } from './search-customer-modal'
-let listCartProduct = [];
+import SearchCustomerModal from './search-customer-modal'
 
 const CartScreen = () => {
+    let listCartProduct = [];
     const navigate = useNavigation();
     const { listCartData, dispatchGetListCart, dispatchUpdateCart } = useCart();
     const { listProductData } = useProduct();
@@ -86,7 +86,6 @@ const CartScreen = () => {
             };
         });
     }, [listLocalProduct]);
-    console.log(listProductSwipe, "listProductSwipe");
     
     const matchTotalPrice = () => {
         if (listCartProduct.length > 0) {

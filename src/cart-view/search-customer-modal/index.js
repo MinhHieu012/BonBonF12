@@ -1,16 +1,17 @@
 import { AntDesign, EvilIcons } from "@expo/vector-icons"
 import { FlatList, Input, InputField, InputSlot, Modal, ModalBackdrop, ModalBody, ModalContent, ModalHeader, Pressable } from "@gluestack-ui/themed"
-import { CardUserInfoCommon, EmptyDataCommon, ToastNotificationCommon } from "../../component"
-import { CreateCustomerModal } from "../create-customer-modal"
-import { debounce } from "lodash/debounce"
 import { useEffect, useMemo, useRef, useState } from "react"
 import { Keyboard, TouchableWithoutFeedback } from "react-native"
+import { CardUserInfoCommon, EmptyDataCommon, ToastNotificationCommon } from "../../component"
+import CreateCustomerModal from "../create-customer-modal"
+import { debounce } from "lodash"
 import { useCustomer } from "../../hook"
 import { color, timeout } from "../../utils"
-import styles from "./style"
+// import styles from "./style"
 import { current } from "@reduxjs/toolkit"
 
-export const SearchCustomerModal = (props) => {
+const SearchCustomerModal = (props) => {
+
     const { isShowModal, CloseModal, isClearTextSearch } = props
 
     const { listCustomer, listCustomerSearchData, dispatchGetListCustomer, dispatchSearchCustomer } = useCustomer()
@@ -140,11 +141,12 @@ export const SearchCustomerModal = (props) => {
                                         }}
                                     /> :
                                     <FlatList
-                                        scrollEnabled={true}
+                                        scrollEnabled={false}
                                         data={listData}
                                         renderItem={(item) => {
                                             <CardUserInfoCommon onPress={() => {
-                                                props.onChooseCustomer(item)
+                                                onChooseCustomer(item)
+                                                {console.log(item, "check item")}
                                             }} />
                                         }}
                                     >
@@ -181,3 +183,4 @@ export const SearchCustomerModal = (props) => {
         </>
     )
 }
+export default SearchCustomerModal

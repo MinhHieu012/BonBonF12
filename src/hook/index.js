@@ -4,4 +4,5 @@ import { useListOrder } from "./useListOrder"
 import useWareHouse from "./useWareHouse"
 import { useProduct } from "./useProduct"
 import useCart from "./useCart"
-export { useLocalStorage, useAuth, useListOrder, useWareHouse, useProduct ,useCart}
+import useCustomer from "./useCustomer"
+export { useLocalStorage, useAuth, useListOrder, useWareHouse, useProduct, useCustomer, useCart}
