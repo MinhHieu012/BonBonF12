@@ -13,6 +13,7 @@ export default function useCart() {
 
     return {
         listCartData,
-        dispatchGetListCart
+        dispatchGetListCart,
+        dispatchUpdateCart
     };
 }

@@ -1,22 +1,23 @@
+import { isEmpty, cloneDeep } from 'lodash'
 import { useEffect, useState, useMemo } from 'react'
 import { SafeAreaView } from 'react-native'
-import { useNavigation } from "@react-navigation/native";
 import { AntDesign, FontAwesome, Ionicons } from '@expo/vector-icons'
 import { Box, Text, VStack } from '@gluestack-ui/themed'
 import { color, formatMoney, textConst } from '../utils'
-import { isEmpty, cloneDeep } from 'lodash'
+import styles from '../cart-view/style'
 import { HeaderBackCommon, TotalPriceCommon, ToastNotificationCommon } from '../component'
 import SwipeList from './swipe-list'
 import { useCart, useListOrder, useProduct } from '../hook'
-import {shipPrice} from '../utils/constants'
+import shipPrice from '../utils'
 import ConfirmOderCreationModal from "./confirm-order-creation-modal";
 import DeleteProductModal from './delete-product-modal'
-import styles from './style'
-let listCartProduct = []
+import { useNavigation } from "@react-navigation/native";
+import { SearchCustomerModal } from './search-customer-modal'
+let listCartProduct = [];
 
 const CartScreen = () => {
     const navigate = useNavigation();
-    const { listCartData, dispatchGetListCart } = useCart();
+    const { listCartData, dispatchGetListCart, dispatchUpdateCart } = useCart();
     const { listProductData } = useProduct();
     const [listLocalProduct, setListLocalProduct] = useState([]);
     const [cartTotalPrice, setCartTotalPrice] = useState(0);
@@ -25,12 +26,11 @@ const CartScreen = () => {
     const [isOpenModalCreateOrder, setIsOpenModalCreateOrder] = useState(false);
     const [arrCodeProduct, setArrCodeProduct] = useState([]);
     const [isDeleteModal,setIsDeleteModal ] = useState(false);
-    const [productDelete,setProductDelete] = useState({index,productName});
+    const [productDelete,setProductDelete] = useState({index: 0, productName: ""});
     const [isDeleteAll,setIsDeleteAll] = useState(false);
     const [isNotification,setNotification ] = useState(false);
     const { dispatchCreateOder } = useListOrder();
-    const { dispatchUpdateCart } = useCart()
-
+    const [onClose, setOnClose] = useState(true);
     const onBack = () => {
         navigate("ProductScreen");
         const dataToStore = mergeDataProductChange();
@@ -47,7 +47,7 @@ const CartScreen = () => {
           }
     };
     const onOpenDeleteProductModal  = ({data,rowMap})=>{
-        setProductDelete({ index: data.index, name: data.item.name});
+        setProductDelete(data.index, data.item.name);
         setIsDeleteModal(true);
         setIsDeleteAll(false);
         closeRow(rowMap,data.item.key);
@@ -86,10 +86,10 @@ const CartScreen = () => {
             };
         });
     }, [listLocalProduct]);
-
+    console.log(listProductSwipe, "listProductSwipe");
+    
     const matchTotalPrice = () => {
         if (listCartProduct.length > 0) {
-            //"1"
             const totalPrice = calculateTotalPrice(listCartProduct) + shipPrice;
             setCartTotalPrice(totalPrice);
         } else {
@@ -209,7 +209,10 @@ const CartScreen = () => {
             setIsOpenModalCreateOrder(true);
         }
     }
-
+    const closeCreateOrderModal = () => {
+        setIsOpenModalCreateOrder(false)
+        console.log("conemay")
+    }
     const confirmCreateOrderModal = () => {
         dispatchCreateOder({
             customer: cartCustomer,
@@ -219,11 +222,7 @@ const CartScreen = () => {
         setTimeout(() => {
             navigateToProductScreen();
         }, timeoutGet);
-        closeCreateOderModal();
-    }
-
-    const closeCreateOderModal = () => {
-        setIsOpenModalCreateOrder(false)
+        closeCreateOrderModal();
     }
     return (
         <SafeAreaView style={styles.container}>
@@ -259,7 +258,7 @@ const CartScreen = () => {
                 onClose={closeCreateOrderModal}
                 onConfirm={confirmCreateOrderModal} />
             <VStack alignItems="center" marginBottom={"60%"}>
-                {listProductSwipe.length === 0 ? (
+                {listProductSwipe === 0 ? (
                     <>
                         <AntDesign name="warning" size={54} color="#cccc" />
                         <Text marginTop={"5%"} size="md">
@@ -279,4 +278,4 @@ const CartScreen = () => {
         </SafeAreaView>
     )
 }
-export default CartScreen    
+export default CartScreen
