@@ -146,7 +146,6 @@ const SearchCustomerModal = (props) => {
                                         renderItem={(item) => {
                                             <CardUserInfoCommon onPress={() => {
                                                 onChooseCustomer(item)
-                                                {console.log(item, "check item")}
                                             }} />
                                         }}
                                     >

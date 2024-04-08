@@ -1,6 +1,6 @@
 import { Dimensions, Keyboard, TouchableWithoutFeedback } from 'react-native'
 import KeyboardAwareScrollView from 'react-native-keyboard-aware-scroll-view'
-import {SwipeListView} from 'react-native-swipe-list-view'
+import { SwipeListView } from 'react-native-swipe-list-view'
 import ProductCard from '../product-card'
 import PropTypes from 'prop-types';
 import HiddenItem from './hidden-item'
@@ -41,11 +41,13 @@ function SwipeList({ listProductSwipe,
         </TouchableWithoutFeedback>
     )
 }
+
 SwipeList.propTypes = {
     listProductSwipe: PropTypes.object.isRequired,
     updateCartCurrentData: PropTypes.func.isRequired,
     listCartProduct: PropTypes.array.isRequired,
     isValidateDataCart: PropTypes.bool.isRequired,
     onOpenDeleteProductModal: PropTypes.func.isRequired
-  }
+}
+
 export default SwipeList

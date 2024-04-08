@@ -1,6 +1,8 @@
 import { Text } from "react-native";
 import { buttonText, color, textConst } from '../../utils'
 import styles from './style'
+import { Button, ButtonGroup, ButtonText, Divider, Modal, ModalBackdrop, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@gluestack-ui/themed"
+
 export default function ConfirmOderCreationModal({ isOpen, onClose, onConfirm }) {
     const onPressClose = () => {
         onClose()
@@ -16,7 +18,7 @@ export default function ConfirmOderCreationModal({ isOpen, onClose, onConfirm })
             <ModalContent>
                 <ModalHeader />
                 <ModalBody>
-                    <Text>{textConst.CONFIRM_CREATE_ODER}</Text>
+                    <Text>{textConst.CONFIRM_CREATE_ORDER}</Text>
                 </ModalBody>
                 <Divider />
                 <ModalFooter>
@@ -25,7 +27,7 @@ export default function ConfirmOderCreationModal({ isOpen, onClose, onConfirm })
                             style={styles.buttonRadius} onPress={onPressConfirm}>
                             <ButtonText>
                                 {buttonText.BTN_CREATE_ORDER}
-                            </ButtonText>   
+                            </ButtonText>
                         </Button>
                         <Button
                             style={styles.buttonRadius}

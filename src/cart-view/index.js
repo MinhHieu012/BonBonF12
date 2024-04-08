@@ -158,8 +158,8 @@ const CartScreen = () => {
         listCartProduct[data.index].isSalePrice = data.isSalePrice;
         listCartProduct[data.index].salePrice = data.salePrice;
         listCartProduct[data.index].currentQuantity = data.quantity;
-        updateDataValidate(data);
-        setListCartProduct([...listCartProduct]);
+        // updateDataValidate(data);
+        // setListCartProduct([...listCartProduct]);
         matchTotalPrice();
     }
 
@@ -210,7 +210,6 @@ const CartScreen = () => {
     }
     const closeCreateOrderModal = () => {
         setIsOpenModalCreateOrder(false)
-        console.log("conemay")
     }
     const confirmCreateOrderModal = () => {
         dispatchCreateOder({

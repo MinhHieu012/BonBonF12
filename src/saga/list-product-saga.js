@@ -1,5 +1,5 @@
 import { put, takeLatest } from "redux-saga/effects"
-import { cartAction, listProductAction,wareHouseAction } from "../actions"
+import { cartAction, listProductAction, wareHouseAction } from "../actions"
 import { listProductTypes } from "../constants"
 import { useLocalStorage } from "../hook"
 import { adminCartData, listProductData, saleCartData } from "../mockup"
@@ -11,24 +11,25 @@ function* handleGetListProduct() {
     try {
         const listProductDataLocal = yield getData(listProductData.key)
         // yield put({ type: 'listProductSuccess', data: listProductDataLocal });
-        yield put(listProductAction.listProductSuccess({data:listProductDataLocal}))
+        yield put(listProductAction.listProductSuccess({ data: listProductDataLocal }))
     } catch (error) {
         // yield put({ type: 'listProductFailure', errorMess: error.message });
-        yield put(listProductAction.listProductFailure({errorMess: error.message}))
+        yield put(listProductAction.listProductFailure({ errorMess: error.message }))
     }
 }
 
-function* handleCreateItemProduct(payload) {
+function* handleCreateItemProduct({ payload }) {
     const itemProduct = payload;
     const handleFindItemProduct = (DataStoreProduct) => {
-        const findDataStoreCart = DataStoreProduct.listProduct.find(element =>
+        const findDataStoreCart = DataStoreProduct.find(element =>
             element.floorPrice === itemProduct.floorPrice &&
             element.isSalePrice === itemProduct.isSalePrice &&
             element.salePrice === itemProduct.salePrice &&
             element.codeProduct === itemProduct.codeProduct
         );
+
         if (!findDataStoreCart) {
-            DataStoreProduct.listProduct.push(itemProduct);
+            DataStoreProduct.push(itemProduct);
         } else {
             const totalQuantity = findDataStoreCart.quantity + itemProduct.quantity;
             findDataStoreCart.quantity = totalQuantity;
@@ -38,19 +39,19 @@ function* handleCreateItemProduct(payload) {
         const role = yield getItemData("role");
         if (role === "admin") {
             const dataStoreAdminCart = yield getData(adminCartData.key);
-            if (dataStoreAdminCart.listProduct) {
-                dataStoreAdminCart.listProduct = [itemProduct];
-                yield setData(adminCartData.key, dataStoreAdminCart);
-                yield put(cartAction.CartSuccess({ data: dataStoreSaleCart }))
-            } else {
-                handleFindItemProduct(dataStoreAdminCart)
+            if (dataStoreAdminCart.length === 0) {
+                dataStoreAdminCart.push(itemProduct);
                 yield setData(adminCartData.key, dataStoreAdminCart);
                 yield put(cartAction.CartSuccess({ data: dataStoreAdminCart }))
+            } else {
+                handleFindItemProduct(dataStoreAdminCart);
+                yield setData(adminCartData.key, dataStoreAdminCart)
+                yield put(cartAction.createItemProductSucsses({ data: dataStoreAdminCart }))
             }
         } else {
             const dataStoreSaleCart = yield getData(saleCartData.key);
-            if (!dataStoreSaleCart.listProduct) {
-                dataStoreSaleCart.listProduct = [itemProduct];
+            if (dataStoreSaleCart.length === 0) {
+                dataStoreSaleCart.push(itemProduct);
                 yield setData(saleCartData.key, dataStoreSaleCart);
                 yield put(cartAction.CartSuccess({ data: dataStoreSaleCart }))
             } else {
@@ -83,7 +84,6 @@ function* handleSearchListProduct(textSearch) {
                 result.push(listProductDataLocal);
             }
         })
-        
         if (result) {
             yield put(wareHouseAction.searchListWareHouseSuccess({ data: result }));
         } else {
