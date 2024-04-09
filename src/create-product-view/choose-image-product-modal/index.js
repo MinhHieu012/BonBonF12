@@ -13,6 +13,7 @@ import {
     ScrollView,
 } from "@gluestack-ui/themed";
 import styles from "./style";
+import { EmptyDataCommon } from "../../component";
 
 const ChooseImageProductModal = (props) => {
     const { isOpen, onCloseModal, data, handleChooseImgProduct } = props;
@@ -54,5 +55,4 @@ const ChooseImageProductModal = (props) => {
         </>
     );
 };
-
 export default ChooseImageProductModal;

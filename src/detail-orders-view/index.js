@@ -14,7 +14,6 @@ import { timeoutGet } from "../utils";
 import { styles } from "./style";
 
 const DetailOrderScreen = (props) => {
-    console.log("detail-order-view");
     const routeParams = useRoute();
     const navigation = useNavigation();
     const layout = useWindowDimensions();

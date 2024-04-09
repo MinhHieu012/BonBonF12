@@ -6,6 +6,7 @@ import { useProduct } from "./useProduct"
 import useCart from "./useCart"
 import useCustomer from "./useCustomer"
 import { useImportWareHouse } from "./useImportWareHouse";
+import { useListImageProduct } from "./useListImageProduct";
 export { 
     useLocalStorage, 
     useAuth, 
@@ -15,4 +16,5 @@ export {
     useCustomer, 
     useCart, 
     useImportWareHouse,
+    useListImageProduct
 }
