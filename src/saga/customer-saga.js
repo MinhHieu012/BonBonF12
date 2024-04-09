@@ -38,9 +38,9 @@ function* handleSearchListCustomer({ payload }) {
                 result.push(listCustomerDataLocal[i])
             }
             if (result) {
-                yield put(customerAction.searchlistCustomerSuccess({ data: result }))
+                yield put(customerAction.searchListCustomerSuccess({ data: result }))
             } else {
-                yield put(customerAction.searchlistCustomerSuccess({ data: [] }))
+                yield put(customerAction.searchListCustomerSuccess({ data: [] }))
             }
         }
     } catch (error) {

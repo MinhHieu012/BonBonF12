@@ -267,19 +267,19 @@ export default function CartScreen() {
                     Description={isDeleteAll ? "Đã xóa tất cả sản phẩm" : `Đã xóa sản phẩm ${productDelete.productName}`}
                 />
             )}
-            <SwipeList
+            {/* <SwipeList
                 listProductSwipe={listProductSwipe}
                 updateCartCurrentData={updateCartCurrentData}
                 listCartProduct={listCartProduct}
                 isValidateDataCart={isValidateDataCart}
                 onOpenDeleteProductModal={onOpenDeleteProductModal}
-            />
-            {/* <SearchCustomerModal
+            /> */}
+            <SearchCustomerModal
                 isShowModal={isShowModal}
                 onChooseCustomer={onChooseCustomer}
                 CloseModal={toggleSearchCustomerModal}
                 isClearTextSearch={isClearTextSearch}
-            /> */}
+            />
             <DeleteProductModal
                 isOpen={isDeleteModal}
                 onClose={closeDeleteModal}
