@@ -1,5 +1,5 @@
 import { Dimensions, StyleSheet } from 'react-native'
-import {color} from '../../utils'
+import { color } from '../../utils'
 
 const styles = StyleSheet.create({
     container: {
@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: color.grayCart,
         backgroundColor: color.white,
+
     },
     boxImg: {
         width: Dimensions.get('window').width * 0.27,

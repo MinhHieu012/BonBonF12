@@ -1,6 +1,8 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from 'react-native'
+
 const styles = StyleSheet.create({
     boxTotalPrice: {
+        height: Dimensions.get('window').height * 0.2,
         position: 'relative',
         bottom: 0,
         left: 0,
@@ -14,13 +16,15 @@ const styles = StyleSheet.create({
     },
     container: {
         paddingTop: "4%",
-        alignItems: "center"
+        alignItems: "center",
     },
-    boxPrice: { marginBottom: "3%", },
+    boxPrice: {
+        marginBottom: "3%",
+    },
     btnCreateOrder: {
         width: "30%",
         height: "84%",
-    }
+    },
 });
 
 export default styles;

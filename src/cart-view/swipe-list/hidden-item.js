@@ -9,21 +9,25 @@ export default function HiddenItem({ data, onOpenDeleteProductModal, _rowMap }) 
             pl={2}
             justifyContent="flex-end">
             <Pressable
+                onPress={() => {
+                    onOpenDeleteProductModal(data, _rowMap);
+                }}
+
                 cursor="pointer"
                 _pressed={{ opacity: 0.5 }}>
                 <VStack
                     alignItems="center"
+                    justifyContent={"center"}
                     space={2}
                     backgroundColor="red"
-                    height={"100%"}
-                    alineItem={"center"}
-                    justifyContent={"center"}
-                    onPress={() => onOpenDeleteProductModal(data, _rowMap)} >
+                    height="100%"
+                    width={Dimensions.get("window").width * 0.3}
+                >
                     <AntDesign
                         name="delete"
                         size={24}
                         color="#fff"
-                        style={{ width: Dimensions.get('window').width * 0.3 }} />
+                    />
                 </VStack>
             </Pressable>
         </HStack>

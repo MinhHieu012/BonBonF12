@@ -29,7 +29,7 @@ export default function SwipeList({
                         );
                     }}
                     renderHiddenItem={(data, _rowMap) =>
-                        HiddenItem({ data: data, onOpenDeleteProductModal: onOpenDeleteProductModal, _rowMap: _rowMap })
+                        <HiddenItem data={data} onOpenDeleteProductModal={onOpenDeleteProductModal} _rowMap={_rowMap} />
                     }
                     rightOpenValue={-Dimensions.get("window").width * 0.3}
                     previewRowKey={"0"}

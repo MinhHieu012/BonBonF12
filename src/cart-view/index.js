@@ -105,6 +105,12 @@ export default function CartScreen() {
         setIsDeleteModal(false);
     };
 
+    const closeRow = (rowMap, rowKey) => {
+        if (rowMap[rowKey]) {
+            rowMap[rowKey].closeRow();
+        }
+    };
+
     const onOpenDeleteProductModal = (data, rowMap) => {
         setProductDelete({ index: data.index, productName: data.item.name });
         setIsDeleteModal(true);
@@ -252,12 +258,6 @@ export default function CartScreen() {
         }, timeoutGet);
     };
 
-    const closeRow = (rowMap, rowKey) => {
-        if (rowMap[rowKey]) {
-            rowMap[rowKey].closeRow();
-        }
-    };
-
     return (
         <SafeAreaView style={styles.container}>
             <Box style={styles.boxHeaderBack}>
@@ -292,7 +292,7 @@ export default function CartScreen() {
             <ConfirmOderCreationModal isOpen={isOpenModalCreateOrder} onClose={closeCreateOderModal} onConfirm={confirmCreateOrderModal} />
             {listProductSwipe.length === 0 ? (
                 <VStack alignItems="center" marginBottom={"60%"}>
-                    <AntDesign name="warning" size={54} color="#cccc" />
+                    <AntDesign name="warning" size={54} color="#ccc" />
                     <Text marginTop={"5%"} size="md">
                         Không có sản phẩm nào!
                     </Text>
