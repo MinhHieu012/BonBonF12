@@ -10,15 +10,12 @@ const { getItemData, getData, setData } = useLocalStorage();
 function* handleGetListProduct() {
     try {
         const listProductDataLocal = yield getData(listProductData.key)
-        // yield put({ type: 'listProductSuccess', data: listProductDataLocal });
         yield put(listProductAction.listProductSuccess({ data: listProductDataLocal }))
     } catch (error) {
-        // yield put({ type: 'listProductFailure', errorMess: error.message });
         yield put(listProductAction.listProductFailure({ errorMess: error.message }))
     }
 }
-
-function* handleCreateItemProduct({payload}) {
+function* handleCreateItemProduct({ payload }) {
     const itemProduct = payload;
     const handleFindItemProduct = (DataStoreProduct) => {
         const findDataStoreCart = DataStoreProduct.find(element =>
@@ -27,12 +24,19 @@ function* handleCreateItemProduct({payload}) {
             element.salePrice === itemProduct.salePrice &&
             element.codeProduct === itemProduct.codeProduct
         );
-
         if (!findDataStoreCart) {
             DataStoreProduct.push(itemProduct);
         } else {
             const totalQuantity = findDataStoreCart.quantity + itemProduct.quantity;
             findDataStoreCart.quantity = totalQuantity;
+            DataStoreProduct.forEach(element => {
+                if (element.floorPrice === itemProduct.floorPrice &&
+                    element.isSalePrice === itemProduct.isSalePrice &&
+                    element.salePrice === itemProduct.salePrice &&
+                    element.codeProduct === itemProduct.codeProduct) {
+                    element.quantity = totalQuantity;
+                }
+            })
         }
     }
     try {
@@ -64,6 +68,7 @@ function* handleCreateItemProduct({payload}) {
         yield put(cartAction.createItemProductFailure({ errorMess: error.message }))
     }
 }
+
 function* handleSearchListProduct(textSearch) {
     const { getData } = useLocalStorage();
     const handleCheckString = (inputText) => {

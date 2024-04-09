@@ -25,8 +25,6 @@ export default function ProductScreen(props) {
     } = useProduct();
     const { dispatchGetListCart, listCartData } = useCart();
 
-
-    console.log("list: ", listCartData);
     const { dispatchClearNotificationStore, notification } = useListOrder();
     const totalItemCart = useMemo(() => listCartData ? listCartData.length : 0, [listCartData])
     const navigation = useNavigation();
@@ -35,11 +33,7 @@ export default function ProductScreen(props) {
     const [listData, setListData] = useState(listProductData);
     const [isOpenModal, setIsOpenModal] = useState(false);
     const [isNotification, setIsNotification] = useState(false);
-
-
     const [isLoading, setLoading] = useState(false);
-
-
     const [product, setProduct] = useState({
         id: 0,
         name: "",
@@ -57,7 +51,6 @@ export default function ProductScreen(props) {
         phoneNumber: "",
     });
 
-
     const onGetTextSearch = (data) => {
         setLoading(true);
         setTimeout(() => {
@@ -74,17 +67,14 @@ export default function ProductScreen(props) {
         setIsOpenModal(false);
     };
 
-
     const handleNavigateCart = () => {
         navigation.navigate("CartScreen");
     };
-
 
     useEffect(() => {
         //notification không có trong code design
         // Đổi điều kiện thành true
         if (isNotification == true || notificationData == true) {
-
             dispatchGetListProduct();
             dispatchGetListCart();
         } else {
@@ -96,7 +86,6 @@ export default function ProductScreen(props) {
             }, timeoutGet);
         }
     }, [isFocused]);
-
 
     useMemo(() => {
         if (!listProductSearchData?.length && textSearch?.length) {
