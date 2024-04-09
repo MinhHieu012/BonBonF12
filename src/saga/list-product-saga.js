@@ -68,33 +68,39 @@ function* handleCreateItemProduct({ payload }) {
     }
 }
 
-function* handleSearchListProduct(textSearch) {
+function* handleSearchListProduct({ payload: textSearch }) {
     const { getData } = useLocalStorage();
     const handleCheckString = (inputText) => {
-        const formatTextSearch = textSearch.trim().toLowerCase();
-        const formatInputText = inputText.trim().toLowerCase();
+        const formatTextSearch = textSearch.trim().toLowerCase()
+        const formatInputText = inputText.trim().toLowerCase()
         const removeVietNameseTextSearch = removeVietnameseTones(formatTextSearch);
         const removeVietNameseInputText = removeVietnameseTones(formatInputText);
-        return (includes(removeVietNameseTextSearch, removeVietNameseInputText));
+        return removeVietNameseInputText.includes(removeVietNameseTextSearch)
     }
+
     try {
         const listProductDataLocal = yield getData(listProductData.key);
-        const result = [];
-        listProductDataLocal.forEach((item) => {
-            const codeProduct = item.codeProduct;
-            const name = item.name;
-            if (handleCheckString(codeProduct) || handleCheckString(name)) {
-                result.push(listProductDataLocal);
+        let result = []
+        for (let i = 0; i < listProductDataLocal.length; i++) {
+            if (handleCheckString(listProductDataLocal[i].codeProduct) || handleCheckString(listProductDataLocal[i].name)) {
+                result.push(listProductDataLocal[i])
             }
-        })
-
+        }
         if (result) {
-            yield put(wareHouseAction.searchListWareHouseSuccess({ data: result }));
+            yield put(listProductAction.searchListProductSuccess({
+                data: result
+            }))
         } else {
-            yield put(wareHouseAction.searchListWareHouseSuccess({ data: [] }))
+            yield put(listProductAction.searchListProductSuccess({
+                data: []
+            }))
         }
     } catch (error) {
-        yield put(wareHouseAction.searchListWareHouseFailure({ errorMess: error.message }))
+        yield put(
+            listProductAction.searchListProductFailure({
+                errorMess: error.message
+            })
+        )
     }
 }
 

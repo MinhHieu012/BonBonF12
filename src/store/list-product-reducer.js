@@ -3,13 +3,14 @@ import * as actionTypes from '../constants'
 const INITIAL_STATE = {
     isFetching: false,
     isNotification: false,
+    textSearch: "",
     isError: "",
     errorMess: "",
     listProductData: [],
     listProductSearchData: [],
 }
 
-const listProductTypes = {...actionTypes.listProductTypes}
+const listProductTypes = { ...actionTypes.listProductTypes }
 
 export default listProductReducer = (state = INITIAL_STATE, { type, payload }) => {
     switch (type) {
@@ -17,16 +18,13 @@ export default listProductReducer = (state = INITIAL_STATE, { type, payload }) =
             return {
                 ...state,
                 isFetching: true,
-                // textSearch: payload
             }
-
         case listProductTypes.GET_LIST_PRODUCT_SUCCESS:
             return {
                 ...state,
                 isFetching: false,
                 listProductData: payload.data
             }
-
         case listProductTypes.GET_LIST_PRODUCT_FAILURE:
             return {
                 ...state,
@@ -39,21 +37,18 @@ export default listProductReducer = (state = INITIAL_STATE, { type, payload }) =
                 ...state,
                 isNotification: false
             }
-
-
         case listProductTypes.ADD_ITEM_PRODUCT_REQUEST:
             return {
                 ...state,
                 isFetching: true
             }
         case listProductTypes.GET_LIST_PRODUCT_SUCCESS:
-        case listProductTypes.ADD_ITEM_PRODUCT_SUCCESS:   
+        case listProductTypes.ADD_ITEM_PRODUCT_SUCCESS:
             return {
                 ...state,
                 isFetching: false,
                 isNotification: true
             }
-
         case listProductTypes.ADD_ITEM_PRODUCT_FAILURE:
             return {
                 ...state,
@@ -61,21 +56,21 @@ export default listProductReducer = (state = INITIAL_STATE, { type, payload }) =
                 isError: true,
                 errorMess: payload.errorMess
             }
-
         case listProductTypes.SEARCH_LIST_PRODUCT_REQUEST:
             return {
+                ...state,
                 isFetching: true,
                 textSearch: payload
             }
-
         case listProductTypes.SEARCH_LIST_PRODUCT_SUCCESS:
             return {
+                ...state,
                 isFetching: false,
-                listProductData: payload.data
+                listProductSearchData: payload.data
             }
-
         case listProductTypes.SEARCH_LIST_PRODUCT_FAILURE:
             return {
+                ...state,
                 isFetching: false,
                 isError: false,
                 errorMess: payload.errorMess

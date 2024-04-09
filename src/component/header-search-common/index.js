@@ -29,9 +29,11 @@ const HeaderSearchCommon = (props) => {
     const onSearch = (keyword) => {
         setTextSearch(keyword);
     };
-    const debouncedHandleSearch = useCallback(() => {
-        debounce(onSearch);
-    }, timeout);
+    const debouncedHandleSearch = useCallback(
+        debounce((val) => {
+            onSearch(val)
+        }, timeout)
+    )
     const onClearTextSearch = () => {
         setTextSearch("");
         refInput.current.clear();

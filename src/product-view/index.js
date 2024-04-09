@@ -17,7 +17,7 @@ export default function ProductScreen(props) {
     const {
         notificationData,
         listProductData,
-        listProductSearchData,
+        listSearchProductData,
         textSearch,
         dispatchClearNotification,
         dispatchGetListProduct,
@@ -88,7 +88,7 @@ export default function ProductScreen(props) {
     }, [isFocused]);
 
     useMemo(() => {
-        if (!listProductSearchData?.length && textSearch?.length) {
+        if (!listSearchProductData?.length && textSearch?.length) {
             setIsEmptyList(true);
             return;
         }
@@ -107,12 +107,12 @@ export default function ProductScreen(props) {
             }, 1000 * 1.5);
         }
         setIsEmptyList(false);
-        if (listProductSearchData?.length && textSearch?.length) {
-            setListData(listProductSearchData);
+        if (listSearchProductData?.length && textSearch?.length) {
+            setListData(listSearchProductData);
         } else if (!textSearch?.length) {
             setListData(listProductData);
         }
-    }, [textSearch, listProductSearchData, listProductData, notificationData, notification]);
+    }, [textSearch, listSearchProductData, listProductData, notificationData, notification]);
 
     return (
         <>
