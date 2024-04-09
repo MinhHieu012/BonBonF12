@@ -9,9 +9,9 @@ import {
 } from "@gluestack-ui/themed";
 import { useNavigation } from "@react-navigation/native";
 import { color, formatMoney, setColorWithStatus } from "../../utils";
-const FlatListOrderCommon = ({ data }) => {
+export default function FlatListOrderCommon({ data }) {
 
-    {console.log("flat-list: ")}
+    console.log("flat-list: ")
 
     const navigation = useNavigation();
 
@@ -123,5 +123,3 @@ const FlatListOrderCommon = ({ data }) => {
         />
     );
 };
-
-export default FlatListOrderCommon;

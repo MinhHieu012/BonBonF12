@@ -4,7 +4,7 @@ import { Button, Text, VStack } from '@gluestack-ui/themed'
 import styles from './styles'
 import { color } from '../../utils'
 
-const EmptyDataCommon = (props) => {
+export default function EmptyDataCommon(props) {
     const { title, onHandlePress, isCheckShowButton } = props
     return (
         <VStack space={"lg"} style={styles.container}>
@@ -19,4 +19,3 @@ const EmptyDataCommon = (props) => {
         </VStack>
     )
 }
-export default EmptyDataCommon

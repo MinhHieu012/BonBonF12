@@ -3,7 +3,7 @@ import { EmptyDataCommon, FlatListOrderCommon, HeaderSearchCommon, LoadingCommon
 import { useListOrder } from '../hook'
 import { timeout, timeoutGet } from '../utils'
 
-const ListOrderScreen = (props) => {
+export default function ListOrderScreen(props) {
     const { listOrderData, dispatchGetListOrder } = useListOrder();
     const [listData, setListData] = useState(listOrderData);
     const [isEmptyList, setIsEmptyList] = useState(false);
@@ -58,4 +58,3 @@ const ListOrderScreen = (props) => {
     };
 }
 
-export default ListOrderScreen
