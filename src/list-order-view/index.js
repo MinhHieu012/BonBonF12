@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { EmptyDataCommon, FlatListOrderCommon, HeaderSearchCommon, LoadingCommon } from '../component'
-import {useListOrder} from '../hook'
+import { useListOrder } from '../hook'
 import { timeout, timeoutGet } from '../utils'
 
 const ListOrderScreen = (props) => {
@@ -27,7 +27,7 @@ const ListOrderScreen = (props) => {
 
         useMemo(() => {
             if (textSearch && listOrderSearchData.length === 0) {
-                return setIsEmptyList(true);                
+                return setIsEmptyList(true);
             }
 
             setIsEmptyList(false);

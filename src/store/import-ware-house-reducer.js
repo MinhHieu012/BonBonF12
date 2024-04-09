@@ -1,4 +1,4 @@
-import * as actionTypes from "../constants"
+import * as actionTypes from "../constants";
 
 const INITIAL_STATE = {
     listImportWareHouseData: [],
@@ -9,90 +9,93 @@ const INITIAL_STATE = {
     listOrderData: [],
     textSearch: "",
     listOrderSearchData: [],
-    listImportWareHouseSearchData:[]
-}
+    listImportWareHouseSearchData: [],
+};
 
-const importWareHouse = {...actionTypes.importWareHouse}
+const importWareHouse = { ...actionTypes.importWareHouse };
 
-export default listProductReducer = (state = INITIAL_STATE, action) => {
-    switch (action.type) {
+export default listProductReducer = (
+    state = INITIAL_STATE,
+    { type, payload }
+) => {
+    switch (type) {
         case importWareHouse.GET_IMPORT_WARE_HOUSE_REQUEST:
             return {
                 ...state,
-                isFetching: true
-            }
-        case importWareHouse.GET_IMPORT_WARE_HOUSE_SUCCESS: 
+                isFetching: true,
+            };
+        case importWareHouse.GET_IMPORT_WARE_HOUSE_SUCCESS:
             return {
                 ...state,
                 isFetching: false,
-                listCartData: action.payload
-            }
+                listImportWareHouseData: payload,
+            };
         case importWareHouse.GET_IMPORT_WARE_HOUSE_FAILURE:
             return {
                 ...state,
                 isFetching: false,
                 isError: true,
-                errorMess: action.payload.errorMess
-            }
+                errorMess: payload.errorMess,
+            };
 
-            case importWareHouse.ADD_IMPORT_WARE_HOUSE_REQUEST:
-            return {
-                ...state,
-                isFetching: true
-            }
-        case importWareHouse.ADD_IMPORT_WARE_HOUSE_SUCCESS: 
+        case importWareHouse.ADD_IMPORT_WARE_HOUSE_REQUEST:
             return {
                 ...state,
                 isFetching: true,
-                listImportWareHouseData: payload
-            }
+            };
+        case importWareHouse.ADD_IMPORT_WARE_HOUSE_SUCCESS:
+            return {
+                ...state,
+                isFetching: true,
+                listImportWareHouseData: payload,
+            };
         case importWareHouse.ADD_IMPORT_WARE_HOUSE_FAILURE:
             return {
                 ...state,
                 isFetching: false,
-               isError: false ,
-               errorMess: payload.errorMess
-            }
+                isError: false,
+                errorMess: payload.errorMess,
+            };
 
         case importWareHouse.UPDATE_IMPORT_WARE_HOUSE_REQUEST:
             return {
                 ...state,
                 isFetching: true,
-                textSearch: payload
-            }
+                textSearch: payload,
+            };
         case importWareHouse.UPDATE_IMPORT_WARE_HOUSE_SUCCESS:
             return {
                 ...state,
                 isFetching: false,
-                listImportWareHouseData: payload.data
-            }
+                listImportWareHouseData: payload.data,
+            };
         case importWareHouse.UPDATE_IMPORT_WARE_HOUSE_FAILURE:
             return {
                 ...state,
                 isFetching: false,
                 isError: true,
-                errorMess: payload.errorMess
-            }
+                errorMess: payload.errorMess,
+            };
         case importWareHouse.SEARCH_IMPORT_WARE_HOUSE_REQUEST:
             return {
                 ...state,
                 isFetching: true,
                 textSearch: payload,
-            }
+            };
         case importWareHouse.SEARCH_IMPORT_WARE_HOUSE_SUCCESS:
             return {
                 ...state,
                 isFetching: false,
-                listImportWareHouseSearchData: payload.data
-            }
+                listImportWareHouseSearchData: payload.data,
+            };
         case importWareHouse.SEARCH_IMPORT_WARE_HOUSE_FAILURE:
             return {
                 ...state,
                 isFetching: false,
                 isError: false,
-                errorMess: payload.errorMess
-            }
+                errorMess: payload.errorMess,
+            };
         default:
-            return state
+            return state;
     }
-}
+};

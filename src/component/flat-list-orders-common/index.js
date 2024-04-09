@@ -10,6 +10,9 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { color, formatMoney, setColorWithStatus } from "../../utils";
 const FlatListOrderCommon = ({ data }) => {
+
+    {console.log("flat-list: ")}
+
     const navigation = useNavigation();
 
     const onPressCard = (value) => {
