@@ -39,20 +39,11 @@ export default function ListOrderScreen(props) {
             }
         }, [textSearch, listOrderSearchData, listOrderData]);
 
-        if (isEmptyList === true) {
-            return <EmptyDataCommon />
-        }
-        if (isEmptyList === false) {
-            return <FlatListOrderCommon data={listData} />
-        }
-        <LoadingCommon isOpen={isLoading} />
-
         return (
             <>
                 <HeaderSearchCommon {...props} onGetTextSearch={onGetTextSearch} />
-                <EmptyDataCommon />
-                <FlatListOrderCommon />
-                <LoadingCommon />
+                {isEmptyList ? <EmptyDataCommon /> : <FlatListOrderCommon data={listData} />}
+                <LoadingCommon isOpen={isLoading} />
             </>
         );
     };

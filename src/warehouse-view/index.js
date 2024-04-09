@@ -1,73 +1,52 @@
-import {
-    CardProductCommon,
-    LoadingCommon,
-    HeaderSearchCommon,
-    ToastNotificationCommon,
-    EmptyDataCommon
-} from "../component";
 import { useEffect, useMemo, useState } from "react";
 import { useIsFocused } from "@react-navigation/native";
+import { CardProductCommon, EmptyDataCommon, HeaderSearchCommon, LoadingCommon, ToastNotificationCommon } from "../component";
 import { useWareHouse } from "../hook";
 import { timeout, timeoutGet } from "../utils";
-import { UpdatePriceProductModal } from "./update-price-product-modal";
-import { styles } from "./style";
-const WarehouseScreen = (props) => {
+import UpdatePriceProductModal from "./update-price-product-modal";
+
+const WareHouseScreen = (props) => {
     const isFocused = useIsFocused();
+    const [isEmptyList, setIsEmptyList] = useState(false);
+    const [listData, setListData] = useState(listWareHouseData);
+    const [isUpdatePriceModal, setIsUpdatePriceModal] = useState(false);
+    const [productSelected, setProductSelected] = useState({});
     const [isLoading, setLoading] = useState(false);
+    const [isNotification, setIsNotification] = useState(notificationData);
+
     const {
         listWareHouseData,
         listWareHouseSearchData,
         textSearch,
         notificationData,
-        dispatchSearchListWareHouse,
         dispatchGetListWareHouse,
         dispatchClearNotificationWareHouse,
         dispatchUpdateProductPrice,
+        dispatchSearchListWareHouse,
     } = useWareHouse();
-    const [isUpdatePriceModal, setIsUpdatePriceModal] = useState(false);
-    const [productSelected, setProductSelected] = useState({});
-    const [isNotification, setIsNotification] = useState(notificationData);
-    const updateProductPrice = (data) => {
-        dispatchUpdateProductPrice(data);
-        setIsUpdatePriceModal(false);
-    };
-    const onSelectProduct = (data) => {
-        setProductSelected(data);
-        setIsUpdatePriceModal(true);
-    };
 
-    const useMemo = () => {
-        if (listWareHouseSearchData.length === 0 && textSearch.length > 0) {
-            setIsEmptyList(true);
-        }
-        if (notificationData) {
-            setIsNotification(true);
-            setTimeout(() => {
-                dispatchClearNotificationWareHouse();
-            }, 1000 * 1.5)
-        } else {
-            setIsEmptyList(false);
-        }
-        if (listWareHouseSearchData.length > 0 && textSearch.length > 0) {
-            setListData(listWareHouseSearchData);
-        } else if (textSearch.length === 0) {
-            setListData(listWareHouseData);
-        }
-        const closeUpdatePriceModal = () => {
-            setIsUpdatePriceModal(false);
-        }
-        const updateProductPrice = (data) => {
-            dispatchUpdateProductPrice(data);
-            setIsUpdatePriceModal(false);
-        }
-    };
+
     const onGetTextSearch = (data) => {
         setLoading(true);
         setTimeout(() => {
             dispatchSearchListWareHouse(data);
             setLoading(false);
-        }, timeout)
-    }
+        }, timeout);
+    };
+    const updateProductPrice = (data) => {
+        dispatchUpdateProductPrice(data);
+        setIsUpdatePriceModal(false);
+    };
+    const closeUpdatePriceModal = () => {
+        setIsUpdatePriceModal(false);
+    };
+
+
+    const onSelectProduct = (data) => {
+        setProductSelected(data);
+        setIsUpdatePriceModal(true);
+    };
+
 
     useEffect(() => {
         setLoading(true);
@@ -76,15 +55,42 @@ const WarehouseScreen = (props) => {
             setLoading(false);
         }, timeoutGet);
     }, [isFocused]);
+
+
+    useMemo(() => {
+        if (!listWareHouseSearchData?.length && textSearch?.length) {
+            setIsEmptyList(true);
+            return;
+        }
+        if (notificationData) {
+            setIsNotification(true);
+            setTimeout(() => {
+                setIsNotification(false);
+                dispatchClearNotificationWareHouse();
+            }, 1000 * 1.5);
+        }
+        setIsEmptyList(false);
+        if (listWareHouseSearchData?.length && textSearch?.length) {
+            setListData(listWareHouseSearchData);
+        } else if (!textSearch?.length) {
+            setListData(listWareHouseData);
+        }
+    }, [textSearch, listWareHouseSearchData, listWareHouseData, notificationData]);
     return (
         <>
             <HeaderSearchCommon {...props} onGetTextSearch={onGetTextSearch} />
-            <CardProductCommon onShowModal={onSelectProduct} data={listWareHouseData} {...props} />
-            <EmptyDataCommon />
+            {isEmptyList ? <EmptyDataCommon /> : <CardProductCommon data={listData} {...props} onShowModal={onSelectProduct} />}
             <LoadingCommon isOpen={isLoading} />
-            <UpdatePriceProductModal updatePrice={updateProductPrice} data={productSelected} />
-            {!isNotification && <ToastNotificationCommon Info="Cập nhật giá sàn thành công !!!" Description="Đã cập nhất giá sàn thành công" />}
+            <UpdatePriceProductModal
+                isOpen={isUpdatePriceModal}
+                closeModal={closeUpdatePriceModal}
+                updatePrice={updateProductPrice}
+                data={productSelected}
+            />
+            {!isNotification ? null : (
+                <ToastNotificationCommon Info="Cập nhật giá sàn thành công !!!" Description="Đã cập nhất giá sàn thành công" />
+            )}
         </>
     );
-};
-export default WarehouseScreen;
+}
+export default WareHouseScreen

@@ -1,4 +1,3 @@
-
 import { AntDesign, FontAwesome } from '@expo/vector-icons'
 import { Button, Text, VStack } from '@gluestack-ui/themed'
 import styles from './styles'
@@ -19,3 +18,4 @@ export default function EmptyDataCommon(props) {
         </VStack>
     )
 }
+

@@ -1,6 +1,6 @@
 import * as actionTypes from "../constants";
 const INITIAL_STATE = {
-  textSearch:"",
+  textSearch: "",
   isFetching: false,
   isError: "",
   errorMess: "",
@@ -9,10 +9,9 @@ const INITIAL_STATE = {
   listWareHouseSearchData: [],
 };
 
-const wareHouseTypes = {...actionTypes.wareHouseTypes}
-const listProductTypes = {...actionTypes.listProductTypes}
+const wareHouseTypes = { ...actionTypes.wareHouseTypes }
+const listProductTypes = { ...actionTypes.listProductTypes }
 export default listProductReducer = (state = INITIAL_STATE, action) => {
-
   switch (action.type) {
     case wareHouseTypes.GET_WARE_HOUSE_REQUEST:
     case wareHouseTypes.SEARCH_WARE_HOUSE_REQUEST:
@@ -22,11 +21,16 @@ export default listProductReducer = (state = INITIAL_STATE, action) => {
         textSearch: action.payload,
       };
     case wareHouseTypes.GET_WARE_HOUSE_SUCCESS:
-    case wareHouseTypes.SEARCH_WARE_HOUSE_SUCCESS:
       return {
         ...state,
         isFetching: false,
         listWareHousetData: action.payload.data,
+      };
+    case wareHouseTypes.SEARCH_WARE_HOUSE_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        listWareHouseSearchData: action.payload.data,
       };
     case wareHouseTypes.GET_WARE_HOUSE_FAILURE:
     case wareHouseTypes.SEARCH_WARE_HOUSE_FAILURE:

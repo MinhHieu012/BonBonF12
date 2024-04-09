@@ -9,10 +9,8 @@ import {
 } from "@gluestack-ui/themed";
 import { useNavigation } from "@react-navigation/native";
 import { color, formatMoney, setColorWithStatus } from "../../utils";
+
 export default function FlatListOrderCommon({ data }) {
-
-    console.log("flat-list: ")
-
     const navigation = useNavigation();
 
     const onPressCard = (value) => {
