@@ -3,7 +3,7 @@ import { Box, Text, VStack } from "@gluestack-ui/themed";
 import { useNavigation } from "@react-navigation/native";
 import { cloneDeep, isEmpty } from "lodash";
 import { useEffect, useMemo, useState } from "react";
-import { SafeAreaView } from "react-native";
+import { LogBox, SafeAreaView } from "react-native";
 import { HeaderBackCommon, ToastNotificationCommon, TotalPriceCommon } from "../component";
 import { useCart, useListOrder, useProduct } from "../hook";
 import { shipPrice, timeoutGet } from "../utils";
@@ -267,13 +267,13 @@ export default function CartScreen() {
                     Description={isDeleteAll ? "Đã xóa tất cả sản phẩm" : `Đã xóa sản phẩm ${productDelete.productName}`}
                 />
             )}
-            {/* <SwipeList
+            <SwipeList
                 listProductSwipe={listProductSwipe}
                 updateCartCurrentData={updateCartCurrentData}
                 listCartProduct={listCartProduct}
                 isValidateDataCart={isValidateDataCart}
                 onOpenDeleteProductModal={onOpenDeleteProductModal}
-            /> */}
+            />
             {/* <SearchCustomerModal
                 isShowModal={isShowModal}
                 onChooseCustomer={onChooseCustomer}
