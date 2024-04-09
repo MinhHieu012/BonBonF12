@@ -3,7 +3,7 @@ import { Box, Text, VStack } from "@gluestack-ui/themed";
 import { useNavigation } from "@react-navigation/native";
 import { cloneDeep, isEmpty } from "lodash";
 import { useEffect, useMemo, useState } from "react";
-import { LogBox, SafeAreaView } from "react-native";
+import { SafeAreaView } from "react-native";
 import { HeaderBackCommon, ToastNotificationCommon, TotalPriceCommon } from "../component";
 import { useCart, useListOrder, useProduct } from "../hook";
 import { shipPrice, timeoutGet } from "../utils";
@@ -33,6 +33,7 @@ export default function CartScreen() {
         index: 0,
         productName: "Default Name Product",
     });
+
     const [cartTotalPrice, setCartTotalPrice] = useState(0);
     const [arrCodeProduct, setArrCodeProduct] = useState([]);
 
@@ -55,8 +56,8 @@ export default function CartScreen() {
     }, []);
 
     useEffect(() => {
-        if (listCartData.listProduct) {
-            setListLocalProduct(listCartData.listProduct);
+        if (listCartData.length > 0) {
+            setListLocalProduct(listCartData);
         }
         getDataValidate();
     }, [listCartData]);
@@ -103,6 +104,7 @@ export default function CartScreen() {
     const closeDeleteModal = () => {
         setIsDeleteModal(false);
     };
+
     const onOpenDeleteProductModal = (data, rowMap) => {
         setProductDelete({ index: data.index, productName: data.item.name });
         setIsDeleteModal(true);
@@ -267,13 +269,13 @@ export default function CartScreen() {
                     Description={isDeleteAll ? "Đã xóa tất cả sản phẩm" : `Đã xóa sản phẩm ${productDelete.productName}`}
                 />
             )}
-            {/* <SwipeList
+            <SwipeList
                 listProductSwipe={listProductSwipe}
                 updateCartCurrentData={updateCartCurrentData}
                 listCartProduct={listCartProduct}
                 isValidateDataCart={isValidateDataCart}
                 onOpenDeleteProductModal={onOpenDeleteProductModal}
-            /> */}
+            />
             <SearchCustomerModal
                 isShowModal={isShowModal}
                 onChooseCustomer={onChooseCustomer}

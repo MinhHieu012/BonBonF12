@@ -7,6 +7,7 @@ import styles from '../product-card/style'
 import { useIsFocused } from "@react-navigation/native";
 
 export default function ProductCard({ data, index, onUpdateCart, validateData, isValidateDataCart }) {
+
     const [productUpdate, setProductUpdate] = useState({
         index: 0,
         isSalePrice: true,
@@ -54,7 +55,7 @@ export default function ProductCard({ data, index, onUpdateCart, validateData, i
     const onChangeInputQuantity = (data) => {
         const quantity = parseInt(handleCheckEmpty(data));
         setProductUpdate({
-            ...ProductUpdate,
+            ...productUpdate,
             quantity: quantity
         });
         setIsDefaultData(false);
@@ -64,7 +65,7 @@ export default function ProductCard({ data, index, onUpdateCart, validateData, i
 
     const onPressUpButton = () => {
         setProductUpdate({
-            ...ProductUpdate,
+            ...productUpdate,
             quantity: productUpdate.quantity + 1
         });
         setIsDefaultData(false);
@@ -74,7 +75,7 @@ export default function ProductCard({ data, index, onUpdateCart, validateData, i
 
     const onPressDownButton = () => {
         setProductUpdate({
-            ...ProductUpdate,
+            ...productUpdate,
             quantity: productUpdate.quantity - 1
         });
         setIsDefaultData(false);
@@ -86,13 +87,13 @@ export default function ProductCard({ data, index, onUpdateCart, validateData, i
         const newData = formatMoneyStringToNumber(data);
         if (newData === 0) {
             setProductUpdate({
-                ...ProductUpdate,
+                ...productUpdate,
                 salePrice: parseInt(handleCheckEmpty(newData)),
                 isSalePrice: true
             });
         } else {
             setProductUpdate({
-                ...ProductUpdate,
+                ...productUpdate,
                 salePrice: parseInt(handleCheckEmpty(newData))
             });
         }
@@ -130,10 +131,8 @@ export default function ProductCard({ data, index, onUpdateCart, validateData, i
         <HStack
             style={styles.contentCart}
             justifyContent="space-between" >
-            XGH-HTML_PC-1
             <View
                 style={styles.boxImg} >
-                XGH-HTML_PC-2
                 <Image
                     style={styles.imgProduct}
                     alt="Ảnh thuốc"
@@ -142,7 +141,6 @@ export default function ProductCard({ data, index, onUpdateCart, validateData, i
             <VStack
                 style={styles.inforProduct}
                 justifyContent="center" >
-                XGH-HTML_PC-4
                 <Text
                     size="md"
                     fontWeight="bold"
@@ -152,13 +150,10 @@ export default function ProductCard({ data, index, onUpdateCart, validateData, i
                     children={data.name} >
                 </Text>
                 <VStack>
-                    XGH-HTML_PC-6
                     <HStack
                         justifyContent="space-between"
                         style={{ marginBottom: Dimensions.get('window').height * 0.00505 }} >
-                        XGH-HTML_PC-7
                         <VStack>
-                            XGH-HTML_PC-8
                             <Text size="sm"
                                 color={color.blueSky}
                                 children={formatMoney(data.floorPrice)} >
@@ -170,14 +165,12 @@ export default function ProductCard({ data, index, onUpdateCart, validateData, i
                         </VStack>
                         <VStack
                             justifyContent="space-between">
-                            XGH-HTML_PC-11
                             <Ionicons
                                 name="md-close"
                                 size={20}
                                 color={color.blueSky} />
                         </VStack>
                         <Box style={styles.inpQuantity}>
-                            XGH-HTML_PC-13
                             <Input
                                 width="75%"
                                 h={32}
@@ -188,7 +181,7 @@ export default function ProductCard({ data, index, onUpdateCart, validateData, i
                                     textAlign="center"
                                     size=""
                                     color={color.blueSky}
-                                    value={productUpdate.quantity.toString()}
+                                    value={productUpdate.quantity}
                                     onChangeText={onChangeInputQuantity} />
                             </Input>
                         </Box>
@@ -198,7 +191,6 @@ export default function ProductCard({ data, index, onUpdateCart, validateData, i
                             isDisabled={data.isChange}
                             onPress={onPressUpButton} >
                             <ButtonIcon>
-                                XGH - HTML_PC - 17
                                 <AntDesign
                                     name="caretup"
                                     size={13}
@@ -206,11 +198,11 @@ export default function ProductCard({ data, index, onUpdateCart, validateData, i
                             </ButtonIcon>
                         </Button>
                     </HStack>
-                    XGH - HTML_PC - 19
+                    {/* XGH - HTML_PC - 19 */}
                     <HStack
                         justifyContent="space-between"
                         alignItems="center" >
-                        XGH-HTML_PC-20
+                        {/* XGH-HTML_PC-20 */}
                         <Button
                             style={styles.btnSalePrice}
                             textAlign="center"
@@ -235,9 +227,9 @@ export default function ProductCard({ data, index, onUpdateCart, validateData, i
                                 onChangeText={onChangeInputSalePrice} />
                         </Input>
                         <VStack justifyContent="center">
-                            XGH-HTML_PC-25
+                            {/* XGH-HTML_PC-25 */}
                             <Text
-                                textAlign=" center"
+                                textAlign="center"
                                 size={"sm"}
                                 color={color.plumRed}
                                 children={formatMoney(sumPrice)} >
@@ -249,7 +241,7 @@ export default function ProductCard({ data, index, onUpdateCart, validateData, i
                             isDisabled={data.isChange || productUpdate.quantity <= 1}
                             onPress={onPressDownButton} >
                             <ButtonIcon>
-                                XGH - HTML_PC - 28
+                                {/* XGH - HTML_PC - 28 */}
                                 <AntDesign
                                     name="caretdown"
                                     size={13}
@@ -267,7 +259,7 @@ export default function ProductCard({ data, index, onUpdateCart, validateData, i
                 <FormControlErrorText
                     fontSize={10} style={{ display: showValidateSalePrice ? 'block' : 'none' }} >{textConst.VALIDATE_EDIT_PRICE}
                 </FormControlErrorText>
-            </VStack >
-        </HStack >
+            </VStack>
+        </HStack>
     );
 }

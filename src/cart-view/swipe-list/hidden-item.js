@@ -1,4 +1,4 @@
-import Dimensions from 'react-native'
+import { Dimensions } from 'react-native'
 import { HStack, Pressable, VStack } from '@gluestack-ui/themed'
 import { AntDesign } from '@expo/vector-icons'
 
@@ -8,11 +8,9 @@ export default function HiddenItem({ data, onOpenDeleteProductModal, _rowMap }) 
             flex={1}
             pl={2}
             justifyContent="flex-end">
-            XGH-HTML_HI-1
             <Pressable
                 cursor="pointer"
                 _pressed={{ opacity: 0.5 }}>
-                XGH-HTML_HI-2
                 <VStack
                     alignItems="center"
                     space={2}
