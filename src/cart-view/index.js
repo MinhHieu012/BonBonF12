@@ -1,157 +1,69 @@
-import { isEmpty, cloneDeep } from 'lodash'
-import { useEffect, useState, useMemo } from 'react'
-import { SafeAreaView } from 'react-native'
-import { AntDesign, FontAwesome, Ionicons } from '@expo/vector-icons'
-import { Box, Text, VStack } from '@gluestack-ui/themed'
-import { color, formatMoney, textConst } from '../utils'
-import styles from '../cart-view/style'
-import { HeaderBackCommon, TotalPriceCommon, ToastNotificationCommon } from '../component'
-import SwipeList from './swipe-list'
-import { useCart, useListOrder, useProduct } from '../hook'
-import shipPrice from '../utils'
-import ConfirmOderCreationModal from "./confirm-order-creation-modal";
-import DeleteProductModal from './delete-product-modal'
+import { AntDesign } from "@expo/vector-icons";
+import { Box, Text, VStack } from "@gluestack-ui/themed";
 import { useNavigation } from "@react-navigation/native";
-import SearchCustomerModal from './search-customer-modal'
+import { cloneDeep, isEmpty } from "lodash";
+import { useEffect, useMemo, useState } from "react";
+import { SafeAreaView } from "react-native";
+import { HeaderBackCommon, ToastNotificationCommon, TotalPriceCommon } from "../component";
+import { useCart, useListOrder, useProduct } from "../hook";
+import { shipPrice, timeoutGet } from "../utils";
+import ConfirmOderCreationModal from "./confirm-order-creation-modal";
+import DeleteProductModal from "./delete-product-modal";
+import SearchCustomerModal from "./search-customer-modal";
+import styles from "./style";
+import SwipeList from "./swipe-list";
 
-const CartScreen = () => {
-    let listCartProduct = [];
+let listCartProduct = [];
+
+export default function CartScreen() {
     const navigate = useNavigation();
     const { listCartData, dispatchGetListCart, dispatchUpdateCart } = useCart();
     const { listProductData } = useProduct();
-    const [listLocalProduct, setListLocalProduct] = useState([]);
-    const [cartTotalPrice, setCartTotalPrice] = useState(0);
-    const [cartCustomer, setCartCustomer] = useState({});
-    const [isValidateDataCart, setIsValidateDataCart] = useState(false);
-    const [isOpenModalCreateOrder, setIsOpenModalCreateOrder] = useState(false);
-    const [arrCodeProduct, setArrCodeProduct] = useState([]);
-    const [isDeleteModal,setIsDeleteModal ] = useState(false);
-    const [productDelete,setProductDelete] = useState({index: 0, productName: ""});
-    const [isDeleteAll,setIsDeleteAll] = useState(false);
-    const [isNotification,setNotification ] = useState(false);
     const { dispatchCreateOder } = useListOrder();
-    const [onClose, setOnClose] = useState(true);
-    const onBack = () => {
-        navigate("ProductScreen");
-        const dataToStore = mergeDataProductChange();
-        dispatchUpdateCart({
-            id: listCartData.id,
-            customer: cartCustomer,
-            listProduct: dataToStore,
-        });
+    const [listLocalProduct, setListLocalProduct] = useState([]);
+    const [isClearTextSearch, setClearTextSearch] = useState(false);
+    const [isShowModal, setShowModal] = useState(false);
+    const [isNotification, setNotification] = useState(false);
+    const [isDeleteModal, setIsDeleteModal] = useState(false);
+    const [isDeleteAll, setIsDeleteAll] = useState(false);
+    const [isOpenModalCreateOrder, setIsOpenModalCreateOrder] = useState(false);
+    const [isValidateDataCart, setIsValidateDataCart] = useState(false);
+    const [cartCustomer, setCartCustomer] = useState({});
+    const [productDelete, setProductDelete] = useState({
+        index: 0,
+        productName: "Default Name Product",
+    });
+    const [cartTotalPrice, setCartTotalPrice] = useState(0);
+    const [arrCodeProduct, setArrCodeProduct] = useState([]);
 
-    };
-    const closeRow = (rowMap ,rowKey )=>{
-        if (rowMap[rowKey]) {
-            rowMap[rowKey].closeRow();
-          }
-    };
-    const onOpenDeleteProductModal  = ({data,rowMap})=>{
-        setProductDelete(data.index, data.item.name);
-        setIsDeleteModal(true);
-        setIsDeleteAll(false);
-        closeRow(rowMap,data.item.key);
-    };
-    const onOpenDeleteAllModal = ()=>{
-        setIsDeleteModal(true);
-        setIsDeleteAll(true);
-    };
-    const deleteCartCurrentData = (productIndex)=>{
-        if (isDeleteAll){
-            setListLocalProduct([]);
-        }else{
-            const filterProductData = listLocalProduct.filter((product,index) => productIndex!=index);
-            setListLocalProduct(filterProductData);
+    const listProductSwipe = useMemo(
+        () =>
+            listLocalProduct.map((item, index) => {
+                return { ...item, key: index + 1 };
+            }),
+        [listLocalProduct]
+    );
+
+    useMemo(() => {
+        if (listCartData.customer) {
+            setCartCustomer(listCartData.customer);
         }
-    }
-    const submitDeleteProduct = ()=>{
-        deleteCartCurrentData(productDelete.index);
-        setIsDeleteModal(false);
-        setNotification(true);
-        setTimeout(() => {
-            setNotification(false);
-          }, 1000 * 1.5);
-    }
+    }, [listCartData.customer]);
+
+    useEffect(() => {
+        dispatchGetListCart();
+    }, []);
+
     useEffect(() => {
         if (listCartData.listProduct) {
-            setListLocalProduct(listCartData.listProduct)
+            setListLocalProduct(listCartData.listProduct);
         }
+        getDataValidate();
     }, [listCartData]);
-
-    const listProductSwipe = useMemo(() => {
-        listLocalProduct.map((item, index) => {
-            return {
-                ...item,
-                key: index + 1
-            };
-        });
-    }, [listLocalProduct]);
-    
-    const matchTotalPrice = () => {
-        if (listCartProduct.length > 0) {
-            const totalPrice = listCartProduct + shipPrice;
-            setCartTotalPrice(totalPrice);
-        } else {
-            setCartTotalPrice(0);
-        }
-    };
-
-    const getDataValidate = () => {
-        const updatedListCartProduct = listLocalProduct.map((item, index) => {
-            const foundProduct = listProductData.find(product => product.codeProduct === item.codeProduct);
-            if (foundProduct) {
-                return {
-                    index,
-                    ...item,
-                    quantity: foundProduct.quantity,
-                    currentQuantity: item.quantity,
-                    isValidateMaxQuantity: false,
-                    isValidateMinQuantity: false,
-                    isValidateSalePrice: false
-                };
-            }
-        });
-        getListCodeProductCart()
-        matchTotalPrice();
-    };
-
-    const mergeDataProductChange = () => {
-        const clonedProductData = cloneDeep(listLocalProduct);
-
-        for (let i = 0; i < clonedProductData.length; i++) {
-            for (let j = 0; j < listCartProduct.length; j++) {
-                if (clonedProductData[i].codeProduct === listCartProduct[j].codeProduct) {
-                    clonedProductData[i].isSalePrice = listCartProduct[j].isSalePrice;
-                    clonedProductData[i].quantity = listCartProduct[j].currentQuantity;
-                    clonedProductData[i].salePrice = listCartProduct[j].salePrice;
-                    break;
-                }
-            }
-        }
-
-        return clonedProductData;
-    };
-
-
-    const getListCodeProductCart = () => {
-        const arrCode = listCartProduct.map(item => item.codeProduct);
-        const removeDuplicateCode = Array.from(new Set(arrCode));
-        setArrCodeProduct(removeDuplicateCode);
-    }
-
-    const updateDataValidate = (data) => {
-        setIsValidateDataCart(false);
-        listCartProduct.forEach((item, index) => {
-            if (index === data.index) {
-                item.currentQuantity = data.quantity;
-                item.salePrice = data.salePrice;
-            }
-        });
-    }
 
     useEffect(() => {
         getDataValidate();
-    }, [listLocalProduct, listCartData]);
+    }, [listLocalProduct]);
 
     const updateCartCurrentData = (data) => {
         listCartProduct[data.index].isSalePrice = data.isSalePrice;
@@ -159,115 +71,241 @@ const CartScreen = () => {
         listCartProduct[data.index].currentQuantity = data.quantity;
         updateDataValidate(data);
         matchTotalPrice();
-    }
+    };
+
+    const mergeDataProductChange = () => {
+        const clonedProductData = cloneDeep(listLocalProduct);
+        clonedProductData.forEach((_itemClone, indexClone) => {
+            listCartProduct.forEach((item, index) => {
+                if (indexClone === index) {
+                    clonedProductData[indexClone].isSalePrice = item.isSalePrice;
+                    clonedProductData[indexClone].quantity = item.currentQuantity;
+                    clonedProductData[indexClone].salePrice = item.salePrice;
+                }
+            });
+        });
+        return clonedProductData;
+    };
+
+    const deleteCartCurrentData = (productIndex) => {
+        if (isDeleteAll) {
+            setListLocalProduct([]);
+        } else {
+            const filterProductData = listLocalProduct.filter((_item, index) => productIndex !== index);
+            setListLocalProduct(filterProductData);
+        }
+    };
+
+    const closeCreateOderModal = () => {
+        setIsOpenModalCreateOrder(false);
+    };
+
+    const closeDeleteModal = () => {
+        setIsDeleteModal(false);
+    };
+    const onOpenDeleteProductModal = (data, rowMap) => {
+        setProductDelete({ index: data.index, productName: data.item.name });
+        setIsDeleteModal(true);
+        setIsDeleteAll(false);
+        closeRow(rowMap, data.item.key);
+    };
+
+    const onOpenDeleteAllModal = () => {
+        setIsDeleteAll(true);
+        setIsDeleteModal(true);
+    };
+
+    const submitDeleteProduct = () => {
+        deleteCartCurrentData(productDelete.index);
+        setIsDeleteModal(false);
+        setNotification(true);
+        setTimeout(() => {
+            setNotification(false);
+        }, 1000 * 1.5);
+    };
+
+    const onBack = () => {
+        const dataToStore = mergeDataProductChange();
+        dispatchUpdateCart({
+            id: listCartData.id,
+            customer: cartCustomer,
+            listProduct: dataToStore,
+        });
+        navigate.navigate("ProductScreen");
+    };
+
+    const toggleSearchCustomerModal = () => {
+        setShowModal(!isShowModal);
+        setClearTextSearch(!isClearTextSearch);
+    };
+
+    const onChooseCustomer = (data) => {
+        setCartCustomer(data);
+        setShowModal(false);
+    };
+
+    const matchTotalPrice = () => {
+        if (listCartProduct.length > 0) {
+            const totalPrice = listCartProduct.reduce((sum, item) => {
+                let sumPriceProduct;
+                if (item.isSalePrice) {
+                    sumPriceProduct = (item.floorPrice + item.salePrice) * item.currentQuantity;
+                } else {
+                    sumPriceProduct = (item.floorPrice - item.salePrice) * item.currentQuantity;
+                }
+                return sum + sumPriceProduct;
+            }, shipPrice);
+            setCartTotalPrice(totalPrice);
+        } else {
+            setCartTotalPrice(0);
+        }
+    };
+
+    const getDataValidate = () => {
+        listCartProduct = listLocalProduct.map((item, index) => {
+            for (let i in listProductData) {
+                if (listProductData[i].codeProduct === item.codeProduct) {
+                    return {
+                        index,
+                        ...item,
+                        quantity: listProductData[i].quantity,
+                        currentQuantity: item.quantity,
+                        isValidateMaxQuantity: false,
+                        isValidateMinQuantity: false,
+                        isValidateSalePrice: false,
+                    };
+                }
+            }
+        });
+        getListCodeProductCart();
+        matchTotalPrice();
+    };
+
+    const updateDataValidate = (data) => {
+        setIsValidateDataCart(false);
+        listCartProduct?.forEach((item, index) => {
+            if (item.index === data.index) {
+                listCartProduct[index].currentQuantity = data.quantity;
+                listCartProduct[index].salePrice = data.salePrice;
+            }
+        });
+    };
+
+    const getListCodeProductCart = () => {
+        const arrCode = listCartProduct?.map((item) => item.codeProduct);
+        let removeDuplicateCode = arrCode.filter((value, index) => arrCode.indexOf(value) === index);
+        setArrCodeProduct(removeDuplicateCode);
+    };
 
     const checkValidateQuantity = () => {
-        let arrCheckQuantity = [];
-        arrCodeProduct.forEach(code => {
-            let totalQuantity = listCartProduct.reduce((total, item) => {
-                if (item.codeProduct === code) {
-                    return total + item.quantity;
+        const arrCheckQuantity = [];
+        arrCodeProduct.forEach((codeProduct) => {
+            const totalQuantity = listCartProduct.reduce((total, item) => {
+                if (item.codeProduct === codeProduct) {
+                    return total + item.currentQuantity;
                 }
                 return total;
             }, 0);
-            listCartProduct.forEach(product => {
-                if (product.codeProduct === code) {
-                    product.isValidateMinQuantity = (product.currentQuantity === 0);
-                    product.isValidateMaxQuantity = (totalQuantity > product.quantity || product.currentQuantity === 0);
-                    if (totalQuantity > product.quantity || product.currentQuantity === 0) {
-                        arrCheckQuantity.push(product);
+            listCartProduct.forEach((item, index) => {
+                if (item.codeProduct === codeProduct) {
+                    listCartProduct[index].isValidateMinQuantity = listCartProduct[index].currentQuantity === 0;
+                    listCartProduct[index].isValidateMaxQuantity = totalQuantity > item.quantity;
+                    if (totalQuantity > item.quantity || listCartProduct[index].currentQuantity === 0) {
+                        arrCheckQuantity.push(codeProduct);
                     }
                 }
             });
         });
         return arrCheckQuantity;
-    }
+    };
 
     const checkValidateSalePrice = () => {
-        let arrCheckSalePrice = [];
-
-        listCartProduct.forEach(product => {
-            if (!product.isChange) {
-                product.isValidateSalePrice = (product.salePrice > 1.1 * product.floorPrice);
-                if (product.isValidateSalePrice) {
-                    arrCheckSalePrice.push(product);
+        const arrCheckSalePrice = [];
+        listCartProduct.forEach((item, index) => {
+            if (!item.isChange) {
+                listCartProduct[index].isValidateSalePrice = item.salePrice > item.floorPrice * 0.1;
+                if (listCartProduct[index].isValidateSalePrice) {
+                    arrCheckSalePrice.push(index);
                 }
             }
         });
         return arrCheckSalePrice;
-    }
+    };
 
     const onPressCreateOrder = () => {
         const arrCheckSalePrice = checkValidateSalePrice();
         const arrCheckQuantity = checkValidateQuantity();
-        if (arrCheckSalePrice.length > 0 || arrCheckQuantity.length > 0) {
+        if (arrCheckSalePrice.length || arrCheckQuantity.length) {
             setIsValidateDataCart(true);
         } else {
             setIsOpenModalCreateOrder(true);
         }
-    }
-    const closeCreateOrderModal = () => {
-        setIsOpenModalCreateOrder(false)
-    }
+    };
+
     const confirmCreateOrderModal = () => {
-        dispatchCreateOder({
-            customer: cartCustomer,
-            cartTotalPrice: cartTotalPrice,
-            listProduct: listCartProduct
-        });
+        dispatchCreateOder({ customer: cartCustomer, cartTotalPrice: cartTotalPrice, listProduct: listCartProduct });
+        closeCreateOderModal();
         setTimeout(() => {
-            navigateToProductScreen();
+            navigate.navigate("ProductScreen");
         }, timeoutGet);
-        closeCreateOrderModal();
-    }
+    };
+
+    const closeRow = (rowMap, rowKey) => {
+        if (rowMap[rowKey]) {
+            rowMap[rowKey].closeRow();
+        }
+    };
+
     return (
         <SafeAreaView style={styles.container}>
             <Box style={styles.boxHeaderBack}>
-                <HeaderBackCommon
-                    isDeleteAll={isEmpty(listCartProduct)}
-                    onDeleteAll={onOpenDeleteAllModal}
-                    onBack={onBack}
-                />
+                <HeaderBackCommon isDeleteAll={!isEmpty(listCartProduct)} onDeleteAll={onOpenDeleteAllModal} onBack={onBack} />
             </Box>
-            {isNotification&&<ToastNotificationCommon Description={isDeleteAll?"Đã xóa tất cả sản phẩm":`Đã xóa sản phẩm ` + productDelete.productName}/>}
+            {!isNotification ? null : (
+                <ToastNotificationCommon
+                    Info="Xóa thành công!!!!"
+                    Description={isDeleteAll ? "Đã xóa tất cả sản phẩm" : `Đã xóa sản phẩm ${productDelete.productName}`}
+                />
+            )}
             {/* <SwipeList
                 listProductSwipe={listProductSwipe}
                 updateCartCurrentData={updateCartCurrentData}
-                onOpenDeleteProductModal={onOpenDeleteProductModal}
                 listCartProduct={listCartProduct}
                 isValidateDataCart={isValidateDataCart}
+                onOpenDeleteProductModal={onOpenDeleteProductModal}
             /> */}
-            {/* <SearchCustomerModal /> */}
-            <DeleteProductModal 
+            {/* <SearchCustomerModal
+                isShowModal={isShowModal}
+                onChooseCustomer={onChooseCustomer}
+                CloseModal={toggleSearchCustomerModal}
+                isClearTextSearch={isClearTextSearch}
+            /> */}
+            <DeleteProductModal
                 isOpen={isDeleteModal}
-                onClose={onClose}
+                onClose={closeDeleteModal}
                 onConfirm={submitDeleteProduct}
                 isDeleteAll={isDeleteAll}
                 productName={productDelete.productName}
             />
-            <ConfirmOderCreationModal
-                isOpen={isOpenModalCreateOrder}
-                onClose={closeCreateOrderModal}
-                onConfirm={confirmCreateOrderModal} />
-            <VStack alignItems="center" marginBottom={"60%"}>
-                {listProductSwipe === 0 ? (
-                    <>
-                        <AntDesign name="warning" size={54} color="#cccc" />
-                        <Text marginTop={"5%"} size="md">
-                            Không có sản phẩm nào!
-                        </Text>
-                    </>
-                ) : (
-                    <></>
-                )}
-            </VStack>
+            <ConfirmOderCreationModal isOpen={isOpenModalCreateOrder} onClose={closeCreateOderModal} onConfirm={confirmCreateOrderModal} />
+            {listProductSwipe.length === 0 ? (
+                <VStack alignItems="center" marginBottom={"60%"}>
+                    <AntDesign name="warning" size={54} color="#cccc" />
+                    <Text marginTop={"5%"} size="md">
+                        Không có sản phẩm nào!
+                    </Text>
+                </VStack>
+            ) : (
+                <></>
+            )}
             <TotalPriceCommon
                 customer={cartCustomer}
                 isButton={true}
                 totalPrice={cartTotalPrice}
+                onOpenModalSearchCustomer={toggleSearchCustomerModal}
+                onPressCreateOrder={onPressCreateOrder}
                 isDisableCreateCart={isEmpty(listCartProduct) || isEmpty(cartCustomer)}
             />
         </SafeAreaView>
-    )
+    );
 }
-export default CartScreen
