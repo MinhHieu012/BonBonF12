@@ -28,7 +28,6 @@ function* handleCreateItemProduct({ payload }) {
             DataStoreProduct.push(itemProduct);
         } else {
             const totalQuantity = findDataStoreCart.quantity + itemProduct.quantity;
-            findDataStoreCart.quantity = totalQuantity;
             DataStoreProduct.forEach(element => {
                 if (element.floorPrice === itemProduct.floorPrice &&
                     element.isSalePrice === itemProduct.isSalePrice &&
