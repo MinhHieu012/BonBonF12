@@ -14,7 +14,6 @@ function SwipeList({ listProductSwipe,
         <TouchableWithoutFeedback
             onPress={Keyboard.dismiss} >
             <KeyboardAwareScrollView>
-                XGH-HTML_SL-2
                 <SwipeListView
                     previewRowKey={"0"}
                     previewOpenValue={40}

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import{ listOrderAction }from '../actions'
+import { listOrderAction } from '../actions'
 
 export const useListOrder = () => {
     const dispatch = useDispatch();
@@ -13,5 +13,9 @@ export const useListOrder = () => {
     const dispatchSearchListOrder = (payload) => {
         dispatch(listOrderAction.searchListOrderRequest(payload))
     }
-    return { listOrderData, dispatchGetListOrder, listOrderSearchData, textSearch, dispatchSearchListOrder };
+
+    const dispatchClearNotificationStore = () => {
+        dispatch(listOrderAction.clearNotificationStore())
+    }
+    return { listOrderData, dispatchGetListOrder, listOrderSearchData, textSearch, dispatchSearchListOrder, dispatchClearNotificationStore };
 };

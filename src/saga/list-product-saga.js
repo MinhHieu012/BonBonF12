@@ -18,7 +18,7 @@ function* handleGetListProduct() {
     }
 }
 
-function* handleCreateItemProduct({ payload }) {
+function* handleCreateItemProduct({payload}) {
     const itemProduct = payload;
     const handleFindItemProduct = (DataStoreProduct) => {
         const findDataStoreCart = DataStoreProduct.find(element =>
@@ -44,9 +44,9 @@ function* handleCreateItemProduct({ payload }) {
                 yield setData(adminCartData.key, dataStoreAdminCart);
                 yield put(cartAction.CartSuccess({ data: dataStoreAdminCart }))
             } else {
-                handleFindItemProduct(dataStoreAdminCart);
-                yield setData(adminCartData.key, dataStoreAdminCart)
-                yield put(cartAction.createItemProductSucsses({ data: dataStoreAdminCart }))
+                handleFindItemProduct(dataStoreAdminCart)
+                yield setData(adminCartData.key, dataStoreAdminCart);
+                yield put(cartAction.CartSuccess({ data: dataStoreAdminCart }))
             }
         } else {
             const dataStoreSaleCart = yield getData(saleCartData.key);
@@ -64,7 +64,6 @@ function* handleCreateItemProduct({ payload }) {
         yield put(cartAction.createItemProductFailure({ errorMess: error.message }))
     }
 }
-
 function* handleSearchListProduct(textSearch) {
     const { getData } = useLocalStorage();
     const handleCheckString = (inputText) => {
@@ -84,6 +83,7 @@ function* handleSearchListProduct(textSearch) {
                 result.push(listProductDataLocal);
             }
         })
+
         if (result) {
             yield put(wareHouseAction.searchListWareHouseSuccess({ data: result }));
         } else {

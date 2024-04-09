@@ -89,7 +89,7 @@ const CartScreen = () => {
     
     const matchTotalPrice = () => {
         if (listCartProduct.length > 0) {
-            const totalPrice = calculateTotalPrice(listCartProduct) + shipPrice;
+            const totalPrice = listCartProduct + shipPrice;
             setCartTotalPrice(totalPrice);
         } else {
             setCartTotalPrice(0);
@@ -229,9 +229,7 @@ const CartScreen = () => {
                     onBack={onBack}
                 />
             </Box>
-            {/* XGH-HTML_CV-4 */}
             {isNotification&&<ToastNotificationCommon Description={isDeleteAll?"Đã xóa tất cả sản phẩm":`Đã xóa sản phẩm ` + productDelete.productName}/>}
-            {/* XGH-HTML_CV-5 */}
             {/* <SwipeList
                 listProductSwipe={listProductSwipe}
                 updateCartCurrentData={updateCartCurrentData}
@@ -240,7 +238,6 @@ const CartScreen = () => {
                 isValidateDataCart={isValidateDataCart}
             /> */}
             {/* <SearchCustomerModal /> */}
-            {/* XGH-HTML_CV-7 */}
             <DeleteProductModal 
                 isOpen={isDeleteModal}
                 onClose={onClose}
@@ -248,7 +245,6 @@ const CartScreen = () => {
                 isDeleteAll={isDeleteAll}
                 productName={productDelete.productName}
             />
-            {/* XGH-HTML_CV-8 */}
             <ConfirmOderCreationModal
                 isOpen={isOpenModalCreateOrder}
                 onClose={closeCreateOrderModal}

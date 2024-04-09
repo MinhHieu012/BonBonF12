@@ -1,5 +1,4 @@
 export const adminCartData = {
-    adminCart:{
-    },
+    adminCart:[],
     key: "admin-cart",
 }

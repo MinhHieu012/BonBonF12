@@ -1,5 +1,4 @@
 export const saleCartData = {
-    saleCart: {
-    },
+    saleCart: [],
     key: "sale-cart",
 }
