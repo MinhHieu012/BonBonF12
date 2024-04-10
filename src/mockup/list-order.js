@@ -9,7 +9,7 @@ export const listOrderData = {
         {
             id: 1,
             sellerCode: "SLR001",
-            customerInfo: {
+            customer: {
                 id: 1,
                 phoneNumber: "123456789",
                 fullName: "John Doe",
@@ -41,7 +41,7 @@ export const listOrderData = {
         {
             id: 2,
             sellerCode: "SLR002",
-            customerInfo: {
+            customer: {
                 id: 2,
                 phoneNumber: "987654321",
                 fullName: "Jane Smith",

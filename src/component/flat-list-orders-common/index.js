@@ -68,7 +68,7 @@ export default function FlatListOrderCommon({ data }) {
                                             flex={6}
                                         >
                                             <Text bold size={"md"} numberOfLines={1}>
-                                                {item.customerInfo.fullName}
+                                                {item.customer.fullName}
                                             </Text>
                                             <HStack>
                                                 <Entypo
@@ -83,7 +83,7 @@ export default function FlatListOrderCommon({ data }) {
                                                     lineHeight={25}
                                                     numberOfLines={1}
                                                 >
-                                                    {item.customerInfo.address}
+                                                    {item.customer.address}
                                                 </Text>
                                             </HStack>
                                         </VStack>
