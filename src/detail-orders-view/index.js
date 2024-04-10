@@ -21,11 +21,9 @@ const DetailOrderScreen = (props) => {
     const [routes] = useState(tabsConfig);
     const [isLoading, setLoading] = useState(false);
     const [data, setData] = useState(false);
-
     const onBackOrder = () => {
         navigation.navigate("ListOrderScreen");
     };
-
     const onPressTabs = (val) => {
         setIndex(val);
     };
@@ -39,11 +37,11 @@ const DetailOrderScreen = (props) => {
     });
 
     const renderScene = SceneMap({
-        1: <EmptyComponent/>,
+        1: EmptyComponent,
         2: () => {
-            <DeliveredComponent data={data}/>
+            DeliveredComponent({ data })
         },
-        3: <EmptyComponent/>,
+        3: EmptyComponent,
     });
     
     return (
@@ -53,7 +51,7 @@ const DetailOrderScreen = (props) => {
                     <HeaderBackCommon
                         onBack={onBackOrder}
                         status={routeParams.params.status}
-                        title={`${routeParams.params.orderCod} - ${routeParams.params.status}`}
+                        title={`${routeParams.params.orderCode} - ${routeParams.params.status}`}
                     />
                 </Box>
                 <TabView
