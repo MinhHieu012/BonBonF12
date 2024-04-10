@@ -42,23 +42,23 @@ function* handleCreateItemProduct({ payload }) {
         const role = yield getItemData("role");
         if (role === "admin") {
             const dataStoreAdminCart = yield getData(adminCartData.key);
-            if (dataStoreAdminCart.length === 0) {
-                dataStoreAdminCart.push(itemProduct);
+            if (dataStoreAdminCart.listProduct.length === 0) {
+                dataStoreAdminCart.listProduct.push(itemProduct);
                 yield setData(adminCartData.key, dataStoreAdminCart);
                 yield put(cartAction.createItemProductSucsses({ data: dataStoreAdminCart }))
             } else {
-                handleFindItemProduct(dataStoreAdminCart)
+                handleFindItemProduct(dataStoreAdminCart.listProduct)
                 yield setData(adminCartData.key, dataStoreAdminCart);
                 yield put(cartAction.createItemProductSucsses({ data: dataStoreAdminCart }))
             }
         } else {
             const dataStoreSaleCart = yield getData(saleCartData.key);
-            if (dataStoreSaleCart.length === 0) {
-                dataStoreSaleCart.push(itemProduct);
+            if (dataStoreSaleCart.listProduct.length === 0) {
+                dataStoreSaleCart.listProduct.push(itemProduct);
                 yield setData(saleCartData.key, dataStoreSaleCart);
                 yield put(cartAction.CartSuccess({ data: dataStoreSaleCart }))
             } else {
-                handleFindItemProduct(dataStoreSaleCart);
+                handleFindItemProduct(dataStoreSaleCart.listProduct);
                 yield setData(saleCartData.key, dataStoreSaleCart)
                 yield put(cartAction.createItemProductSucsses({ data: dataStoreSaleCart }))
             }

@@ -26,7 +26,7 @@ export default function ProductScreen(props) {
     const { dispatchGetListCart, listCartData } = useCart();
 
     const { dispatchClearNotificationStore, notification } = useListOrder();
-    const totalItemCart = useMemo(() => listCartData ? listCartData.length : 0, [listCartData])
+    const totalItemCart = useMemo(() => listCartData.length ? listCartData.length : 0, [listCartData ])
     const navigation = useNavigation();
     const isFocused = useIsFocused();
     const [isEmptyList, setIsEmptyList] = useState(false);

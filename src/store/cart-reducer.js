@@ -18,7 +18,7 @@ export default cartReducer = (state = INITIAL_STATE, { type, payload }) => {
             return {
                 ...state,
                 isFetching: false,
-                listCartData: payload.data
+                listCartData: payload.data.listProduct
             };
         case CartType.GET_CART_FAILURE:
             return {

@@ -45,21 +45,13 @@ function transformCreateOrder({ customer, listProduct, cartTotalPrice }) {
 }
 
 function mappingProductCart(dataCart) {
-<<<<<<< HEAD
 
-=======
->>>>>>> dev
     const listCodeCart = [];
     dataCart.forEach((item) => {
         if (!listCodeCart.includes(item.codeProduct)) {
             listCodeCart.push(item.codeProduct);
         }
     });
-<<<<<<< HEAD
-    console.log("dataCart: ",dataCart)
-=======
-
->>>>>>> dev
     return listCodeCart.map((itemCode) => {
         const quantity = dataCart.reduce((acc, cur) => {
             if (cur.codeProduct === itemCode) {
@@ -75,10 +67,6 @@ function mappingProductCart(dataCart) {
 }
 
 function mappingProduct({ listProductLocal, listProductCart }) {
-<<<<<<< HEAD
-    console.log("list cart: ", listProductCart)
-=======
->>>>>>> dev
     return listProductLocal.map((product) => {
         const cart = listProductCart.find((item) => item.codeProduct === product.codeProduct);
         if (cart && cart.codeProduct === product.codeProduct) {
@@ -164,16 +152,6 @@ function* handleCreateOrder({ payload: dataOrder }) {
         listOrderDataLocal.unshift({ id: listOrderDataLocal.length + 1, ...tranFormDataCreateOrder });
         const role = yield getItemData("role");
         if (role === "admin") {
-<<<<<<< HEAD
-            yield setData(adminCartData.key, []);
-        }
-        if (role === "sale") {
-            yield setData(saleCartData.key, []);
-        }
-        const listProductCart = mappingProductCart(dataOrder.listProduct);
-        console.log("dataOrder.listProduct: ", dataOrder)
-        const newListProduct = mappingProduct({ listProductLocal: listProductDataLocal, listProductCart: listProductCart });
-=======
             yield setData(adminCartData.key, { ...tranFormDataCreateOrder, listProduct: [], customer: {} });
         }
         if (role === "sale") {
@@ -181,21 +159,12 @@ function* handleCreateOrder({ payload: dataOrder }) {
         }
         const listProductCart = mappingProductCart(dataOrder.listProduct);
         const newListProduct = mappingProduct({ listProductLocal: listProductDataLocal, listProductCart });
->>>>>>> dev
         yield setData(listOrderData.key, listOrderDataLocal);
         yield setData(listProductData.key, newListProduct);
         yield put(listOrderAction.createOrderSuccess());
         yield put(listOrderAction.listOrderRequest());
-<<<<<<< HEAD
-
-
-=======
->>>>>>> dev
     } catch (error) {
-        yield put(
-            listOrderAction.createOrderFailure({
-                errorMess: error.message,
-            })
+        yield put(listOrderAction.createOrderFailure({ errorMess: error.message, })
         );
     }
 }

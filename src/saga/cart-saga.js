@@ -7,6 +7,7 @@ import { adminCartData, saleCartData } from '../mockup'
 const { getData, getItemData, setData } = useLocalStorage();
 function* handleGetListCart() {
     const role = yield getItemData("role");
+
     try {
         if (role === "admin") {
             const listProductAdminCart = yield getData(adminCartData.key);
@@ -24,9 +25,9 @@ function* handleUpdateCart({ payload }) {
     const role = yield getItemData("role");
     try {
         if (role === "admin") {
-            yield setData(adminCartData.key, payload.listProduct)
+            yield setData(adminCartData.key, payload)
         } else {
-            yield setData(saleCartData.key, payload.listProduct)
+            yield setData(saleCartData.key, payload)
         }
         yield handleGetListCart();
     } catch (error) {
