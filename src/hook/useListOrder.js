@@ -10,6 +10,8 @@ export const useListOrder = () => {
         dispatch(listOrderAction.listOrderRequest());
     };
 
+    const notification = useSelector(state => state.listOrder.isNotification);
+
     const dispatchSearchListOrder = (payload) => {
         dispatch(listOrderAction.searchListOrderRequest(payload))
     }
@@ -17,5 +19,9 @@ export const useListOrder = () => {
     const dispatchClearNotificationStore = () => {
         dispatch(listOrderAction.clearNotificationStore())
     }
-    return { listOrderData, dispatchGetListOrder, listOrderSearchData, textSearch, dispatchSearchListOrder, dispatchClearNotificationStore };
+
+    const dispatchCreateOder = (payload) => {
+        dispatch(listOrderAction.createOrderRequest(payload))
+    }
+    return { listOrderData, dispatchGetListOrder, listOrderSearchData, textSearch, dispatchSearchListOrder, dispatchClearNotificationStore, dispatchCreateOder, notification };
 };

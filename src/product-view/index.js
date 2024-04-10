@@ -72,9 +72,7 @@ export default function ProductScreen(props) {
     };
 
     useEffect(() => {
-        //notification không có trong code design
-        // Đổi điều kiện thành true
-        if (isNotification == true || notificationData == true) {
+        if (!notification || !notificationData) {
             dispatchGetListProduct();
             dispatchGetListCart();
         } else {
@@ -85,8 +83,7 @@ export default function ProductScreen(props) {
                 setLoading(false);
             }, timeoutGet);
         }
-    }, [isFocused]);
-
+    }, [isFocused, isNotification]);
     useMemo(() => {
         if (!listSearchProductData?.length && textSearch?.length) {
             setIsEmptyList(true);
@@ -113,11 +110,11 @@ export default function ProductScreen(props) {
             setListData(listProductData);
         }
     }, [textSearch, listSearchProductData, listProductData, notificationData, notification]);
-
+    
     return (
         <>
             <HeaderSearchCommon {...props} onGetTextSearch={onGetTextSearch} />
-            {!isNotification ? null : (
+            {isNotification && (
                 <ToastNotificationCommon
                     Info={notification ? "Đã tạo đơn hàng thành công." : "Thêm vào giỏ hàng thành công."}
                     Description={notification ? "Vui lòng vào màn Danh sách yêu cầu để xem chi tiết." : "Vui lòng vào giỏ hàng để xem chi tiết."}

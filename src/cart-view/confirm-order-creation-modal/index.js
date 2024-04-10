@@ -9,12 +9,13 @@ export default function ConfirmOderCreationModal({ isOpen, onClose, onConfirm })
     }
 
     const onPressConfirm = () => {
-        onClose()
+        onConfirm();
+        onClose();
     }
 
     return (
         <Modal isOpen={isOpen}>
-            <ModalBackdrop onPress={onPressClose}/>
+            <ModalBackdrop onPress={onPressClose} />
             <ModalContent>
                 <ModalHeader />
                 <ModalBody>
@@ -32,9 +33,9 @@ export default function ConfirmOderCreationModal({ isOpen, onClose, onConfirm })
                         <Button
                             style={styles.buttonRadius}
                             action="secondary"
-                            variant="outline" 
+                            variant="outline"
                             onPress={onPressClose}
-                            >
+                        >
                             <ButtonText>
                                 {buttonText.BUTTON_CANCEL}
                             </ButtonText>

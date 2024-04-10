@@ -56,6 +56,7 @@ export const listOrderAction = {
     searchListOrderFailure: createAction(
         listOrderTypes.SEARCH_LIST_ORDER_FAILURE
     ),
+    clearNotificationStore: createAction(listOrderTypes.NOTIFICATION_CLEAR)
 };
 
 export const authAction = {

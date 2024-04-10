@@ -19,7 +19,7 @@ export default function CartScreen() {
     const navigate = useNavigation();
     const { listCartData, dispatchGetListCart, dispatchUpdateCart } = useCart();
     const { listProductData } = useProduct();
-    const { dispatchCreateOder } = useListOrder();
+    const { dispatchCreateOder ,listOrderData} = useListOrder();
     const [listLocalProduct, setListLocalProduct] = useState([]);
     const [isClearTextSearch, setClearTextSearch] = useState(false);
     const [isShowModal, setShowModal] = useState(false);
@@ -134,11 +134,10 @@ export default function CartScreen() {
 
     const onBack = () => {
         const dataToStore = mergeDataProductChange();
-        dispatchUpdateCart(dataToStore);
         dispatchUpdateCart({
             id: listCartData.id,
             customer: cartCustomer,
-            data: dataToStore,
+            listProduct: dataToStore,
         });
         navigate.navigate("ProductScreen");
     };
@@ -252,11 +251,16 @@ export default function CartScreen() {
     };
 
     const confirmCreateOrderModal = () => {
-        dispatchCreateOder({ customer: cartCustomer, cartTotalPrice: cartTotalPrice, listProduct: listCartProduct });
         closeCreateOderModal();
+        dispatchCreateOder({
+            cartTotalPrice: cartTotalPrice,
+            customer: cartCustomer,
+            listProduct: listCartData,
+        })
         setTimeout(() => {
             navigate.navigate("ProductScreen");
         }, timeoutGet);
+
     };
 
     return (

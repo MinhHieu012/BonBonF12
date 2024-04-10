@@ -13,6 +13,7 @@ const INITIAL_STATE = {
 const listProductTypes = { ...actionTypes.listProductTypes }
 
 export default listProductReducer = (state = INITIAL_STATE, { type, payload }) => {
+    
     switch (type) {
         case listProductTypes.GET_LIST_PRODUCT_REQUEST:
             return {
@@ -42,12 +43,11 @@ export default listProductReducer = (state = INITIAL_STATE, { type, payload }) =
                 ...state,
                 isFetching: true
             }
-        case listProductTypes.GET_LIST_PRODUCT_SUCCESS:
         case listProductTypes.ADD_ITEM_PRODUCT_SUCCESS:
             return {
                 ...state,
                 isFetching: false,
-                isNotification: true
+                isNotification: true,
             }
         case listProductTypes.ADD_ITEM_PRODUCT_FAILURE:
             return {

@@ -24,9 +24,9 @@ function* handleUpdateCart({ payload }) {
     const role = yield getItemData("role");
     try {
         if (role === "admin") {
-            yield setData(adminCartData.key, payload.data)
+            yield setData(adminCartData.key, payload.listProduct)
         } else {
-            yield setData(saleCartData.key, payload.data)
+            yield setData(saleCartData.key, payload.listProduct)
         }
         yield handleGetListCart();
     } catch (error) {

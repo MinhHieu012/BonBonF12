@@ -26,7 +26,6 @@ export default function TotalPriceCommon(props) {
         onPressCreateOrder,
         isDisableCreateCart,
     } = props;
-
     return (
         <Box >
             <VStack style={styles.boxTotalPrice}>

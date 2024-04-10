@@ -1,5 +1,5 @@
 import { put, takeLatest } from "redux-saga/effects"
-import { cartAction, listProductAction, wareHouseAction } from "../actions"
+import { cartAction, listProductAction } from "../actions"
 import { listProductTypes } from "../constants"
 import { useLocalStorage } from "../hook"
 import { adminCartData, listProductData, saleCartData } from "../mockup"
@@ -45,11 +45,11 @@ function* handleCreateItemProduct({ payload }) {
             if (dataStoreAdminCart.length === 0) {
                 dataStoreAdminCart.push(itemProduct);
                 yield setData(adminCartData.key, dataStoreAdminCart);
-                yield put(cartAction.CartSuccess({ data: dataStoreAdminCart }))
+                yield put(cartAction.createItemProductSucsses({ data: dataStoreAdminCart }))
             } else {
                 handleFindItemProduct(dataStoreAdminCart)
                 yield setData(adminCartData.key, dataStoreAdminCart);
-                yield put(cartAction.CartSuccess({ data: dataStoreAdminCart }))
+                yield put(cartAction.createItemProductSucsses({ data: dataStoreAdminCart }))
             }
         } else {
             const dataStoreSaleCart = yield getData(saleCartData.key);
