@@ -28,7 +28,7 @@ export default listOrderReducer = (state = INITIAL_STATE, { type, payload }) => 
             return {
                 ...state,
                 isFetching: false,
-                isError: false,
+                isError: true,
                 listOrderData: payload.errorMess
             };
         case listOrderTypes.SEARCH_LIST_ORDER_REQUEST:
@@ -47,7 +47,7 @@ export default listOrderReducer = (state = INITIAL_STATE, { type, payload }) => 
             return {
                 ...state,
                 isFetching: false,
-                isError: false,
+                isError: true,
                 errorMess: payload.errorMess
             }
         default:

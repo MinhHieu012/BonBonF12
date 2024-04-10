@@ -3,7 +3,6 @@ import { View } from 'react-native';
 import { buttonText, color } from '../../utils';
 import styles from './style';
 
-
 export default function CardUserInfoCommon(props) {
     const { data, isButton, onPressChange } = props;
     const uriImg = 'https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg';
