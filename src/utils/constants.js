@@ -25,7 +25,8 @@ export const textConst = {
     VALIDATE_QUANTITY_MODAL: "Số lượng vượt quá trong kho",
     VALIDATE_ZERO_QUANTITY: "Không được nhập số 0",
     VALIDATE_IMPORT_IMAGE_PRODUCT: "Bạn hãy chọn ảnh",
-    VALIDATE_LOWER_SALE_PRICE: "Không giảm quá 10% giá bán"
+    VALIDATE_LOWER_SALE_PRICE: "Không giảm quá 10% giá bán",
+    NO_DATA: "Không có dữ liệu"
 }
 
 export const timeout = 300;

@@ -21,11 +21,9 @@ const DetailOrderScreen = (props) => {
     const [routes] = useState(tabsConfig);
     const [isLoading, setLoading] = useState(false);
     const [data, setData] = useState(false);
-
     const onBackOrder = () => {
         navigation.navigate("ListOrderScreen");
     };
-
     const onPressTabs = (val) => {
         setIndex(val);
     };
@@ -36,17 +34,16 @@ const DetailOrderScreen = (props) => {
             setData(routeParams.params.listProduct);
             setLoading(false);
         }, timeoutGet);
-    }, [routeParams.params.listProduct]);
+    }, []);
 
     const renderScene = SceneMap({
         1: EmptyComponent,
         2: () => {
-            // const data = {};
             DeliveredComponent({ data });
         },
         3: EmptyComponent,
     });
-    
+
     return (
         <>
             <SafeAreaView style={styles.container}>
@@ -54,35 +51,33 @@ const DetailOrderScreen = (props) => {
                     <HeaderBackCommon
                         onBack={onBackOrder}
                         status={routeParams.params.status}
-                        title={`${routeParams.params.orderCod} - ${routeParams.params.status}`}
+                        title={`${routeParams.params.orderCode} - ${routeParams.params.status}`}
                     />
                 </Box>
                 <TabView
+                    style={styles.content}
                     navigationState={{ index, routes }}
                     renderScene={renderScene}
-                    onIndexChange={setIndex()}
+                    renderTabBar={(data) => (
+                        <TabBar
+                            data={data}
+                            onPressTabs={onPressTabs}
+                            activeTab={index}
+                            status={routeParams.params.status}
+                        />
+                    )}
+                    onIndexChange={setIndex}
                     initialLayout={{ width: layout.width }}
-                    renderTabBar={(data) => {
-                        return (
-                            <TabBar
-                                data={data}
-                                onPressTabs={onPressTabs}
-                                activeTab={index}
-                                status={routeParams.params.status}
-                            />
-                        );
-                    }}
                 />
                 <TotalPriceCommon
                     customer={routeParams.params.customer}
                     isButton={false}
                     totalPrice={routeParams.params.orderPrice}
-                    isOpen={isLoading}
                 />
             </SafeAreaView>
-            <LoadingCommon />
+            <LoadingCommon isOpen={isLoading} />
         </>
     );
 };
 
-export default DetailOrderScreen
+export default DetailOrderScreen;
