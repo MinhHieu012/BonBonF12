@@ -11,7 +11,6 @@ import { useNavigation } from "@react-navigation/native";
 import { color, formatMoney, setColorWithStatus } from "../../utils";
 
 export default function FlatListOrderCommon({ data }) {
-    console.log("FlatListOrderCommon");
     const navigation = useNavigation();
 
     const onPressCard = (value) => {
@@ -69,7 +68,7 @@ export default function FlatListOrderCommon({ data }) {
                                             flex={6}
                                         >
                                             <Text bold size={"md"} numberOfLines={1}>
-                                                {item.customer.fullName}
+                                                {item.customerInfo.fullName}
                                             </Text>
                                             <HStack>
                                                 <Entypo
@@ -84,7 +83,7 @@ export default function FlatListOrderCommon({ data }) {
                                                     lineHeight={25}
                                                     numberOfLines={1}
                                                 >
-                                                    {item.customer.address}
+                                                    {item.customerInfo.address}
                                                 </Text>
                                             </HStack>
                                         </VStack>

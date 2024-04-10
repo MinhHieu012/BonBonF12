@@ -78,7 +78,7 @@ const ListOrderNavigation = () => {
       }}
     >
       <Stack.Screen name="ListOrderScreen" component={ListOrderScreen} options={{ headerShown: false, unmountOnBlur: true }} />
-      {/* <Stack.Screen name="DetailOrder" component={DetailOrderScreen} options={{ headerShown: false, unmountOnBlur: true }} /> */}
+      <Stack.Screen name="DetailOrder" component={DetailOrderScreen} options={{ headerShown: false, unmountOnBlur: true }} />
     </Stack.Navigator>
   )
 }

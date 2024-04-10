@@ -16,36 +16,37 @@ export default function ListOrderScreen(props) {
             setLoading(false)
             dispatchSearchListOrder(data)
         }, timeout);
-
-        useEffect(([]) => {
-            setLoading(true);
-            setTimeout(() => {
-                dispatchGetListOrder();
-                setLoading(false)
-            })
+    }
+    
+    useEffect(() => {
+        setLoading(true);
+        setTimeout(() => {
+            dispatchGetListOrder();
+            setLoading(false)
         })
+    }, [])
 
-        useMemo(() => {
-            if (textSearch && listOrderSearchData.length === 0) {
-                return setIsEmptyList(true);
-            }
+    useMemo(() => {
+        if (textSearch && listOrderSearchData.length === 0) {
+            setIsEmptyList(true);
+            return;
+        }
 
-            setIsEmptyList(false);
+        setIsEmptyList(false);
 
-            if (textSearch && listOrderSearchData.length !== 0) {
-                setListData(listOrderSearchData);
-            } else {
-                setListData(listOrderData);
-            }
-        }, [textSearch, listOrderSearchData, listOrderData]);
+        if (textSearch && listOrderSearchData.length !== 0) {
+            setListData(listOrderSearchData);
+        } else if(textSearch === "") {
+            setListData(listOrderData);
+        }
+    }, [textSearch, listOrderSearchData, listOrderData]);
 
-        return (
-            <>
-                <HeaderSearchCommon {...props} onGetTextSearch={onGetTextSearch} />
-                {isEmptyList ? <EmptyDataCommon /> : <FlatListOrderCommon data={listData} />}
-                <LoadingCommon isOpen={isLoading} />
-            </>
-        );
-    };
+    return (
+        <>
+            <HeaderSearchCommon {...props} onGetTextSearch={onGetTextSearch} />
+            {isEmptyList ? (<EmptyDataCommon />) : (<FlatListOrderCommon data={listData}/>)}
+            <LoadingCommon isOpen={isLoading} />
+        </>
+    );
 }
 

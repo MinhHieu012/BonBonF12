@@ -21,30 +21,35 @@ const DetailOrderScreen = (props) => {
     const [routes] = useState(tabsConfig);
     const [isLoading, setLoading] = useState(false);
     const [data, setData] = useState(false);
+
     const onBackOrder = () => {
         navigation.navigate("ListOrderScreen");
     };
+
     const onPressTabs = (val) => {
         setIndex(val);
     };
+
     useEffect(() => {
         setLoading(true);
         setTimeout(() => {
             setData(routeParams.params.listProduct);
             setLoading(false);
         }, timeoutGet);
-    });
+    }, [routeParams.params.listProduct]);
+
     const renderScene = SceneMap({
         1: EmptyComponent,
         2: () => {
-            const data = {};
-            return DeliveredComponent({ data });
+            // const data = {};
+            DeliveredComponent({ data });
         },
         3: EmptyComponent,
     });
+    
     return (
         <>
-            <SafeAreaView style={styles.container}>
+            {/* <SafeAreaView style={styles.container}>
                 <Box style={styles.header}>
                     <HeaderBackCommon
                         onBack={onBackOrder}
@@ -74,7 +79,7 @@ const DetailOrderScreen = (props) => {
                     totalPrice={routeParams.params.orderPrice}
                     isOpen={isLoading}
                 />
-            </SafeAreaView>
+            </SafeAreaView> */}
             <LoadingCommon />
         </>
     );

@@ -127,9 +127,9 @@ function* handleCreateOrder({ payload: dataOrder }) {
 }
 
 function* handleGetListOrder() {
-    const { getData } = useLocalStorage
     try {
-        const listOrderDataLocal = yield getData({ listOrderData });
+        const { getData } = useLocalStorage();
+        const listOrderDataLocal = yield getData(listOrderData.key);
         yield put(listOrderAction.listOrderSuccess({ data: listOrderDataLocal }));
     } catch (error) {
         yield put(listOrderAction.listOrderFailure({ errorMess: error.message }));

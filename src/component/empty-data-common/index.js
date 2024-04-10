@@ -4,7 +4,7 @@ import styles from './styles'
 import { color } from '../../utils'
 
 export default function EmptyDataCommon(props) {
-    console.log("check emtydatacommon")
+    console.log("run EmptyDataCommon?")
     const { title, onHandlePress, isCheckShowButton } = props
     return (
         <VStack space={"lg"} style={styles.container}>
@@ -14,7 +14,6 @@ export default function EmptyDataCommon(props) {
                 <Text color={color.white}>
                     {title}
                 </Text>
-
             </Button>
         </VStack>
     )
