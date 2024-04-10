@@ -37,6 +37,7 @@ export const listOrderData = {
                     totalProductPrice: 75,
                 },
             ],
+            orderCode: "11.123456.001",
         },
         {
             id: 2,
@@ -61,6 +62,7 @@ export const listOrderData = {
                     totalProductPrice: 25,
                 },
             ],
+            orderCode: "11.987654.001",
         },
     ],
     key: "list-order",
