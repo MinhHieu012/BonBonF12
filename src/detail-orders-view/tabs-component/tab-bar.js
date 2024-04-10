@@ -52,7 +52,7 @@ export default TabBar = ({ data, onPressTabs, activeTab, status }) => {
                                     size="md"
                                     style={
                                         activeTab === i
-                                            ? { fontWeight: bold, color: setColorWithStatus(status) }
+                                            ? { fontWeight: 'bold', color: setColorWithStatus(status) }
                                             : {}
                                     }
                                 >

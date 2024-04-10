@@ -36,15 +36,14 @@ const DetailOrderScreen = (props) => {
             setData(routeParams.params.listProduct);
             setLoading(false);
         }, timeoutGet);
-    }, [routeParams.params.listProduct]);
+    });
 
     const renderScene = SceneMap({
-        1: EmptyComponent,
+        1: <EmptyComponent/>,
         2: () => {
-            // const data = {};
-            DeliveredComponent({ data });
+            <DeliveredComponent data={data}/>
         },
-        3: EmptyComponent,
+        3: <EmptyComponent/>,
     });
     
     return (
@@ -60,7 +59,7 @@ const DetailOrderScreen = (props) => {
                 <TabView
                     navigationState={{ index, routes }}
                     renderScene={renderScene}
-                    onIndexChange={setIndex()}
+                    onIndexChange={setIndex}
                     initialLayout={{ width: layout.width }}
                     renderTabBar={(data) => {
                         return (

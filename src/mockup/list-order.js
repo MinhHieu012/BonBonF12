@@ -14,10 +14,10 @@ export const listOrderData = {
                 phoneNumber: "123456789",
                 fullName: "John Doe",
                 address: "123 Main St",
-                avatar: "avatar.jpg",
+                avatar: "https://cdn-icons-png.flaticon.com/512/2919/2919906.png",
             },
             orderTime: "2024-04-10 10:00:00",
-            orderPrice: 100,
+            orderPrice: 100000,
             status: "pending",
             listProduct: [
                 {
@@ -25,7 +25,7 @@ export const listOrderData = {
                     name: "Product 1",
                     quantity: 2,
                     unit: "pcs",
-                    avatar: "product1.jpg",
+                    avatar: "https://cdn-icons-png.flaticon.com/512/2919/2919906.png",
                     totalProductPrice: 50,
                 },
                 {
@@ -33,7 +33,7 @@ export const listOrderData = {
                     name: "Product 2",
                     quantity: 3,
                     unit: "pcs",
-                    avatar: "product2.jpg",
+                    avatar: "https://cdn-icons-png.flaticon.com/512/2919/2919906.png",
                     totalProductPrice: 75,
                 },
             ],
