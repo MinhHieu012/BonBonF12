@@ -34,7 +34,7 @@ const DetailOrderScreen = (props) => {
             setData(routeParams.params.listProduct);
             setLoading(false);
         }, timeoutGet);
-    });
+    }, []);
 
     const renderScene = SceneMap({
         1: EmptyComponent,
@@ -43,7 +43,7 @@ const DetailOrderScreen = (props) => {
         },
         3: EmptyComponent,
     });
-    
+
     return (
         <>
             <SafeAreaView style={styles.container}>
