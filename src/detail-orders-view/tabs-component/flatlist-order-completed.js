@@ -11,6 +11,7 @@ import { styleFlatlist } from "./styles";
 
 export default FlatlistOrderCompleted = (props) => {
     const data = props;
+    console.log("Liên giao")
     return (
         <FlatList
             data={data}

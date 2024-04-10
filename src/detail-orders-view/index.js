@@ -39,7 +39,7 @@ const DetailOrderScreen = (props) => {
     const renderScene = SceneMap({
         1: EmptyComponent,
         2: () => {
-            DeliveredComponent({ data })
+            DeliveredComponent({ data });
         },
         3: EmptyComponent,
     });
@@ -55,31 +55,29 @@ const DetailOrderScreen = (props) => {
                     />
                 </Box>
                 <TabView
+                    style={styles.content}
                     navigationState={{ index, routes }}
                     renderScene={renderScene}
+                    renderTabBar={(data) => (
+                        <TabBar
+                            data={data}
+                            onPressTabs={onPressTabs}
+                            activeTab={index}
+                            status={routeParams.params.status}
+                        />
+                    )}
                     onIndexChange={setIndex}
                     initialLayout={{ width: layout.width }}
-                    renderTabBar={(data) => {
-                        return (
-                            <TabBar
-                                data={data}
-                                onPressTabs={onPressTabs}
-                                activeTab={index}
-                                status={routeParams.params.status}
-                            />
-                        );
-                    }}
                 />
                 <TotalPriceCommon
                     customer={routeParams.params.customer}
                     isButton={false}
                     totalPrice={routeParams.params.orderPrice}
-                    isOpen={isLoading}
                 />
             </SafeAreaView>
-            <LoadingCommon />
+            <LoadingCommon isOpen={isLoading} />
         </>
     );
 };
 
-export default DetailOrderScreen
+export default DetailOrderScreen;
