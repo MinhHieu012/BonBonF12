@@ -24,7 +24,18 @@ export const listProductAction = {
     searchListProductFailure: createAction(
         listProductTypes.SEARCH_LIST_PRODUCT_FAILURE
     ),
-    ClearNotificationListProduct: createAction(listProductTypes.NOTIFICATION_CLEAR)
+    updateProductPriceRequest: createAction(
+        listProductTypes.UPDATE_PRODUCT_PRICE_REQUEST
+    ),
+    updateProductPriceSuccess: createAction(
+        listProductTypes.UPDATE_PRODUCT_PRICE_SUCCESS
+    ),
+    updateProductPriceFailure: createAction(
+        listProductTypes.UPDATE_PRODUCT_PRICE_FAILURE
+    ),
+    ClearNotificationListProduct: createAction(
+        listProductTypes.NOTIFICATION_CLEAR
+    ),
 };
 
 export const listOrderAction = {
@@ -36,9 +47,15 @@ export const listOrderAction = {
     createOrderSuccess: createAction(listOrderTypes.CREATE_ORDER_SUCCESS),
     createOrderFailure: createAction(listOrderTypes.CREATE_ORDER_FAILURE),
 
-    searchListOrderRequest: createAction(listOrderTypes.SEARCH_LIST_ORDER_REQUEST),
-    searchListOrderSuccess: createAction(listOrderTypes.SEARCH_LIST_ORDER_SUCCESS),
-    searchListOrderFailure: createAction(listOrderTypes.SEARCH_LIST_ORDER_FAILURE),
+    searchListOrderRequest: createAction(
+        listOrderTypes.SEARCH_LIST_ORDER_REQUEST
+    ),
+    searchListOrderSuccess: createAction(
+        listOrderTypes.SEARCH_LIST_ORDER_SUCCESS
+    ),
+    searchListOrderFailure: createAction(
+        listOrderTypes.SEARCH_LIST_ORDER_FAILURE
+    ),
 };
 
 export const authAction = {
@@ -100,31 +117,46 @@ export const importWareHouseAction = {
     searchListImportWareHouseFailure: createAction(
         importWareHouseTypes.SEARCH_IMPORT_WARE_HOUSE_FAILURE
     ),
+    updateListImportWareHouseRequest: createAction(
+        importWareHouseTypes.UPDATE_IMPORT_WARE_HOUSE_REQUEST
+    ),
+    updateListImportWareHouseSuccess: createAction(
+        importWareHouseTypes.UPDATE_IMPORT_WARE_HOUSE_SUCCESS
+    ),
+    updateListImportWareHouseFailure: createAction(
+        importWareHouseTypes.UPDATE_IMPORT_WARE_HOUSE_FAILURE
+    ),
+    ClearNotificationListProduct: createAction(
+        listProductTypes.NOTIFICATION_CLEAR
+    ),
 };
-
-
 
 export const wareHouseAction = {
     listWareHouseRequest: createAction(wareHouseTypes.GET_WARE_HOUSE_REQUEST),
     listWareHouseSuccess: createAction(wareHouseTypes.GET_WARE_HOUSE_SUCCESS),
     listWareHouseFailure: createAction(wareHouseTypes.GET_WARE_HOUSE_FAILURE),
-    searchListWareHouseRequest: createAction(wareHouseTypes.SEARCH_WARE_HOUSE_REQUEST),
-    searchListWareHouseSuccess: createAction(wareHouseTypes.SEARCH_WARE_HOUSE_SUCCESS),
-    searchListWareHouseFailure: createAction(wareHouseTypes.SEARCH_WARE_HOUSE_FAILURE),
-    updateProductPriceRequest: createAction(listProductTypes.UPDATE_PRODUCT_PRICE_REQUEST),
-    updateProductPriceSuccess: createAction(listProductTypes.UPDATE_PRODUCT_PRICE_SUCCESS),
-    updateProductPriceFailure: createAction(listProductTypes.UPDATE_PRODUCT_PRICE_FAILURE),
-    ClearNotificationListProduct: createAction(listProductTypes.NOTIFICATION_CLEAR),
+    searchListWareHouseRequest: createAction(
+        wareHouseTypes.SEARCH_WARE_HOUSE_REQUEST
+    ),
+    searchListWareHouseSuccess: createAction(
+        wareHouseTypes.SEARCH_WARE_HOUSE_SUCCESS
+    ),
+    searchListWareHouseFailure: createAction(
+        wareHouseTypes.SEARCH_WARE_HOUSE_FAILURE
+    ),
+    updateProductPriceRequest: createAction(
+        listProductTypes.UPDATE_PRODUCT_PRICE_REQUEST
+    ),
+    updateProductPriceSuccess: createAction(
+        listProductTypes.UPDATE_PRODUCT_PRICE_SUCCESS
+    ),
+    updateProductPriceFailure: createAction(
+        listProductTypes.UPDATE_PRODUCT_PRICE_FAILURE
+    ),
+    ClearNotificationListProduct: createAction(
+        listProductTypes.NOTIFICATION_CLEAR
+    ),
 };
-export const updateListImportWareHouseRequest = createAction(
-    importWareHouseTypes.UPDATE_IMPORT_WARE_HOUSE_REQUEST
-);
-export const updateListImportWareHouseSuccess = createAction(
-    importWareHouseTypes.UPDATE_IMPORT_WARE_HOUSE_SUCCESS
-);
-export const updateListImportWareHouseFailure = createAction(
-    importWareHouseTypes.UPDATE_IMPORT_WARE_HOUSE_FAILURE
-);
 
 export const cartAction = {
     CartRequest: createAction(cartTypes.GET_CART_REQUEST),
@@ -144,18 +176,6 @@ export const cartAction = {
     updateCartFailure: createAction(cartTypes.UPDATE_CART_FAILURE),
 };
 
-export const updateProductPriceRequest = createAction(
-    listProductTypes.UPDATE_PRODUCT_PRICE_REQUEST
-);
-export const updateProductPriceSuccess = createAction(
-    listProductTypes.UPDATE_PRODUCT_PRICE_SUCCESS
-);
-export const updateProductPriceFailure = createAction(
-    listProductTypes.UPDATE_PRODUCT_PRICE_FAILURE
-);
-export const ClearNotificationListProduct = createAction(
-    listProductTypes.NOTIFICATION_CLEAR
-);
 export const customerAction = {
     addCustomerRequest: createAction(customerTypes.ADD_CUSTOMER_REQUEST),
     addCustomerSuccess: createAction(customerTypes.ADD_CUSTOMER_SUCCESS),

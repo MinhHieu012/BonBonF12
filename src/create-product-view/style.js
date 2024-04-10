@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     container: {
-        height: Dimensions.get("window").height * 0.85,
+        height: Dimensions.get("window").height * 0.7,
         justifyContent: "space-between",
         paddingTop: "2%",
         paddingHorizontal: "2%",

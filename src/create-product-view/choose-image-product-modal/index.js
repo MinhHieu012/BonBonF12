@@ -36,7 +36,7 @@ export default function ChooseImageProductModal(props) {
                     </ModalHeader>
 
                     <ModalBody>
-                        <ScrollView>
+                        <ScrollView style={{ flex: 1 }}>
                             <HStack style={styles.contentImg} space="md">
                                 {data ? (
                                     data.map((item, index) => {

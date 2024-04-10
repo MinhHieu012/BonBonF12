@@ -195,7 +195,7 @@ export default function UpdateOldProductModal(props) {
                                     </Text>
                                 </VStack>
                                 <VStack w="48%" space="md">
-                                    <Text>Số lượng nhập: {typeof updateOldProduct.quantity}</Text>
+                                    <Text>Số lượng nhập:</Text>
                                     <Input height={30}>
                                         <InputField
                                             value={formatMoney(updateOldProduct.quantity)}

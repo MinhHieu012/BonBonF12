@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
     },
     contentLeft: {
         flex: 1,
-        // paddingLeft: 10,
         alignItems: "center",
     },
     contentRight: {

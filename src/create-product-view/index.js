@@ -26,7 +26,9 @@ import {
 
 import { HeaderBackCommon } from "../component";
 import { useImportWareHouse, useListImageProduct, useProduct } from "../hook";
-import { formatMoney, numbericRegex, textConst, color } from "../utils";
+import { color } from "../utils";
+import { numbericRegex, textConst } from "../utils/constants";
+import { formatMoney } from "../utils/format";
 import ChooseImageProductModal from "./choose-image-product-modal";
 import styles from "./style";
 
@@ -196,6 +198,7 @@ export default function CreateProductScreen() {
                 avatar: newProduct.avatar,
                 codeProduct: initialProduct.codeProduct,
             };
+
             dispatchCreateNewProduct(newProductToCart);
             dispatchUpdateListImageProduct(newProduct);
             clearState();
@@ -592,6 +595,7 @@ export default function CreateProductScreen() {
                                         lineHeight={15}
                                         width={100}
                                     >
+                                        {" "}
                                         Mô tả:
                                     </FabLabel>
                                     <Textarea boderWidth="1.5" isDisabled={true}>
