@@ -24,7 +24,7 @@ export const listProductAction = {
     searchListProductFailure: createAction(
         listProductTypes.SEARCH_LIST_PRODUCT_FAILURE
     ),
-    ClearNotificationListProduct:createAction(listProductTypes.NOTIFICATION_CLEAR)
+    ClearNotificationListProduct: createAction(listProductTypes.NOTIFICATION_CLEAR)
 };
 
 export const listOrderAction = {
@@ -139,6 +139,9 @@ export const cartAction = {
     createItemProductFailure: createAction(
         listProductTypes.ADD_ITEM_PRODUCT_FAILURE
     ),
+    updateCartRequest: createAction(cartTypes.UPDATE_CART_REQUEST),
+    updateCartSuccess: createAction(cartTypes.UPDATE_CART_SUCCESS),
+    updateCartFailure: createAction(cartTypes.UPDATE_CART_FAILURE),
 };
 
 export const updateProductPriceRequest = createAction(

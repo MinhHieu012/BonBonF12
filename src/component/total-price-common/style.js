@@ -13,10 +13,11 @@ const styles = StyleSheet.create({
         paddingTopBottom: "1%",
         zIndex: 999,
         backgroundColor: "white",
+        justifyContent: "space-between"
     },
     container: {
         paddingTop: "4%",
-        alignItems: "center",
+        alignItems: "center"
     },
     boxPrice: {
         marginBottom: "3%",

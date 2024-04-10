@@ -1,6 +1,6 @@
 import { put, takeLatest } from 'redux-saga/effects'
-import {cartAction} from '../actions'
-import {cartTypes} from '../constants'
+import { cartAction } from '../actions'
+import { cartTypes } from '../constants'
 import useLocalStorage from '../hook/useLocalStorage'
 import { adminCartData, saleCartData } from '../mockup'
 
@@ -9,10 +9,10 @@ function* handleGetListCart() {
     const role = yield getItemData("role");
     try {
         if (role === "admin") {
-            const listProductAdminCart = yield (getData(adminCartData.key));
+            const listProductAdminCart = yield getData(adminCartData.key);
             yield put(cartAction.CartSuccess({ data: listProductAdminCart }))
         } else {
-            const listProductSaleCart = yield (getData(saleCartData.key));
+            const listProductSaleCart = yield getData(saleCartData.key);
             yield put(cartAction.CartSuccess({ data: listProductSaleCart }))
         }
     } catch (error) {
@@ -20,21 +20,15 @@ function* handleGetListCart() {
     }
 }
 
-function* handleUpdateCart(payload){
+function* handleUpdateCart({ payload }) {
     const role = yield getItemData("role");
     try {
-        if(role === "admin"){
-            yield put(setData({
-                key: "adminCartData",
-                data: { ...payload, shipPrice }
-            }));
-        }else{
-            yield put(setData({
-                key: "saleCartData",
-                data: { ...payload, shipPrice }
-            }));
+        if (role === "admin") {
+            yield setData(adminCartData.key, payload.data)
+        } else {
+            yield setData(saleCartData.key, payload.data)
         }
-        yield handleGetListCart()
+        yield handleGetListCart();
     } catch (error) {
         yield put(cartAction.CartFailure({ errorMess: error.message }));
     }

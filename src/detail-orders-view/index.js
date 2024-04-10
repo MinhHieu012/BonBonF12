@@ -49,7 +49,7 @@ const DetailOrderScreen = (props) => {
     
     return (
         <>
-            {/* <SafeAreaView style={styles.container}>
+            <SafeAreaView style={styles.container}>
                 <Box style={styles.header}>
                     <HeaderBackCommon
                         onBack={onBackOrder}
@@ -79,7 +79,7 @@ const DetailOrderScreen = (props) => {
                     totalPrice={routeParams.params.orderPrice}
                     isOpen={isLoading}
                 />
-            </SafeAreaView> */}
+            </SafeAreaView>
             <LoadingCommon />
         </>
     );

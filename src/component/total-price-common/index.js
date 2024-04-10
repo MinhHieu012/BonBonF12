@@ -7,7 +7,6 @@ import {
     VStack,
 } from "@gluestack-ui/themed";
 
-
 import {
     buttonText,
     color,
@@ -17,7 +16,6 @@ import {
 } from "../../utils";
 import CardUserInfoCommon from "../card-user-info-common";
 import styles from "./style";
-
 
 export default function TotalPriceCommon(props) {
     const {
@@ -29,10 +27,9 @@ export default function TotalPriceCommon(props) {
         isDisableCreateCart,
     } = props;
 
-
     return (
-        <Box style={styles.boxTotalPrice}>
-            <VStack>
+        <Box >
+            <VStack style={styles.boxTotalPrice}>
                 <CardUserInfoCommon
                     data={customer}
                     isButton={isButton}
@@ -57,8 +54,6 @@ export default function TotalPriceCommon(props) {
                             </Text>
                         </HStack>
                     </VStack>
-
-
                     <Button
                         bgColor={color.orangeOrder}
                         style={styles.btnCreateOrder}

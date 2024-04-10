@@ -61,7 +61,7 @@ export const listOrderData = {
                     totalProductPrice: 25,
                 },
             ],
-        }
+        },
     ],
     key: "list-order",
 };

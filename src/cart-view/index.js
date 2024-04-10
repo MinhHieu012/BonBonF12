@@ -134,10 +134,11 @@ export default function CartScreen() {
 
     const onBack = () => {
         const dataToStore = mergeDataProductChange();
+        dispatchUpdateCart(dataToStore);
         dispatchUpdateCart({
             id: listCartData.id,
             customer: cartCustomer,
-            listProduct: dataToStore,
+            data: dataToStore,
         });
         navigate.navigate("ProductScreen");
     };

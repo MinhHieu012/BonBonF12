@@ -6,7 +6,7 @@ import styles from './style';
 
 export default function CardUserInfoCommon(props) {
     const { data, isButton, onPressChange } = props;
-    const uriImg = '';
+    const uriImg = 'https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg';
     const onPressButton = () => {
         onPressChange();
     }
@@ -26,23 +26,22 @@ export default function CardUserInfoCommon(props) {
                             data.id ?
                                 <VStack flex={1} paddingLeft={isButton ? "auto" : "5%"}>
                                     <Text bold size="md" numberOfLines={1} color={color.blackName}>
-                                        {data.fullname}
+                                        {data.fullName}
                                     </Text>
                                     {data.phoneNumber ? <Text color={color.plumRed} size="xs" numberOfLines={1}>{data.phoneNumber}</Text> : <></>}
                                     {data.address ? <Text size="xs" numberOfLines={1}>{data.address}</Text> : <></>}
                                 </VStack>
                                 :
                                 <Text color={color.blackName} bold size="md">Chọn khách hàng</Text>
-
                         }
                     </HStack>
-                    <Box style={styles.contentRight} display={isButton ? "flex" : "none"}>
+                    <HStack style={styles.contentRight} display={isButton ? "flex" : "none"}>
                         <Button onPress={onPressButton} style={styles.button}>
                             {
-                                data ? <ButtonText>{buttonText.BUTTON_CHANGE}</ButtonText> : <ButtonText>{buttonText.BUTTON_CHOOSE}</ButtonText>
+                                <ButtonText>{data ? buttonText.BUTTON_CHANGE : buttonText.BUTTON_CHOOSE}</ButtonText>
                             }
                         </Button>
-                    </Box>
+                    </HStack>
                 </HStack>
             </View>
         </>)

@@ -9,6 +9,7 @@ const CartType = {...actionTypes.cartTypes}
 export default cartReducer = (state = INITIAL_STATE, { type, payload }) => {
     switch (type) {
         case CartType.GET_CART_REQUEST:
+        case CartType.UPDATE_CART_REQUEST:
             return {
                 ...state,
                 isFetching: false,

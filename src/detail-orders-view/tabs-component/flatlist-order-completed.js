@@ -10,7 +10,6 @@ import { color, formatMoney } from "../../utils";
 import { styleFlatlist } from "./styles";
 
 export default FlatlistOrderCompleted = (props) => {
-    console.log(props, "Check props")
     const data = props;
     return (
         <FlatList
@@ -18,7 +17,6 @@ export default FlatlistOrderCompleted = (props) => {
             renderItem={(item) => {
                 return (
                     <>
-                        {console.log("Chạy chưa?")}
                         <HStack style={styleFlatlist.container}>
                             <Box style={styleFlatlist.boxImg}>
                                 <Image
