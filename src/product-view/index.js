@@ -26,7 +26,7 @@ export default function ProductScreen(props) {
     const { dispatchGetListCart, listCartData } = useCart();
 
     const { dispatchClearNotificationStore, notification } = useListOrder();
-    const totalItemCart = useMemo(() => listCartData.length ? listCartData.length : 0, [listCartData ])
+    const totalItemCart = useMemo(() => listCartData.listProduct ? listCartData.listProduct.length : 0, [listCartData.listProduct])
     const navigation = useNavigation();
     const isFocused = useIsFocused();
     const [isEmptyList, setIsEmptyList] = useState(false);
@@ -110,7 +110,7 @@ export default function ProductScreen(props) {
             setListData(listProductData);
         }
     }, [textSearch, listSearchProductData, listProductData, notificationData, notification]);
-    
+
     return (
         <>
             <HeaderSearchCommon {...props} onGetTextSearch={onGetTextSearch} />

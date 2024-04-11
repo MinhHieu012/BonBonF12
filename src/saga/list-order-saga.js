@@ -45,13 +45,13 @@ function transformCreateOrder({ customer, listProduct, cartTotalPrice }) {
 }
 
 function mappingProductCart(dataCart) {
-
     const listCodeCart = [];
     dataCart.forEach((item) => {
         if (!listCodeCart.includes(item.codeProduct)) {
             listCodeCart.push(item.codeProduct);
         }
     });
+
     return listCodeCart.map((itemCode) => {
         const quantity = dataCart.reduce((acc, cur) => {
             if (cur.codeProduct === itemCode) {
@@ -61,7 +61,7 @@ function mappingProductCart(dataCart) {
         }, 0);
         return {
             codeProduct: itemCode,
-            quantity,
+            quantity: quantity,
         };
     });
 }
@@ -82,6 +82,7 @@ function mappingProduct({ listProductLocal, listProductCart }) {
         }
     });
 }
+
 
 export function* handleGetListOrder() {
     const { getData } = useLocalStorage();
@@ -144,6 +145,7 @@ function* handleSearchListOrder({ payload: textSearch }) {
 
 
 function* handleCreateOrder({ payload: dataOrder }) {
+    console.log("dataOrder: ", dataOrder)
     const { getData, setData, getItemData } = useLocalStorage();
     try {
         const listOrderDataLocal = yield getData(listOrderData.key);
@@ -158,11 +160,10 @@ function* handleCreateOrder({ payload: dataOrder }) {
             yield setData(saleCartData.key, { ...tranFormDataCreateOrder, listProduct: [], customer: {} });
         }
         const listProductCart = mappingProductCart(dataOrder.listProduct);
-        const newListProduct = mappingProduct({ listProductLocal: listProductDataLocal, listProductCart });
+        const newListProduct = mappingProduct({ listProductLocal: listProductDataLocal, listProductCart: listProductCart });
         yield setData(listOrderData.key, listOrderDataLocal);
         yield setData(listProductData.key, newListProduct);
         yield put(listOrderAction.createOrderSuccess());
-        yield put(listOrderAction.listOrderRequest());
     } catch (error) {
         yield put(listOrderAction.createOrderFailure({ errorMess: error.message, })
         );

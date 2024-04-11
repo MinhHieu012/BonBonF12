@@ -19,7 +19,7 @@ export default function CartScreen() {
     const navigate = useNavigation();
     const { listCartData, dispatchGetListCart, dispatchUpdateCart } = useCart();
     const { listProductData } = useProduct();
-    const { dispatchCreateOder ,listOrderData} = useListOrder();
+    const { dispatchCreateOder, listOrderData } = useListOrder();
     const [listLocalProduct, setListLocalProduct] = useState([]);
     const [isClearTextSearch, setClearTextSearch] = useState(false);
     const [isShowModal, setShowModal] = useState(false);
@@ -56,11 +56,11 @@ export default function CartScreen() {
     }, []);
 
     useEffect(() => {
-        if (listCartData.length > 0) {
-            setListLocalProduct(listCartData);
+        if (listCartData.listProduct.length > 0) {
+            setListLocalProduct(listCartData.listProduct);
         }
         getDataValidate();
-    }, [listCartData]);
+    }, [listCartData.listProduct]);
 
     useEffect(() => {
         getDataValidate();
@@ -151,7 +151,6 @@ export default function CartScreen() {
         setCartCustomer(data);
         setShowModal(false);
     };
-
     const matchTotalPrice = () => {
         if (listCartProduct.length > 0) {
             const totalPrice = listCartProduct.reduce((sum, item) => {
@@ -252,17 +251,17 @@ export default function CartScreen() {
 
     const confirmCreateOrderModal = () => {
         closeCreateOderModal();
+        console.log("listCartProduct: ", listCartProduct)
         dispatchCreateOder({
             cartTotalPrice: cartTotalPrice,
             customer: cartCustomer,
-            listProduct: listCartData,
+            listProduct: listCartProduct,
         })
         setTimeout(() => {
             navigate.navigate("ProductScreen");
         }, timeoutGet);
 
     };
-
     return (
         <SafeAreaView style={styles.container}>
             <Box style={styles.boxHeaderBack}>

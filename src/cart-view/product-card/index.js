@@ -5,8 +5,10 @@ import { Box, Button, ButtonIcon, HStack, Image, Input, InputField, Text, VStack
 import { color, formatMoney, textConst, formatMoneyStringToNumber } from '../../utils'
 import styles from './style'
 import { useIsFocused } from "@react-navigation/native";
+import { useCart } from "../../hook";
 
 export default function ProductCard({ data, index, onUpdateCart, validateData, isValidateDataCart }) {
+    const { listCartData, dispatchUpdateCart } = useCart();
     const [productUpdate, setProductUpdate] = useState({
         index: 0,
         isSalePrice: true,
@@ -125,7 +127,6 @@ export default function ProductCard({ data, index, onUpdateCart, validateData, i
     const showValidateSalePrice = useMemo(() => isShowValidateSalePrice && !data.isChange, [isShowValidateSalePrice, data.isChange]);
     const showValidateMaxQuantity = useMemo(() => isShowValidateMaxQuantity && !data.isChange, [isShowValidateMaxQuantity, data.isChange]);
     const showValidateMinQuantity = useMemo(() => isShowValidateMinQuantity && !data.isChange, [isShowValidateMinQuantity, data.isChange]);
-
     return (
         <>
             <HStack

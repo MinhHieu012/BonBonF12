@@ -1,6 +1,6 @@
 import * as actionTypes from '../constants'
 const INITIAL_STATE = {
-    listCartData: [],
+    listCartData: {},
     isFetching: false,
     isError: false,
     errorMess: "",
@@ -18,7 +18,7 @@ export default cartReducer = (state = INITIAL_STATE, { type, payload }) => {
             return {
                 ...state,
                 isFetching: false,
-                listCartData: payload.data.listProduct
+                listCartData: payload.data
             };
         case CartType.GET_CART_FAILURE:
             return {

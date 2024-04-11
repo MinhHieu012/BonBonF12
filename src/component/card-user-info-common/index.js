@@ -37,7 +37,7 @@ export default function CardUserInfoCommon(props) {
                     <HStack style={styles.contentRight} display={isButton ? "flex" : "none"}>
                         <Button onPress={onPressButton} style={styles.button}>
                             {
-                                <ButtonText>{data ? buttonText.BUTTON_CHANGE : buttonText.BUTTON_CHOOSE}</ButtonText>
+                                <ButtonText>{data.id ? buttonText.BUTTON_CHANGE : buttonText.BUTTON_CHOOSE}</ButtonText>
                             }
                         </Button>
                     </HStack>
