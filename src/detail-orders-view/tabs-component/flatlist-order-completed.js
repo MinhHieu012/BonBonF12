@@ -9,69 +9,69 @@ import {
 import { color, formatMoney } from "../../utils";
 import { styleFlatlist } from "./styles";
 
-export default FlatlistOrderCompleted = (props) => {
-    const data = props;
-    console.log("Liên giao")
+const FlatlistOrderCompleted = (props) => {
+    const { data } = props;
     return (
-        <FlatList
-            data={data}
-            renderItem={(item) => {
-                return (
-                    <>
-                        <HStack style={styleFlatlist.container}>
-                            <Box style={styleFlatlist.boxImg}>
-                                <Image
-                                    alt="ảnh thuốc"
-                                    style={styleFlatlist.img}
-                                    source={{ uri: item.avatar }}
-                                />
-                            </Box>
-                            <VStack
-                                justifyContent="space-between"
-                                style={styleFlatlist.contentCard}
-                            >
-                                <Text size="md" numberOfLines={1} style={color.blackName}>
-                                    {item.name}
-                                </Text>
-                                <HStack
+        <>
+            <FlatList
+                data={data}
+                renderItem={({item}) => {
+                    return (
+                            <HStack style={styleFlatlist.container}>
+                                <Box style={styleFlatlist.boxImg}>
+                                    <Image
+                                        alt="ảnh thuốc"
+                                        style={styleFlatlist.img}
+                                        source={{ uri: item.avatar }}
+                                    />
+                                </Box>
+                                <VStack
                                     justifyContent="space-between"
-                                    style={{ verticalAlign: "bottom" }}
+                                    style={styleFlatlist.contentCard}
                                 >
-                                    <Text size="sm" style={color.blueSky}>
-                                        {formatMoney(item.priceEdit)}
+                                    <Text size="md" numberOfLines={1} style={color.blackName}>
+                                        {item.name}
                                     </Text>
-                                    <Text
-                                        size="sm"
-                                        style={{
-                                            verticalAlign: "bottom",
-                                            fontWeight: "bold",
-                                            color: color.blueSky,
-                                        }}
-                                    >
-                                        x{item.quantity}
-                                    </Text>
-                                </HStack>
-                                <HStack justifyContent="space-between">
-                                    <Text
-                                        color="grey"
-                                        size="sm"
+                                    <HStack
+                                        justifyContent="space-between"
                                         style={{ verticalAlign: "bottom" }}
                                     >
-                                        {item.unit}
-                                    </Text>
-                                    <Text
-                                        color="#CC0000"
-                                        size="sm"
-                                        style={{ verticalAlign: "bottom", fontWeight: "bold" }}
-                                    >
-                                        {formatMoney(item.totalProductPrice)}
-                                    </Text>
-                                </HStack>
-                            </VStack>
-                        </HStack>
-                    </>
-                );
-            }}
-        ></FlatList>
+                                        <Text size="sm" style={color.blueSky}>
+                                            {formatMoney(item.priceEdit)}
+                                        </Text>
+                                        <Text
+                                            size="sm"
+                                            style={{
+                                                verticalAlign: "bottom",
+                                                fontWeight: "bold",
+                                                color: color.blueSky,
+                                            }}
+                                        >
+                                            x{item.quantity}
+                                        </Text>
+                                    </HStack>
+                                    <HStack justifyContent="space-between">
+                                        <Text
+                                            color="grey"
+                                            size="sm"
+                                            style={{ verticalAlign: "bottom" }}
+                                        >
+                                            {item.unit}
+                                        </Text>
+                                        <Text
+                                            color="#CC0000"
+                                            size="sm"
+                                            style={{ verticalAlign: "bottom", fontWeight: "bold" }}
+                                        >
+                                            {formatMoney(item.totalProductPrice)}
+                                        </Text>
+                                    </HStack>
+                                </VStack>
+                            </HStack>
+                    );
+                }}
+            />
+        </>
     );
 };
+export default FlatlistOrderCompleted

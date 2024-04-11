@@ -13,7 +13,7 @@ export const dataLogin = [
     password: "2",
     role: "kho",
     userName: "kho",
-    avatar: "../../assets/doremon.jpg",
+    avatar: "https://images.freeimages.com/uploads/11098418/aa078ff3-aa88-4f39-b9d3-02a0b3cb2bb8.jpg",
   },
   {
     id: 3,
@@ -21,6 +21,6 @@ export const dataLogin = [
     password: "3",
     role: "sale",
     userName: "sale",
-    avatar: "../../assets/doremon.jpg",
+    avatar: "https://images.freeimages.com/uploads/11098418/aa078ff3-aa88-4f39-b9d3-02a0b3cb2bb8.jpg",
   },
 ];

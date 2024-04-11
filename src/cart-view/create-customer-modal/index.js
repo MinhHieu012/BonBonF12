@@ -106,7 +106,6 @@ function CreateCustomerModal(props) {
                                         onChangeText={onCheckNumber}
                                         keyboardType="numeric"
                                         placeholder="Số điện thoại..."
-                                        value={phoneNumber}
                                     />
                                 </Input>
                                 <FormControlErrorText
@@ -122,7 +121,6 @@ function CreateCustomerModal(props) {
                                 <Input>
                                     <InputField
                                         onChangeText={onCheckFullname}
-                                        value={fullName}
                                         placeholder="Họ và tên..."
                                     />
                                 </Input>
@@ -139,7 +137,6 @@ function CreateCustomerModal(props) {
                                 <Input>
                                     <InputField
                                         onChangeText={onCheckAddress}
-                                        value={address}
                                         placeholder="Địa chỉ..."
                                     />
                                 </Input>

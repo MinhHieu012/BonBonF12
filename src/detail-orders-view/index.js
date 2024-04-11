@@ -3,6 +3,7 @@ import { TabView, SceneMap } from "react-native-tab-view";
 import { SafeAreaView, useWindowDimensions } from "react-native";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { Box } from "@gluestack-ui/themed";
+import { styles } from "./style";
 import { tabsConfig } from "./config";
 import {
     HeaderBackCommon,
@@ -11,21 +12,21 @@ import {
 } from "../component";
 import { TabBar, DeliveredComponent, EmptyComponent } from "./tabs-component";
 import { timeoutGet } from "../utils";
-import { styles } from "./style";
 
-const DetailOrderScreen = (props) => {
+export default function DetailOrderScreen(props) {
     const routeParams = useRoute();
     const navigation = useNavigation();
     const layout = useWindowDimensions();
-    const [index, setIndex] = useState(1);
-    const [routes] = useState(tabsConfig);
+    const [index, setIndex] = React.useState(1);
+    const [routes] = React.useState(tabsConfig);
     const [isLoading, setLoading] = useState(false);
-    const [data, setData] = useState(false);
+    const [data, setData] = useState();
     const onBackOrder = () => {
         navigation.navigate("ListOrderScreen");
     };
+
     const onPressTabs = (val) => {
-        setIndex(val);
+        setIndex(val.index);
     };
 
     useEffect(() => {
@@ -34,13 +35,14 @@ const DetailOrderScreen = (props) => {
             setData(routeParams.params.listProduct);
             setLoading(false);
         }, timeoutGet);
-    }, []);
+    }, [routeParams.params.listProduct]);
 
     const renderScene = SceneMap({
         1: EmptyComponent,
-        2: () => {
-            DeliveredComponent({ data });
-        },
+        2: () =>
+            DeliveredComponent({
+                data,
+            }),
         3: EmptyComponent,
     });
 
@@ -78,6 +80,4 @@ const DetailOrderScreen = (props) => {
             <LoadingCommon isOpen={isLoading} />
         </>
     );
-};
-
-export default DetailOrderScreen;
+}
