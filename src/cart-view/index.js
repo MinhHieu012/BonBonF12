@@ -251,7 +251,6 @@ export default function CartScreen() {
 
     const confirmCreateOrderModal = () => {
         closeCreateOderModal();
-        console.log("listCartProduct: ", listCartProduct)
         dispatchCreateOder({
             cartTotalPrice: cartTotalPrice,
             customer: cartCustomer,
