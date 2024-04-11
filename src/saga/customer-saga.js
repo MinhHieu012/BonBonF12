@@ -4,7 +4,6 @@ import { customerTypes } from "../constants"
 import { useLocalStorage } from "../hook"
 import { listCustomerData } from "../mockup"
 import { removeVietnameseTones } from "../utils"
-import { result } from "lodash"
 
 const { getData, setData } = useLocalStorage();
 function* handleGetListCustomer() {
@@ -20,9 +19,7 @@ function* handleGetListCustomer() {
     }
 }
 
-function* handleSearchListCustomer({ payload }) {
-    const { textSearch } = payload
-
+function* handleSearchListCustomer({ payload: textSearch }) {
     const handleCheckString = (inputText) => {
         const formatTextSearch = textSearch.trim().toLowerCase()
         const formatInputText = inputText.trim().toLowerCase()
@@ -32,16 +29,16 @@ function* handleSearchListCustomer({ payload }) {
     }
     try {
         const listCustomerDataLocal = yield getData(listCustomerData.key)
-        result = []
+        let result = []
         for (let i = 0; i < listCustomerDataLocal.length; i++) {
             if (handleCheckString(listCustomerDataLocal[i].phoneNumber) || handleCheckString(listCustomerDataLocal[i].fullName)) {
                 result.push(listCustomerDataLocal[i])
             }
-            if (result) {
-                yield put(customerAction.searchListCustomerSuccess({ data: result }))
-            } else {
-                yield put(customerAction.searchListCustomerSuccess({ data: [] }))
-            }
+        }
+        if (result) {
+            yield put(customerAction.searchListCustomerSuccess({ data: result }))
+        } else {
+            yield put(customerAction.searchListCustomerSuccess({ data: [] }))
         }
     } catch (error) {
         yield put(customerAction.searchListCustomerFailure({ errorMess: error.message }))
