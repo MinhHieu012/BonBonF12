@@ -145,7 +145,6 @@ function* handleSearchListOrder({ payload: textSearch }) {
 
 
 function* handleCreateOrder({ payload: dataOrder }) {
-    console.log("dataOrder: ", dataOrder)
     const { getData, setData, getItemData } = useLocalStorage();
     try {
         const listOrderDataLocal = yield getData(listOrderData.key);
