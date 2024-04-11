@@ -23,35 +23,42 @@ function* handleGetListWareHouse() {
 function* handleSearchListWareHouse({ payload: textSearch }) {
   const { getData } = useLocalStorage();
   const handleCheckString = (inputText) => {
-    const formatTextSearch = textSearch.trim().toLowerCase()
-    const formatInputText = inputText.trim().toLowerCase()
+    const formatTextSearch = textSearch.trim().toLowerCase();
+    const formatInputText = inputText.trim().toLowerCase();
     const removeVietNameseTextSearch = removeVietnameseTones(formatTextSearch);
     const removeVietNameseInputText = removeVietnameseTones(formatInputText);
-    return removeVietNameseInputText.includes(removeVietNameseTextSearch)
-  }
+    return removeVietNameseInputText.includes(removeVietNameseTextSearch);
+  };
   try {
     const listProductDataLocal = yield getData(listProductData.key);
-    let result = []
+    let result = [];
     for (let i = 0; i < listProductDataLocal.length; i++) {
-      if (handleCheckString(listProductDataLocal[i].codeProduct) || handleCheckString(listProductDataLocal[i].name)) {
-        result.push(listProductDataLocal[i])
+      if (
+        handleCheckString(listProductDataLocal[i].codeProduct) ||
+        handleCheckString(listProductDataLocal[i].name)
+      ) {
+        result.push(listProductDataLocal[i]);
       }
     }
     if (result) {
-      yield put(wareHouseAction.searchListWareHouseSuccess({
-        data: result
-      }))
+      yield put(
+        wareHouseAction.searchListWareHouseSuccess({
+          data: result,
+        })
+      );
     } else {
-      yield put(wareHouseAction.searchListWareHouseSuccess({
-        data: []
-      }))
+      yield put(
+        wareHouseAction.searchListWareHouseSuccess({
+          data: [],
+        })
+      );
     }
   } catch (error) {
     yield put(
       wareHouseAction.searchListWareHouseFailure({
-        errorMess: error.message
+        errorMess: error.message,
       })
-    )
+    );
   }
 }
 
@@ -62,19 +69,21 @@ function* handleUpdateProductPrice({ payload }) {
     const adminCartDataLocal = yield getData(adminCartData.key);
     const saleCartDataLocal = yield getData(saleCartData.key);
     if (!isEmpty(adminCartDataLocal)) {
-      adminCartDataLocal.map((item, index) => {
+      adminCartDataLocal.listProduct.map((item, index) => {
         if (item.codeProduct === payload.codeProduct) {
-          adminCartDataLocal.listProduct[index].floorPrice = true;
+          adminCartDataLocal.listProduct[index].isChange = true;
         }
       });
     }
+
     if (!isEmpty(saleCartDataLocal)) {
-      saleCartDataLocal.map((item, index) => {
+      saleCartDataLocal.listProduct.map((item, index) => {
         if (item.codeProduct === payload.codeProduct) {
-          saleCartDataLocal.listProduct[index].floorPrice = true;
+          saleCartDataLocal.listProduct[index].isChange = true;
         }
       });
     }
+
     if (!isEmpty(listProductDataLocal)) {
       listProductDataLocal.map((item, index) => {
         if (item.codeProduct === payload.codeProduct) {
@@ -82,21 +91,30 @@ function* handleUpdateProductPrice({ payload }) {
         }
       });
     }
+
     yield setData(listProductData.key, listProductDataLocal);
     yield setData(adminCartData.key, adminCartDataLocal);
     yield setData(saleCartData.key, saleCartDataLocal);
-    yield handleGetListWareHouse()
+    yield handleGetListWareHouse();
   } catch (error) {
-    yield put(listProductAction.listProductFailure({
-      errorMess: error.message,
-    }));
+    yield put(
+      listProductAction.listProductFailure({
+        errorMess: error.message,
+      })
+    );
   }
 }
 
 const wareHouseSaga = [
   takeLatest(wareHouseTypes.GET_WARE_HOUSE_REQUEST, handleGetListWareHouse),
-  takeLatest(wareHouseTypes.SEARCH_WARE_HOUSE_REQUEST, handleSearchListWareHouse),
-  takeLatest(listProductTypes.UPDATE_PRODUCT_PRICE_REQUEST, handleUpdateProductPrice),
+  takeLatest(
+    wareHouseTypes.SEARCH_WARE_HOUSE_REQUEST,
+    handleSearchListWareHouse
+  ),
+  takeLatest(
+    listProductTypes.UPDATE_PRODUCT_PRICE_REQUEST,
+    handleUpdateProductPrice
+  ),
 ];
 
 export default wareHouseSaga;

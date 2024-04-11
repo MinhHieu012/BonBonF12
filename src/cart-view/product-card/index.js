@@ -221,7 +221,7 @@ export default function ProductCard({ data, index, onUpdateCart, validateData, i
                                     keyboardType="number-pad"
                                     size="sm"
                                     lineHeight={17}
-                                    color={productUpdate.isSalePrice ? 'color.darkGreen' : 'color.plumRed'}
+                                    color={productUpdate.isSalePrice ? color.darkGreen : color.plumRed}
                                     value={formatMoney(productUpdate.salePrice)}
                                     onChangeText={onChangeInputSalePrice} />
                             </Input>
