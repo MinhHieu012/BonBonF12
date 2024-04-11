@@ -56,7 +56,7 @@ export default function CartScreen() {
     }, []);
 
     useEffect(() => {
-        if (listCartData.listProduct.length > 0) {
+        if (listCartData.listProduct?.length) {
             setListLocalProduct(listCartData.listProduct);
         }
         getDataValidate();
@@ -152,7 +152,7 @@ export default function CartScreen() {
         setShowModal(false);
     };
     const matchTotalPrice = () => {
-        if (listCartProduct.length > 0) {
+        if (listCartProduct?.length) {
             const totalPrice = listCartProduct.reduce((sum, item) => {
                 let sumPriceProduct;
                 if (item.isSalePrice) {
@@ -242,7 +242,7 @@ export default function CartScreen() {
     const onPressCreateOrder = () => {
         const arrCheckSalePrice = checkValidateSalePrice();
         const arrCheckQuantity = checkValidateQuantity();
-        if (arrCheckSalePrice.length || arrCheckQuantity.length) {
+        if (arrCheckSalePrice?.length || arrCheckQuantity?.length) {
             setIsValidateDataCart(true);
         } else {
             setIsOpenModalCreateOrder(true);
@@ -293,7 +293,7 @@ export default function CartScreen() {
                 productName={productDelete.productName}
             />
             <ConfirmOderCreationModal isOpen={isOpenModalCreateOrder} onClose={closeCreateOderModal} onConfirm={confirmCreateOrderModal} />
-            {listProductSwipe.length === 0 ? (
+            {!listProductSwipe?.length ? (
                 <VStack alignItems="center" marginBottom={"60%"}>
                     <AntDesign name="warning" size={54} color="#ccc" />
                     <Text marginTop={"5%"} size="md">
