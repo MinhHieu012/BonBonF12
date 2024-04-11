@@ -8,13 +8,16 @@ import { useIsFocused } from "@react-navigation/native";
 import { useCart } from "../../hook";
 
 export default function ProductCard({ data, index, onUpdateCart, validateData, isValidateDataCart }) {
-    const { listCartData, dispatchUpdateCart } = useCart();
     const [productUpdate, setProductUpdate] = useState({
         index: 0,
         isSalePrice: true,
         salePrice: 0,
         quantity: 0
     });
+    const [isShowValidateSalePrice, setIsShowValidateSalePrice] = useState(false);
+    const [isShowValidateMaxQuantity, setIsShowValidateMaxQuantity] = useState(false);
+    const [isShowValidateMinQuantity, setIsShowValidateMinQuantity] = useState(false);
+
     const [sumPrice, setSumPrice] = useState(0);
     const [isDefaultData, setIsDefaultData] = useState(true)
     const isFocused = useIsFocused();
@@ -108,14 +111,10 @@ export default function ProductCard({ data, index, onUpdateCart, validateData, i
         }
     }, [productUpdate]);
 
-    const [isShowValidateSalePrice, setIsShowValidateSalePrice] = useState(false);
-    const [isShowValidateMaxQuantity, setIsShowValidateMaxQuantity] = useState(false);
-    const [isShowValidateMinQuantity, setIsShowValidateMinQuantity] = useState(false);
-
     useEffect(() => {
         if (isValidateDataCart) {
             validateData.forEach((item) => {
-                if (item.index === data.index) {
+                if (item.index === data.key) {
                     setIsShowValidateSalePrice(item.isValidateSalePrice);
                     setIsShowValidateMaxQuantity(item.isValidateMaxQuantity);
                     setIsShowValidateMinQuantity(item.isValidateMinQuantity);
@@ -176,7 +175,9 @@ export default function ProductCard({ data, index, onUpdateCart, validateData, i
                                     width="75%"
                                     height={32}
                                     isDisabled={data.isChange}
-                                    isInvalid={showValidateSalePrice} >
+                                    isInvalid={showValidateMaxQuantity || showValidateMinQuantity} 
+                                    >
+                                    
                                     <InputField
                                         keyboardType="number-pad"
                                         textAlign="center"
@@ -216,7 +217,8 @@ export default function ProductCard({ data, index, onUpdateCart, validateData, i
                             <Input
                                 style={styles.inpSalePrice}
                                 isDisabled={data.isChange}
-                                isInvalid={showValidateMaxQuantity || showValidateMinQuantity} >
+                                isInvalid={showValidateSalePrice} 
+                                >
                                 <InputField
                                     keyboardType="number-pad"
                                     size="sm"

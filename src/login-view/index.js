@@ -34,7 +34,6 @@ export default function LoginScreen() {
         }
       });
 
-
       if (items.length !== 0) {
         setLoading(true);
         setTimeout(async () => {
