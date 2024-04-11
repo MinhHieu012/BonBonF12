@@ -1,4 +1,8 @@
 export const saleCartData = {
-    saleCart: [],
+    saleCart: {
+        id: null,
+        customer: {},
+        listProduct: []
+    },
     key: "sale-cart",
 }
