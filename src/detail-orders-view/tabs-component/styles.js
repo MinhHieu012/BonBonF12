@@ -1,25 +1,25 @@
 import { StyleSheet } from "react-native";
-import { color } from '../../utils';
 
-export const styles = StyleSheet.create({
+import { color } from "../../utils";
+const styles = StyleSheet.create({
     tabBar: {
-        height: '10%',
+        height: "10%",
         backgroundColor: color.white,
-        marginBottom: 3
+        marginBottom: 3,
     },
     tabItem: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '1%',
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "1%",
         width: 140,
     },
     tabSelected: {
         borderBottomWidth: 2,
-    }
-})
+    },
+});
 
-export const styleFlatlist = StyleSheet.create({
+const styleFlatlist = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#fff",
@@ -43,4 +43,6 @@ export const styleFlatlist = StyleSheet.create({
         flex: 1,
         paddingLeft: 10,
     },
-})
+});
+
+export { styles, styleFlatlist };

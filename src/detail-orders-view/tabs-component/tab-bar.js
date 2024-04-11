@@ -42,17 +42,18 @@ export default TabBar = ({ data, onPressTabs, activeTab, status }) => {
                     return (
                         <TouchableOpacity
                             key={i}
-                            style={changeBorder(i)}
-                            onPress={() => {
-                                onPressTabs({ index: i });
-                            }}
+                            style={[styles.tabItem, changeBorder(i)]}
+                            onPress={() => onPressTabs({ index: i })}
                         >
-                            <Animated.Text style={(opacity, changeColor(i))}>
+                            <Animated.Text style={[{ opacity }, { color: changeColor(i) }]}>
                                 <Text
                                     size="md"
                                     style={
                                         activeTab === i
-                                            ? { fontWeight: 'bold', color: setColorWithStatus(status) }
+                                            ? {
+                                                fontWeight: "bold",
+                                                color: setColorWithStatus(status),
+                                            }
                                             : {}
                                     }
                                 >
