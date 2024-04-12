@@ -42,7 +42,7 @@ export default function DeleteProductModal({
                             ) : (
                                 <Text>
                                     Xóa
-                                    <Text style={color.plumRed}>{productName}</Text>
+                                    <Text style={color.plumRed}> {productName}</Text>
                                 </Text>
                             )}
                         </Text>
