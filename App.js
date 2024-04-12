@@ -1,12 +1,19 @@
-import { config } from '@gluestack-ui/config';
-import { GluestackUIProvider, View } from '@gluestack-ui/themed';
-import * as SplashScreen from 'expo-splash-screen';
-import { useCallback, useEffect, useState } from 'react';
-import { Provider } from 'react-redux';
-import store from './configStore';
-import { useLocalStorage, useCart } from './src/hook';
-import { adminCartData, listCustomerData, listImageProductData, listOrderData, listProductData, saleCartData } from './src/mockup';
-import Navigation from './src/navigation';
+import { config } from "@gluestack-ui/config";
+import { GluestackUIProvider, View } from "@gluestack-ui/themed";
+import * as SplashScreen from "expo-splash-screen";
+import { useCallback, useEffect, useState } from "react";
+import { Provider } from "react-redux";
+import store from "./configStore";
+import { useLocalStorage, useCart } from "./src/hook";
+import {
+  adminCartData,
+  listCustomerData,
+  listImageProductData,
+  listOrderData,
+  listProductData,
+  saleCartData,
+} from "./src/mockup";
+import Navigation from "./src/navigation";
 
 SplashScreen.preventAutoHideAsync();
 const App = () => {
@@ -20,7 +27,10 @@ const App = () => {
         await setData(listOrderData.key, listOrderData.listOrder);
         await setData(listProductData.key, listProductData.listProduct);
         await setData(saleCartData.key, saleCartData.saleCart);
-        await setData(listImageProductData.key, listImageProductData.listImageProduct);
+        await setData(
+          listImageProductData.key,
+          listImageProductData.listImageProduct
+        );
         await new Promise((resolve) => setTimeout(resolve, 2000));
       } catch (error) {
         console.log(error);
@@ -48,7 +58,6 @@ const App = () => {
         </GluestackUIProvider>
       </Provider>
     </>
-
   );
-}
+};
 export default App;

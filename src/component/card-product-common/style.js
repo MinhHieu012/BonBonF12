@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     borderBottomWidth: 1,
     borderStyle: "solid",
-
   },
   img: {
     width: "100%",
@@ -22,9 +21,9 @@ const styles = StyleSheet.create({
     height: 100,
   },
   contentCard: {
-      flex: 1,
+    flex: 1,
     paddingLeft: 10,
   },
 });
 
-export default styles ;
+export default styles;

@@ -1,6 +1,23 @@
 import { EvilIcons, Ionicons } from "@expo/vector-icons";
-import { Box, Button, HStack, Image, Input, InputField, InputSlot, Text, VStack } from "@gluestack-ui/themed";
-import { Keyboard, KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, TouchableWithoutFeedback } from "react-native";
+import {
+  Box,
+  Button,
+  HStack,
+  Image,
+  Input,
+  InputField,
+  InputSlot,
+  Text,
+  VStack,
+} from "@gluestack-ui/themed";
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  SafeAreaView,
+  ScrollView,
+  TouchableWithoutFeedback,
+} from "react-native";
 import { LoadingCommon } from "../component";
 import { color } from "../utils";
 import { useState } from "react";
@@ -21,12 +38,10 @@ export default function LoginScreen() {
   const handleChangeLogin = () => {
     if (!username && !password) {
       setError("Vui lòng nhập tài khoản và mật khẩu để đăng nhập!!!");
-
     } else if (!password) {
       setError("Vui lòng nhập mật khẩu!!!");
     } else if (!username) {
       setError("Vui lòng nhập tài khoản để đăng nhập!!!");
-
     } else {
       const items = dataLogin.filter((element) => {
         if (element.phoneNumber === username && element.password === password) {
@@ -46,17 +61,29 @@ export default function LoginScreen() {
       } else {
         setError("Tài khoản và mật khẩu không tồn tại!!!");
       }
-
     }
   };
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <ScrollView contentInsetAdjustmentBehavior="automatic" keyboardShouldPersistTaps="handled">
-          <KeyboardAvoidingView behavior={"position"} keyboardVerticalOffset={Platform.OS === "ios" ? 10 : 0} style={{ flex: 1 }}>
+        <ScrollView
+          contentInsetAdjustmentBehavior="automatic"
+          keyboardShouldPersistTaps="handled"
+        >
+          <KeyboardAvoidingView
+            behavior={"position"}
+            keyboardVerticalOffset={Platform.OS === "ios" ? 10 : 0}
+            style={{ flex: 1 }}
+          >
             <HStack justifyContent="center" h={"100%"} alignItems="flex-start">
               <VStack alignItems="center" w={"90%"} space="4xl">
-                <Image source={require("../../assets/logo.jpg")} w={125} h={125} marginTop="30%" alt="" />
+                <Image
+                  source={require("../../assets/logo.jpg")}
+                  w={125}
+                  h={125}
+                  marginTop="30%"
+                  alt=""
+                />
                 <Box>
                   <VStack alignItems="center">
                     <Text color={color.darkGreen} fontWeight="$bold" size="2xl">
@@ -71,7 +98,11 @@ export default function LoginScreen() {
                   <InputSlot>
                     <EvilIcons name="user" size={30} color="gray" />
                   </InputSlot>
-                  <InputField marginLeft={12} placeholder="0123456789" onChangeText={(e) => setUsername(e)} />
+                  <InputField
+                    marginLeft={12}
+                    placeholder="0123456789"
+                    onChangeText={(e) => setUsername(e)}
+                  />
                 </Input>
                 <Input variant="underlined" value={password}>
                   <InputSlot>
@@ -102,15 +133,20 @@ export default function LoginScreen() {
                     handleChangeLogin({
                       username: username,
                       password: password,
-
                     })
                   }
                 >
                   <Text style={styles.bntLoginText}>Đăng Nhập</Text>
                 </Button>
-                <Text alignSelf="flex-start" textAlign="justify" color="gray" size="xs">
-                  Lưu ý: Ứng dụng này chỉ dành cho các CBNV ngành y dược và mang tính tham khảo, bạn cần cân nhắc, tự hoàn thiện thủ tục
-                  pháp lý trước khi đăng nhập. Xin cảm ơn!
+                <Text
+                  alignSelf="flex-start"
+                  textAlign="justify"
+                  color="gray"
+                  size="xs"
+                >
+                  Lưu ý: Ứng dụng này chỉ dành cho các CBNV ngành y dược và mang
+                  tính tham khảo, bạn cần cân nhắc, tự hoàn thiện thủ tục pháp
+                  lý trước khi đăng nhập. Xin cảm ơn!
                 </Text>
               </VStack>
             </HStack>

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import {wareHouseAction} from "../actions";
+import { wareHouseAction } from "../actions";
 const useWareHouse = () => {
   const dispatch = useDispatch();
   const listWareHouseData = useSelector(
@@ -8,9 +8,11 @@ const useWareHouse = () => {
   const notificationData = useSelector(
     (state) => state.wareHouse.isNotification
   );
-  const listWareHouseSearchData= useSelector(state=>state.wareHouse.listWareHouseSearchData);
-  const textSearch = useSelector(state=>state.wareHouse.textSearch);
-  
+  const listWareHouseSearchData = useSelector(
+    (state) => state.wareHouse.listWareHouseSearchData
+  );
+  const textSearch = useSelector((state) => state.wareHouse.textSearch);
+
   const dispatchGetListWareHouse = () => {
     dispatch(wareHouseAction.listWareHouseRequest());
   };
@@ -20,10 +22,10 @@ const useWareHouse = () => {
   const dispatchClearNotificationWareHouse = () => {
     dispatch(wareHouseAction.ClearNotificationListProduct());
   };
-  const dispatchSearchListWareHouse= (payload)=>{
+  const dispatchSearchListWareHouse = (payload) => {
     dispatch(wareHouseAction.searchListWareHouseRequest(payload));
-  }
-  
+  };
+
   return {
     listWareHouseData,
     notificationData,

@@ -6,10 +6,10 @@ import { listProductData } from "./list-product";
 import { saleCartData } from "./sale-cart";
 
 export {
-    adminCartData,
-    listCustomerData,
-    listImageProductData,
-    listOrderData,
-    listProductData,
-    saleCartData
-}
+  adminCartData,
+  listCustomerData,
+  listImageProductData,
+  listOrderData,
+  listProductData,
+  saleCartData,
+};
