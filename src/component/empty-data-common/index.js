@@ -5,6 +5,7 @@ import { color } from '../../utils'
 
 export default function EmptyDataCommon(props) {
     const { title, onHandlePress, isCheckShowButton } = props
+    console.log("run chua v" ,props);
     return (
         <VStack space={"lg"} style={styles.container}>
             <AntDesign name="warning" size={54} color="#ccc" />
