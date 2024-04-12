@@ -29,4 +29,3 @@ export default authReducer = (state = INITIAL_STATE, { type, payload }) => {
       return state;
   }
 };
-

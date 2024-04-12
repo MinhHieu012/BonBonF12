@@ -2,7 +2,7 @@ import { Feather } from "@expo/vector-icons";
 import { Animated, Text, View } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 
-import  styles  from "./style";
+import styles from "./style";
 
 const Message = (props) => {
   const opacity = useRef(new Animated.Value(0)).current;
@@ -55,15 +55,15 @@ const Message = (props) => {
       }}
     >
       <Feather name="check-circle" size={30} color="#0E6F64" />
-      <View style={{width:"100%"}}>
+      <View style={{ width: "100%" }}>
         <Text style={styles.Info}>{props.message.Info}</Text>
-        <Text  style={styles.Description}>{props.message.Description}</Text>
+        <Text style={styles.Description}>{props.message.Description}</Text>
       </View>
     </Animated.View>
   );
 };
 
-export default function ToastNotification(props){
+export default function ToastNotification(props) {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
@@ -73,9 +73,9 @@ export default function ToastNotification(props){
     ]);
   }, [props.Info]);
 
-  const DataMessage = messages.map((message,key) => (
+  const DataMessage = messages.map((message, key) => (
     <Message
-      key={key+1}
+      key={key + 1}
       message={message}
       onHide={() => {
         setMessages((messages) =>
@@ -99,4 +99,4 @@ export default function ToastNotification(props){
       </View>
     </>
   );
-};
+}
