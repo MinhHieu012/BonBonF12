@@ -1,5 +1,6 @@
 import { Dimensions, StyleSheet } from "react-native";
 import { color } from "../utils";
+const height = Dimensions.get("window").height;
 const styles = StyleSheet.create({
     screen: {
         padding: "2%",
@@ -7,18 +8,19 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     container: {
-        height: Dimensions.get("window").height * 0.7,
+        height: height < 780 ? height* 0.7 : height * 0.87,
         justifyContent: "space-between",
         paddingTop: "2%",
         paddingHorizontal: "2%",
     },
     hstack_img: {
-        height: "30%",
+        height: height<780? "36%":"30%",
         justifyContent: "space-between",
+        marginBottom: height<780?"2%":"none"
     },
     img: {
-        height: "100%",
         width: "45%",
+        aspectRatio: "1/1"
     },
     vstack_right: {
         width: "53%",
@@ -40,12 +42,8 @@ const styles = StyleSheet.create({
         height: "18%",
     },
     vstack_form_btn: {
-        height: "65%",
-        justifyContent: "space-between",
-    },
-    vstack_form_btn: {
-        height: "90%",
-        justifyContent: "space-between",
+        height: height > 780 ? "68%" : "90%",
+        justifyContent: "space-between", 
     },
     btn_taiAnh: {
         width: "43%",

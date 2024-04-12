@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderBottomColor: color.grayCart,
         borderBottomWidth: 0.5,
-        height: 50
+        height: 50,
     },
     boxIconBack: {
         position: "absolute",

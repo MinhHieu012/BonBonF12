@@ -2,22 +2,21 @@ import { Dimensions, StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
     boxTotalPrice: {
-        height: Dimensions.get('window').height * 0.2,
+        minHeight: Dimensions.get('window').height * 0.2,
         position: 'relative',
         bottom: 0,
         left: 0,
-        right: 0,
         paddingBottom: "2%",
         paddingTop: "2%",
         paddingRight: "1%",
         paddingTopBottom: "1%",
         zIndex: 999,
         backgroundColor: "white",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
     },
     container: {
-        paddingTop: "4%",
-        alignItems: "center"
+        alignItems: "center",
+        paddingTop:"2%"
     },
     boxPrice: {
         marginBottom: "3%",
