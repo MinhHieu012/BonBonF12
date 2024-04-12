@@ -4,14 +4,14 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useCallback, useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import store from './configStore';
-import { useLocalStorage } from './src/hook';
+import { useLocalStorage, useCart } from './src/hook';
 import { adminCartData, listCustomerData, listImageProductData, listOrderData, listProductData, saleCartData } from './src/mockup';
 import Navigation from './src/navigation';
 
 SplashScreen.preventAutoHideAsync();
 const App = () => {
   const [appIsReady, setAppIsReady] = useState(false);
-  const { setData,getItemData } = useLocalStorage();
+  const { setData, getItemData } = useLocalStorage();
   useEffect(() => {
     const prepare = async () => {
       try {
@@ -44,7 +44,7 @@ const App = () => {
       <Provider store={store}>
         <GluestackUIProvider config={config}>
           <View onLayout={onLayoutRootView}></View>
-          <Navigation/>
+          <Navigation />
         </GluestackUIProvider>
       </Provider>
     </>

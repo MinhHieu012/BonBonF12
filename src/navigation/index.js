@@ -1,14 +1,13 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import {useAuth} from "../hook/index"
+import { useAuth } from "../hook/index"
 import AuthNavigator from "./auth-navigation";
 import AppNavigator from "./app-navigation";
 
 const Stack = createNativeStackNavigator();
 export default function Navigation() {
-  const {token} = useAuth()
-
+  const { token } = useAuth()
   return (
     <NavigationContainer>
       <Stack.Navigator>

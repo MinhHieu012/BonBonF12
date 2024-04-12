@@ -1,6 +1,6 @@
 import * as actionTypes from '../constants'
 const INITIAL_STATE = {
-    listCartData: {},
+    listCartData: [],
     isFetching: false,
     isError: false,
     errorMess: "",

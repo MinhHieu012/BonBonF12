@@ -40,11 +40,10 @@ export default function CartScreen() {
     const listProductSwipe = useMemo(
         () =>
             listLocalProduct.map((item, index) => {
-                return { ...item, key: index + 1 };
+                return { ...item, key: index  };
             }),
         [listLocalProduct]
     );
-
     useMemo(() => {
         if (listCartData.customer) {
             setCartCustomer(listCartData.customer);
