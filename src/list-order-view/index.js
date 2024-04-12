@@ -49,20 +49,6 @@ export default function ListOrderScreen(props) {
     }
   }, [textSearch, listOrderSearchData, listOrderData]);
 
-<<<<<<< HEAD
-    return (
-        <>
-            <HeaderSearchCommon {...props} onGetTextSearch={onGetTextSearch} />
-            {isEmptyList ? (
-                <EmptyDataCommon/>
-            ) : (
-                <FlatListOrderCommon data={listData} />
-            )}
-            <LoadingCommon isOpen={isLoading} />
-        </>
-    );
-}
-=======
   return (
     <>
       <HeaderSearchCommon {...props} onGetTextSearch={onGetTextSearch} />
@@ -75,4 +61,3 @@ export default function ListOrderScreen(props) {
     </>
   );
 }
->>>>>>> dev
