@@ -27,8 +27,7 @@ const useLocalStorage = () => {
         try {
             const value = await AsyncStorage.getItem(key);
             if (!value) throw Error("Dữ liệu đang rỗng")
-            else
-                return value;
+            return value;
 
         } catch (error) {
             console.log("Update dữ liệu không thành công");
